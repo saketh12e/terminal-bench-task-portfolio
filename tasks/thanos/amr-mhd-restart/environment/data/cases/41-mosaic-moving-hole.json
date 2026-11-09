@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "id": "mosaic-moving-hole",
+      "n": 16,
+      "dt": 0.0015625,
+      "steps": 4,
+      "case": {
+        "kind": "entropy",
+        "wavevector": [
+          1,
+          -1
+        ],
+        "amplitude": 0.06,
+        "phase": 0.417,
+        "density": 1.2,
+        "pressure": 0.9,
+        "field": 0.83,
+        "velocity": 0.21
+      },
+      "mosaic": [
+        [
+          {
+            "id": "left",
+            "bounds": [
+              2,
+              6,
+              2,
+              14
+            ],
+            "owner": 0
+          },
+          {
+            "id": "bottom",
+            "bounds": [
+              6,
+              14,
+              2,
+              6
+            ],
+            "owner": 0
+          },
+          {
+            "id": "right",
+            "bounds": [
+              10,
+              14,
+              6,
+              14
+            ],
+            "owner": 0
+          },
+          {
+            "id": "top",
+            "bounds": [
+              6,
+              10,
+              10,
+              14
+            ],
+            "owner": 0
+          }
+        ]
+      ],
+      "step_dts": [
+        0.00125,
+        0.0021875,
+        0.0016875,
+        0.001125
+      ],
+      "tree_splits": [
+        [
+          0.32
+        ],
+        [
+          0.485
+        ],
+        [
+          0.65
+        ],
+        [
+          0.43
+        ]
+      ],
+      "events": [
+        {
+          "step": 2,
+          "phases": [
+            "sync"
+          ],
+          "kind": "remesh",
+          "mosaic": [
+            [
+              {
+                "id": "left2",
+                "bounds": [
+                  2,
+                  5,
+                  2,
+                  14
+                ],
+                "owner": 0
+              },
+              {
+                "id": "bottom2",
+                "bounds": [
+                  5,
+                  14,
+                  2,
+                  7
+                ],
+                "owner": 0
+              },
+              {
+                "id": "right2",
+                "bounds": [
+                  9,
+                  14,
+                  7,
+                  14
+                ],
+                "owner": 0
+              },
+              {
+                "id": "top2",
+                "bounds": [
+                  5,
+                  9,
+                  11,
+                  14
+                ],
+                "owner": 0
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  ]
+}

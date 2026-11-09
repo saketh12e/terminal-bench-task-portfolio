@@ -1,0 +1,72 @@
+{
+  "schema_version": "router-runtime-policy-v1",
+  "policy_id": "checkout-intent-runtime-2026-07",
+  "rules": [
+    {
+      "rule_id": "invoice-repeat-prefers-invoice-charge",
+      "target_label": "billing_issue",
+      "target_variant_index": 1,
+      "effective_from": "2026-07-02T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [143],
+      "if_any_prompt_token_ids": [143],
+      "if_no_prompt_token_ids": [],
+      "adjustment_micro": 115000
+    },
+    {
+      "rule_id": "damaged-label-prefers-return-label",
+      "target_label": "refund_status",
+      "target_variant_index": 1,
+      "effective_from": "2026-06-30T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [148],
+      "if_any_prompt_token_ids": [149],
+      "if_no_prompt_token_ids": [],
+      "adjustment_micro": 430000
+    },
+    {
+      "rule_id": "lost-package-prefers-package-lost",
+      "target_label": "shipping_delay",
+      "target_variant_index": 2,
+      "effective_from": "2026-07-02T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [119, 142],
+      "if_any_prompt_token_ids": [119, 142],
+      "if_no_prompt_token_ids": [],
+      "adjustment_micro": 90000
+    },
+    {
+      "rule_id": "pickup-store-prefers-store-pickup",
+      "target_label": "general_help",
+      "target_variant_index": 1,
+      "effective_from": "2026-07-03T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [146, 147],
+      "if_any_prompt_token_ids": [146, 147],
+      "if_no_prompt_token_ids": [],
+      "adjustment_micro": 320000
+    },
+    {
+      "rule_id": "account-access-without-password",
+      "target_label": "account_access",
+      "target_variant_index": 1,
+      "effective_from": "2026-07-02T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [],
+      "if_any_prompt_token_ids": [121, 122],
+      "if_no_prompt_token_ids": [137],
+      "adjustment_micro": 70000
+    },
+    {
+      "rule_id": "emoji-general-help-dampen",
+      "target_label": "general_help",
+      "target_variant_index": 0,
+      "effective_from": "2026-07-02T00:00:00Z",
+      "expires_at": null,
+      "if_all_prompt_token_ids": [],
+      "if_any_prompt_token_ids": [1149],
+      "if_no_prompt_token_ids": [],
+      "adjustment_micro": -30000
+    }
+  ]
+}

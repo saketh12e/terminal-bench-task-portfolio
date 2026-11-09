@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h05",
+  "family": "file-hazards",
+  "summary": "Host dependency source changes a target-side generated header. The host-configured codegen payload flows into protocol.inc and then the target-configured main object. Target-only source keys miss this change.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "toolsrc/codegen.txt",
+      "text": "generator=protocol-schema-v2\n#include \"host-runtime.inc\"\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

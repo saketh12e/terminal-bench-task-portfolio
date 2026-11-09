@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/read.json",
+  "title": "Workspace read RPC",
+  "type": "object",
+  "required": ["op", "path"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "read"}, "path": true}
+}

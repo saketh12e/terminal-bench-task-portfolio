@@ -1,0 +1,102 @@
+{
+  "purpose": "Public wire-format vector only; not a solution or runtime result. Hashes calculated directly from the documented JSON and text definitions.",
+  "request": {
+    "request_id": "wire-example-1",
+    "revision": 1,
+    "roots": [
+      "hello"
+    ],
+    "config": {},
+    "host": {},
+    "manifest": {
+      "hello": {
+        "kind": "emit",
+        "srcs": [
+          "src/hello.txt"
+        ],
+        "deps": [],
+        "outputs": [
+          "hello.txt"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/emit",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    "environment": {}
+  },
+  "source_read_record": {
+    "path": "src/hello.txt",
+    "resolved": "src/hello.txt",
+    "text": "hello\n",
+    "chain": [],
+    "exists": true,
+    "executable": false
+  },
+  "tool_read_record": {
+    "path": "tools/emit",
+    "resolved": "tools/emit",
+    "text": "resource-emitter-v1\n",
+    "executable": true,
+    "chain": [],
+    "exists": true
+  },
+  "descriptor": {
+    "kind": "emit",
+    "outputs": [
+      "hello.txt"
+    ],
+    "params": {
+      "prefix": "",
+      "suffix": ""
+    },
+    "tool": {
+      "path": "tools/emit",
+      "resolved": "tools/emit",
+      "text": "resource-emitter-v1\n",
+      "executable": true,
+      "chain": [],
+      "exists": true
+    },
+    "config": [],
+    "environment": [],
+    "sources": [
+      {
+        "path": "src/hello.txt",
+        "text": "hello\n"
+      }
+    ],
+    "observations": [
+      {
+        "path": "src/hello.txt",
+        "resolved": "src/hello.txt",
+        "text": "hello\n",
+        "chain": [],
+        "exists": true
+      }
+    ],
+    "deps": []
+  },
+  "canonical_descriptor": "{\"config\":[],\"deps\":[],\"environment\":[],\"kind\":\"emit\",\"observations\":[{\"chain\":[],\"exists\":true,\"path\":\"src/hello.txt\",\"resolved\":\"src/hello.txt\",\"text\":\"hello\\n\"}],\"outputs\":[\"hello.txt\"],\"params\":{\"prefix\":\"\",\"suffix\":\"\"},\"sources\":[{\"path\":\"src/hello.txt\",\"text\":\"hello\\n\"}],\"tool\":{\"chain\":[],\"executable\":true,\"exists\":true,\"path\":\"tools/emit\",\"resolved\":\"tools/emit\",\"text\":\"resource-emitter-v1\\n\"}}",
+  "action_key": "3eb0f9371d33eb6f10b5ff12bde489d3061daa6bf7a9887c3e99b46d75996cf2",
+  "execute_output_map": {
+    "hello.txt": {
+      "text": "hello\n",
+      "digest": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03"
+    }
+  },
+  "root_tree": {
+    "hello@44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a": {
+      "hello.txt": {
+        "text": "hello\n",
+        "digest": "5891b5b522d5df086d0ff0b110fbd9d21bb4fc7163af34d08286a2e846f6be03"
+      }
+    }
+  }
+}

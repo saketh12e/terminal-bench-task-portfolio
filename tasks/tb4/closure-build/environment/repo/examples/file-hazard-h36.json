@@ -1,0 +1,69 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h36",
+  "family": "file-hazards",
+  "summary": "Restoring a renamed source reuses the earlier semantic action. The rename first causes missing_source. Renaming the identical entry back restores the original semantic action and root bytes from cache.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "metadata"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rename",
+      "path": "config/package.txt",
+      "to": "config/package.saved"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "metadata"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_source",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "rename",
+      "path": "config/package.saved",
+      "to": "config/package.txt"
+    },
+    {
+      "op": "build",
+      "name": "restore-package",
+      "roots": [
+        "metadata"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

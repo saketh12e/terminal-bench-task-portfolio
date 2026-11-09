@@ -1,0 +1,3 @@
+override_key,source_row_id,event_key,quantity_delta,uom,ship_from_location,event_at,effective_at,sequence_id,is_void
+O-A100-F3,OV000,E-A100-L1-F3,0,EACH,,,2026-02-01T10:30:00Z,1,false
+O-A100-F3,OV001,E-A100-L1-F3,1,EACH,LOC_E,2026-01-31T23:30:00Z,2026-02-01T11:00:00Z,2,false

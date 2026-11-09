@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/status.json",
+  "title": "Request transaction status RPC",
+  "type": "object",
+  "required": ["op", "request_id"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "status"}, "request_id": true}
+}

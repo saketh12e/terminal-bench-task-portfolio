@@ -1,0 +1,50 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h26",
+  "family": "file-hazards",
+  "summary": "Deleting an earlier winner activates recorded fallbacks. Network's direct platform include now searches through generated to base; negative observations and the winner change even though nested base headers did not.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/network"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "delete",
+      "path": "include/overrides/platform.inc"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/network"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

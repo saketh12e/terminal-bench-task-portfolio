@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h34",
+  "family": "file-hazards",
+  "summary": "Nested rendering preserves literal JSON-sensitive text. The compile renderer and enclosing bundle each canonicalize their own structure. Quotes, backslashes, tabs and U+2028 remain literal payload data rather than a pre-serialized string.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "assets/licenses.res",
+      "text": "license=\"original\"\\resources\tvalid\nseparator= end\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

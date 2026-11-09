@@ -1,0 +1,53 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h27",
+  "family": "file-hazards",
+  "summary": "Dangling source symlinks carry deterministic missing-path identity. The candidate read is missing with a chain pointing at include/compat/missing-platform.inc; a link entry's existence is not an existing included file. Return missing_include.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/compat/platform.inc",
+      "target": "missing-platform.inc"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

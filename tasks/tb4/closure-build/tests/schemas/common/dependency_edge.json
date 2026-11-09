@@ -1,0 +1,22 @@
+{
+  "$id": "common/dependency_edge.json",
+  "title": "Static or feature-mode dependency edge",
+  "type": "object",
+  "required": ["label", "output", "transition", "order_only"],
+  "additionalProperties": false,
+  "properties": {
+    "label": {"type": "string", "minLength": 1},
+    "output": {"type": "string", "minLength": 1},
+    "transition": {
+      "anyOf": [
+        {"enum": ["target", "host"]},
+        {"$ref": "config_transition.json"},
+        {"$ref": "split_transition.json"}
+      ]
+    },
+    "order_only": {"type": "boolean"},
+    "closure": {"enum": ["preorder", "postorder", "topological"]},
+    "features": {"type": "array", "items": {"type": "string"}},
+    "default_features": {"type": "boolean"}
+  }
+}

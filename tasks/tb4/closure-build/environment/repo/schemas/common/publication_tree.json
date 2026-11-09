@@ -1,0 +1,6 @@
+{
+  "$id": "common/publication_tree.json",
+  "title": "Atomic root publication tree",
+  "type": "object",
+  "additionalProperties": {"$ref": "output_map.json"}
+}

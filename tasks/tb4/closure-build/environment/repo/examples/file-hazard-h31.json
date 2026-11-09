@@ -1,0 +1,67 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h31",
+  "family": "file-hazards",
+  "summary": "An unselected source is deferred until its branch is selected. The French edit is invisible under the English branch; selecting locale=fr later consumes the newly edited text, not a stale sibling-source snapshot.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "assets/locale"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "assets/locale/fr.res",
+      "text": "welcome=Bienvenue chez vous\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "assets/locale"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "build",
+      "name": "select-edited-french",
+      "roots": [
+        "assets/locale"
+      ],
+      "config": {
+        "arch": "arm64",
+        "mode": "release",
+        "locale": "fr"
+      },
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

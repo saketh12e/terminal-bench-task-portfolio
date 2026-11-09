@@ -1,0 +1,108 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "host-target-transitions",
+  "family": "host-target-transitions",
+  "summary": "The same runtime and codegen labels occur under host and target configs; target transitions beneath a host node retain the host mapping. Returning to an earlier configuration uses existing action receipts.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "host-and-target",
+      "roots": [
+        "tools/codegen",
+        "lib/runtime",
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "target-arch-only",
+      "roots": [
+        "tools/codegen",
+        "lib/runtime",
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "riscv64",
+        "mode": "release",
+        "locale": "en"
+      }
+    },
+    {
+      "op": "build",
+      "name": "host-arch-only",
+      "roots": [
+        "tools/codegen",
+        "lib/runtime",
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "riscv64",
+        "mode": "release",
+        "locale": "en"
+      },
+      "host": {
+        "arch": "arm64",
+        "mode": "release"
+      }
+    },
+    {
+      "op": "build",
+      "name": "host-equals-target",
+      "roots": [
+        "tools/codegen",
+        "lib/runtime",
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "arm64",
+        "mode": "release"
+      },
+      "host": {
+        "arch": "arm64",
+        "mode": "release"
+      }
+    },
+    {
+      "op": "build",
+      "name": "restore-original",
+      "roots": [
+        "tools/codegen",
+        "lib/runtime",
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

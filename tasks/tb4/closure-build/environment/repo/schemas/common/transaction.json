@@ -1,0 +1,13 @@
+{
+  "$id": "common/transaction.json",
+  "title": "Durable publication transaction status",
+  "type": "object",
+  "required": ["txid", "state", "revision", "tree"],
+  "additionalProperties": false,
+  "properties": {
+    "txid": {"type": "string", "minLength": 1},
+    "state": {"enum": ["prepared", "committed", "aborted"]},
+    "revision": {"type": "integer", "minimum": 0},
+    "tree": {"$ref": "publication_tree.json"}
+  }
+}

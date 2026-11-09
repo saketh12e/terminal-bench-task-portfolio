@@ -1,0 +1,289 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v5-runtime-no-fallback",
+  "family": "provider-resolution",
+  "summary": "The optimal statically valid provider has a missing source; runtime failure cannot select a dearer provider.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "tool-v5\n",
+        "executable": true
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      },
+      "src/x": {
+        "text": "x\n",
+        "executable": false
+      },
+      "src/y": {
+        "text": "y\n",
+        "executable": false
+      },
+      "src/z": {
+        "text": "z\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "use"
+        ],
+        "definitions": {
+          "use": {
+            "enable": [
+              "dep:p"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p": {
+            "choice": "G"
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "missing": {
+      "kind": "emit",
+      "srcs": [
+        "src/not-present"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "x": {
+      "kind": "emit",
+      "srcs": [
+        "src/x"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "y": {
+      "kind": "emit",
+      "srcs": [
+        "src/y"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "z": {
+      "kind": "emit",
+      "srcs": [
+        "src/z"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {},
+    "resolution": {
+      "groups": {
+        "G": [
+          {
+            "id": "cheap",
+            "edge": {
+              "label": "missing",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "available",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 2,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ]
+      },
+      "budgets": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "missing",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_source",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "edit",
+      "changes": [
+        {
+          "op": "write",
+          "path": "src/not-present",
+          "text": "restored\n",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "restored",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "resolution_planning": true,
+  "feature_planning": true,
+  "indexed": true
+}

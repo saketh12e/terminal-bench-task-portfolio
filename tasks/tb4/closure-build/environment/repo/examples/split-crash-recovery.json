@@ -1,0 +1,402 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-crash-recovery",
+  "family": "split-recovery",
+  "summary": "Split branches share a host leaf token. Execute, prepare and commit cuts, abandoned requests, supersession and truncated local state keep receipts reusable and publication atomic.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "src/lib": {
+        "text": "lib\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "compile",
+      "srcs": [
+        "src/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "lib": {
+      "kind": "emit",
+      "srcs": [
+        "src/lib"
+      ],
+      "deps": [
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              "host"
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "x86"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "aux": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold-interrupted",
+      "crashes": [
+        {
+          "point": "after_execute",
+          "match": {
+            "source": "src/leaf"
+          }
+        },
+        {
+          "point": "after_prepare"
+        },
+        {
+          "point": "after_commit"
+        }
+      ],
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "warm",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "write",
+      "path": "src/leaf",
+      "text": "leaf v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "name": "abandoned-prepare",
+      "crashes": [
+        {
+          "point": "after_prepare"
+        }
+      ],
+      "retry": false,
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "bundle",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "lib",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "x86"
+                  },
+                  "unset": []
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "arm"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false,
+            "closure": "topological"
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "superseding",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "write",
+      "path": "src/lib",
+      "text": "lib v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "name": "abandoned-receipt",
+      "crashes": [
+        {
+          "point": "after_execute"
+        }
+      ],
+      "retry": false,
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "receipt-reused",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "state_fault",
+      "fault": "truncate"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "truncated-state",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "aux"
+      ],
+      "expect": {},
+      "name": "committed-unfinished",
+      "crashes": [
+        {
+          "point": "after_commit"
+        }
+      ],
+      "retry": false,
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "aux"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "history-preserved",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    }
+  ]
+}

@@ -1,0 +1,138 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "crash-retries",
+  "family": "crash-retries",
+  "summary": "Receipt, prepare and commit interruptions, plus all three across successive attempts of one request. Completed service mutations survive each cut.",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "compile",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "a.obj",
+        "b.obj"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/compile",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "receipt-cut",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crash": {
+        "point": "after_execute",
+        "match": {
+          "output": "a.obj"
+        }
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "revision-two\n"
+    },
+    {
+      "op": "build",
+      "name": "prepare-cut",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crash": {
+        "point": "after_prepare"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "revision-three\n"
+    },
+    {
+      "op": "build",
+      "name": "commit-cut",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crash": {
+        "point": "after_commit"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "revision-four\n"
+    },
+    {
+      "op": "build",
+      "name": "all-cuts",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crashes": [
+        {
+          "point": "after_execute"
+        },
+        {
+          "point": "after_prepare"
+        },
+        {
+          "point": "after_commit"
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

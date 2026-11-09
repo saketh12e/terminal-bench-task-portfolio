@@ -1,0 +1,12 @@
+{
+  "$id": "rpc/execute_dynamic.json",
+  "title": "Dynamic operation execution RPC",
+  "type": "object",
+  "required": ["op", "operation_id", "descriptor"],
+  "additionalProperties": false,
+  "properties": {
+    "op": {"const": "execute"},
+    "operation_id": {"$ref": "../common/operation_id.json"},
+    "descriptor": true
+  }
+}

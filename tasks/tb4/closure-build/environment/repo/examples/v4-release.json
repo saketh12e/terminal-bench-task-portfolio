@@ -1,0 +1,363 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-release",
+  "family": "v4-features-index",
+  "summary": "Forwarded features activate optional runtime and generated-header prerequisites for every split branch. Collections exclude order-only providers while generated observations still reflect their output. Edited providers invalidate only watched source paths across host and target nodes. Cache corruption and deterministic cuts preserve prior completed observations and durable receipts. Superseding a prepared request publishes only the current feature-expanded tree.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "work/main": {
+        "text": "#include \"abi\"\nunit\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "abi": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "export": {
+            "enable": [],
+            "add": {
+              "exports": {
+                "gen/abi": "out"
+              }
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "runtime": {
+      "kind": "compile",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "debug": {
+            "enable": [],
+            "add": {
+              "params": {
+                "suffix": ":debug"
+              }
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "unit": {
+      "kind": "compile",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "fast": {
+            "enable": [
+              "rt/debug",
+              "dep:header"
+            ],
+            "add": {}
+          },
+          "watch": {
+            "enable": [
+              "rt?/debug"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "rt": {
+            "label": "runtime",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          },
+          "header": {
+            "label": "abi",
+            "output": "out",
+            "transition": "target",
+            "order_only": true,
+            "features": [
+              "export"
+            ],
+            "default_features": true
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "x86"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "features": [
+            "fast"
+          ],
+          "default_features": true,
+          "closure": "topological"
+        },
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": "host",
+          "order_only": false,
+          "features": [
+            "fast"
+          ],
+          "default_features": true,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "release",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/leaf",
+      "text": "abi v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "abi-edit",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "kind": "compile"
+      },
+      "mode": "extra_output"
+    },
+    {
+      "op": "build",
+      "name": "cache-repaired",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "crashes": [
+        {
+          "point": "after_execute"
+        },
+        {
+          "point": "after_prepare"
+        }
+      ]
+    },
+    {
+      "op": "write",
+      "path": "work/base",
+      "text": "runtime v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "abandoned",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "crashes": [
+        {
+          "point": "after_prepare"
+        }
+      ],
+      "retry": false,
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/base",
+      "text": "runtime v3\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "supersede",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "state_fault",
+      "fault": "garbage"
+    },
+    {
+      "op": "build",
+      "name": "epoch-recovery",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": true
+}

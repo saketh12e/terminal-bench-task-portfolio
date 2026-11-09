@@ -1,0 +1,7 @@
+{
+  "$id": "common/tool_record.json",
+  "title": "Tool descriptor with deterministic resource-compiler text",
+  "type": "object",
+  "required": ["text"],
+  "properties": {"text": {"type": "string"}}
+}

@@ -1,0 +1,323 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-cache-faults",
+  "family": "closure-cache",
+  "summary": "Documented cache damage on collection members and consumers is repaired by one execution per invalid semantic key; byte-stable repairs do not rebuild consumers.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "src/left": {
+        "text": "left\n",
+        "executable": false
+      },
+      "src/right": {
+        "text": "right\n",
+        "executable": false
+      },
+      "src/top": {
+        "text": "top\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "base": {
+      "kind": "emit",
+      "srcs": [
+        "src/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out",
+        "aux"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "left": {
+      "kind": "emit",
+      "srcs": [
+        "src/left"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "right": {
+      "kind": "compile",
+      "srcs": [
+        "src/right"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "aux",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "m"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "top": {
+      "kind": "emit",
+      "srcs": [
+        "src/top"
+      ],
+      "deps": [
+        {
+          "label": "left",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "right",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "inputs": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "variants": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              {
+                "base": "target",
+                "set": {
+                  "m": "2"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "corrupt_blob",
+      "match": {
+        "source": "src/base"
+      },
+      "outputs": [
+        "aux"
+      ]
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "corrupt-second-output"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "source": "src/left"
+      },
+      "mode": "rename_output"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "renamed-output"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "drop_action",
+      "match": {
+        "kind": "bundle"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "dropped-consumer"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "source": "src/top"
+      },
+      "mode": "text_mismatch"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "text-mismatch"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "evict_blob",
+      "match": {
+        "kind": "emit"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "evicted-emits"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "inputs",
+        "variants"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "warm"
+    }
+  ]
+}

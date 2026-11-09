@@ -1,0 +1,34 @@
+{
+  "checks": [
+    {
+      "abs_error": 1.7763568394002505e-15,
+      "canonical_composition_logz": -10.706096303136702,
+      "id": "pairs-left-long-right-short",
+      "side": "numerator",
+      "source_enumeration_logz": -10.706096303136704
+    },
+    {
+      "abs_error": 8.881784197001252e-16,
+      "canonical_composition_logz": -6.893638581059472,
+      "id": "pairs-left-long-right-short",
+      "side": "denominator",
+      "source_enumeration_logz": -6.893638581059473
+    },
+    {
+      "abs_error": 1.7763568394002505e-15,
+      "canonical_composition_logz": -11.088089278178666,
+      "id": "pairs-right-long-left-short",
+      "side": "numerator",
+      "source_enumeration_logz": -11.088089278178668
+    },
+    {
+      "abs_error": 1.7763568394002505e-15,
+      "canonical_composition_logz": -9.612567884100859,
+      "id": "pairs-right-long-left-short",
+      "side": "denominator",
+      "source_enumeration_logz": -9.612567884100857
+    }
+  ],
+  "purpose": "value-only validation of LEFT-FIRST compiler; not an expectation source",
+  "scope": "Original revision-2 fixtures; revision-3 additions independently validated in authoring evidence."
+}

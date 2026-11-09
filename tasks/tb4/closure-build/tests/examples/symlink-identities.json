@@ -1,0 +1,128 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "symlink-identities",
+  "family": "symlink-identities",
+  "summary": "Directory-component links, literal link-target identity despite equal bytes, executable source-bit exclusion, tool chain identity, and deterministic cycle errors.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "cold",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/active-theme.inc",
+      "target": "./base/theme.inc"
+    },
+    {
+      "op": "build",
+      "name": "same-bytes-new-link",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/platform-link",
+      "target": "compat"
+    },
+    {
+      "op": "build",
+      "name": "directory-link-retarget",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "tools/compile",
+      "target": "./compile-v1"
+    },
+    {
+      "op": "build",
+      "name": "same-tool-new-chain",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "chmod",
+      "path": "include/base/theme.inc",
+      "executable": true
+    },
+    {
+      "op": "build",
+      "name": "source-mode-ignored",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/platform-link",
+      "target": "platform-link"
+    },
+    {
+      "op": "build",
+      "name": "directory-link-cycle",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "symlink_cycle",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/platform-link",
+      "target": "base"
+    },
+    {
+      "op": "build",
+      "name": "restore-directory-link",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

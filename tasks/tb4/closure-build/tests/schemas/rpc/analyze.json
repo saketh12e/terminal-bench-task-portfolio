@@ -1,0 +1,12 @@
+{
+  "$id": "rpc/analyze.json",
+  "title": "Dynamic analysis RPC",
+  "type": "object",
+  "required": ["op", "operation_id", "descriptor"],
+  "additionalProperties": false,
+  "properties": {
+    "op": {"const": "analyze"},
+    "operation_id": {"$ref": "../common/operation_id.json"},
+    "descriptor": true
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "declared-environment",
+  "family": "declared-environment",
+  "summary": "Declared environment observations preserve absence and declaration order; unrelated environment does not belong in the action key.",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "compile",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [
+        "FLAVOR",
+        "FLAVOR",
+        "LICENSE"
+      ],
+      "config_keys": [],
+      "tool": "tools/compile",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "absent",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "empty",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "environment": {
+        "FLAVOR": ""
+      }
+    },
+    {
+      "op": "build",
+      "name": "present",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "environment": {
+        "FLAVOR": "canary",
+        "LICENSE": "private"
+      }
+    },
+    {
+      "op": "build",
+      "name": "irrelevant-environment",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "environment": {
+        "FLAVOR": "canary",
+        "LICENSE": "private",
+        "CI_JOB": "9981"
+      }
+    },
+    {
+      "op": "build",
+      "name": "back-to-absent",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

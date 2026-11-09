@@ -1,0 +1,29 @@
+{
+  "$id": "common/action_descriptor.json",
+  "title": "Legacy deterministic action descriptor",
+  "type": "object",
+  "required": ["kind", "outputs", "params", "tool", "config", "environment", "sources", "observations", "deps"],
+  "additionalProperties": false,
+  "properties": {
+    "kind": {"enum": ["emit", "compile", "bundle"]},
+    "outputs": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "uniqueItems": true,
+      "items": {"type": "string", "minLength": 1}
+    },
+    "params": {
+      "type": "object",
+      "required": ["prefix", "suffix"],
+      "additionalProperties": {"type": "string"},
+      "properties": {"prefix": {"type": "string"}, "suffix": {"type": "string"}}
+    },
+    "tool": {"$ref": "tool_record.json"},
+    "config": {"type": "array", "items": {"$ref": "declaration.json"}},
+    "environment": {"type": "array", "items": {"$ref": "declaration.json"}},
+    "sources": {"type": "array", "items": {"$ref": "source.json"}},
+    "observations": {"type": "array"},
+    "deps": {"type": "array", "items": {"$ref": "dependency_input.json"}}
+  }
+}

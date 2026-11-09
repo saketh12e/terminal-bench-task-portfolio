@@ -1,0 +1,464 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-order-modes",
+  "family": "closure-order",
+  "summary": "One diamond collected as plain, preorder, postorder and topological inputs. Switching a consumer to a mode that yields identical ordered inputs reuses the shared action; removing and duplicating an adjacency edge changes or preserves order.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/top": {
+        "text": "top\n",
+        "executable": false
+      },
+      "src/left": {
+        "text": "left\n",
+        "executable": false
+      },
+      "src/right": {
+        "text": "right\n",
+        "executable": false
+      },
+      "src/base": {
+        "text": "base\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "base": {
+      "kind": "emit",
+      "srcs": [
+        "src/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "left": {
+      "kind": "emit",
+      "srcs": [
+        "src/left"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "right": {
+      "kind": "emit",
+      "srcs": [
+        "src/right"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "top": {
+      "kind": "emit",
+      "srcs": [
+        "src/top"
+      ],
+      "deps": [
+        {
+          "label": "left",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "right",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "by-preorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "by-postorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "by-topological": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "by-plain": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "by-all": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        },
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        },
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "by-preorder",
+        "by-postorder",
+        "by-topological",
+        "by-plain",
+        "by-all"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "by-all",
+        "by-plain",
+        "by-topological",
+        "by-postorder",
+        "by-preorder"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "warm-reordered"
+    },
+    {
+      "op": "rule",
+      "label": "by-preorder",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "top",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "closure": "topological"
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "by-preorder",
+        "by-postorder",
+        "by-topological",
+        "by-plain",
+        "by-all"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "mode-edit-matches-topological"
+    },
+    {
+      "op": "write",
+      "path": "src/base",
+      "text": "base v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "by-preorder",
+        "by-postorder",
+        "by-topological",
+        "by-plain",
+        "by-all"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "shared-prerequisite-edit"
+    },
+    {
+      "op": "rule",
+      "label": "right",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/right"
+        ],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "by-preorder",
+        "by-postorder",
+        "by-topological",
+        "by-plain",
+        "by-all"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "diamond-removed"
+    },
+    {
+      "op": "rule",
+      "label": "right",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/right"
+        ],
+        "deps": [
+          {
+            "label": "base",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "base",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "by-preorder",
+        "by-postorder",
+        "by-topological",
+        "by-plain",
+        "by-all"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "duplicate-adjacency"
+    }
+  ]
+}

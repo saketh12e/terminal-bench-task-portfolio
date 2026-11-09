@@ -1,0 +1,244 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-generated-plan",
+  "family": "v4-features-index",
+  "summary": "Unplanned manifest exporters cannot satisfy feature-mode includes. An order-only optional provider enters the plan and supplies feature-added exports. Physical source files shadow providers. Creating/deleting a source invalidates retained missing/present probes. Provider cache damage does not invalidate unchanged source read observations.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "work/main": {
+        "text": "#include \"value\"\nmain\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "provider": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "export": {
+            "enable": [],
+            "add": {
+              "exports": {
+                "gen/value": "out"
+              }
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "unplanned": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "unplanned\n",
+        "suffix": ""
+      },
+      "exports": {
+        "gen/value": "out"
+      }
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "generated": {
+            "enable": [
+              "dep:p"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p": {
+            "label": "provider",
+            "output": "out",
+            "transition": "target",
+            "order_only": true,
+            "features": [
+              "export"
+            ],
+            "default_features": true
+          }
+        },
+        "conflicts": []
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "unplanned-does-not-own",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "build",
+      "name": "activate-owner",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "generated"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "write",
+      "path": "gen/value",
+      "text": "physical wins\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "physical-without-feature",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "delete",
+      "path": "gen/value"
+    },
+    {
+      "op": "build",
+      "name": "removed-shadow",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "build",
+      "name": "generated-restored",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "generated"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "corrupt_blob",
+      "match": {
+        "source": "work/leaf"
+      }
+    },
+    {
+      "op": "build",
+      "name": "provider-cache-repair",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "generated"
+          ],
+          "default_features": true
+        }
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": true
+}

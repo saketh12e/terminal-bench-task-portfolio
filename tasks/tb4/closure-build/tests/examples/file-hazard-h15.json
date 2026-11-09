@@ -1,0 +1,53 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h15",
+  "family": "file-hazards",
+  "summary": "Malformed controls must fail before publication. An unmatched control at the end of a formerly valid source returns invalid_directive; earlier reusable providers cannot justify partial root publication.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/ui.res",
+      "text": "module=ui\n#include \"../include/active-theme.inc\"\n#include \"../include/platform-link/platform.inc\"\n#include \"registry.inc\"\n#endif\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_directive",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

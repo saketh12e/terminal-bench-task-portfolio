@@ -1,0 +1,52 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h06",
+  "family": "file-hazards",
+  "summary": "Inactive text changes identity but can stop at an equal-byte producer. With host arch x86_64, the full read observation changes but expanded codegen bytes do not. The protocol action remains reusable because it depends on output digests, not the codegen action key.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "toolsrc/host-runtime.inc",
+      "text": "#if arch=x86_64\nhost-word=64-x86\n#else\nhost-word=portable-v2\n#endif\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "gen/protocol"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

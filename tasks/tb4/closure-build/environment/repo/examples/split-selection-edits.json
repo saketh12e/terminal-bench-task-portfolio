@@ -1,0 +1,459 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-selection-edits",
+  "family": "split-selection",
+  "summary": "A parent selection chooses the whole edge or split definition. Branch order and mode edits are observable only through resulting ordered inputs; a child's selection changes adjacency for one branch. A malformed split matters only when its override is selected.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/lib": {
+        "text": "lib\n",
+        "executable": false
+      },
+      "src/core": {
+        "text": "core\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "lib": {
+      "kind": "compile",
+      "srcs": [
+        "src/lib"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "core": {
+      "kind": "emit",
+      "srcs": [
+        "src/core"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "select": {
+        "profile": {
+          "wide": {
+            "deps": [
+              {
+                "label": "lib",
+                "output": "out",
+                "transition": {
+                  "split": [
+                    {
+                      "base": "target",
+                      "set": {
+                        "arch": "arm"
+                      },
+                      "unset": []
+                    },
+                    {
+                      "base": "target",
+                      "set": {
+                        "arch": "x86"
+                      },
+                      "unset": []
+                    }
+                  ]
+                },
+                "order_only": false,
+                "closure": "preorder"
+              }
+            ]
+          },
+          "narrow": {
+            "deps": [
+              {
+                "label": "lib",
+                "output": "out",
+                "transition": {
+                  "base": "target",
+                  "set": {
+                    "arch": "arm"
+                  },
+                  "unset": []
+                },
+                "order_only": false
+              }
+            ]
+          },
+          "legacy": {
+            "deps": [
+              {
+                "label": "lib",
+                "output": "out",
+                "transition": {
+                  "split": []
+                },
+                "order_only": false
+              }
+            ]
+          },
+          "*": {}
+        }
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "wide",
+      "config": {
+        "profile": "wide"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "narrow",
+      "config": {
+        "profile": "narrow"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {},
+        "select": {
+          "profile": {
+            "wide": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "split": [
+                      {
+                        "base": "target",
+                        "set": {
+                          "arch": "x86"
+                        },
+                        "unset": []
+                      },
+                      {
+                        "base": "target",
+                        "set": {
+                          "arch": "arm"
+                        },
+                        "unset": []
+                      }
+                    ]
+                  },
+                  "order_only": false,
+                  "closure": "preorder"
+                }
+              ]
+            },
+            "narrow": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "base": "target",
+                    "set": {
+                      "arch": "arm"
+                    },
+                    "unset": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "legacy": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "split": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "*": {}
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "wide-reordered",
+      "config": {
+        "profile": "wide"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {},
+        "select": {
+          "profile": {
+            "wide": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "split": [
+                      {
+                        "base": "target",
+                        "set": {
+                          "arch": "x86"
+                        },
+                        "unset": []
+                      },
+                      {
+                        "base": "target",
+                        "set": {
+                          "arch": "arm"
+                        },
+                        "unset": []
+                      }
+                    ]
+                  },
+                  "order_only": false,
+                  "closure": "topological"
+                }
+              ]
+            },
+            "narrow": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "base": "target",
+                    "set": {
+                      "arch": "arm"
+                    },
+                    "unset": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "legacy": {
+              "deps": [
+                {
+                  "label": "lib",
+                  "output": "out",
+                  "transition": {
+                    "split": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "*": {}
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "wide-equal-mode",
+      "config": {
+        "profile": "wide"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "lib",
+      "rule": {
+        "kind": "compile",
+        "srcs": [
+          "src/lib"
+        ],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [
+          "arch"
+        ],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {},
+        "select": {
+          "arch": {
+            "arm": {
+              "deps": [
+                {
+                  "label": "core",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false
+                }
+              ]
+            },
+            "*": {}
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "child-selection-adds-edge",
+      "config": {
+        "profile": "wide"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "legacy-selected",
+      "config": {
+        "profile": "legacy"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "wide-again",
+      "config": {
+        "profile": "wide"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "wildcard",
+      "config": {
+        "profile": "other"
+      }
+    }
+  ]
+}

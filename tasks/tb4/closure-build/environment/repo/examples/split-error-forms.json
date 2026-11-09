@@ -1,0 +1,810 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-error-forms",
+  "family": "split-invalid-manifest",
+  "summary": "Malformed split objects and closure fields are invalid_manifest on content and order-only edges and leave publication unchanged; the four-branch upper bound is valid.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/ok": {
+        "text": "ok\n",
+        "executable": false
+      },
+      "src/child": {
+        "text": "child\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "ok": {
+      "kind": "emit",
+      "srcs": [
+        "src/ok"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "ok"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "baseline"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": []
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "empty-split"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "0"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "1"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "2"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "3"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "4"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "five-branches"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  "target",
+                  {
+                    "split": [
+                      "host"
+                    ]
+                  }
+                ]
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "nested-split"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  "target"
+                ],
+                "base": "target"
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "split-with-patch-keys"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "closure": "inorder"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "unknown-closure"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "weight": "1"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "extra-edge-field"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": "target",
+              "order_only": true,
+              "closure": "reverse"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "order-only-unknown-closure"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "ok": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/child"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "0"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "1"
+                    },
+                    "unset": []
+                  },
+                  "host",
+                  {
+                    "base": "target",
+                    "set": {},
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false,
+              "closure": "postorder"
+            },
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "0"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "n": "1"
+                    },
+                    "unset": []
+                  },
+                  "host",
+                  {
+                    "base": "target",
+                    "set": {},
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": true,
+              "closure": "preorder"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad",
+        "ok"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "four-branch-valid"
+    }
+  ]
+}

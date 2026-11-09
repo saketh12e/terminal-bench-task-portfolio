@@ -1,0 +1,1372 @@
+{
+  "batch": [
+    {
+      "denominator": "search-0",
+      "id": "utt-0",
+      "length": 0,
+      "lexicon": "pronunciation-0",
+      "numerator": "transcript-0"
+    },
+    {
+      "denominator": "search-1",
+      "id": "utt-1",
+      "length": 8,
+      "lexicon": "pronunciation-1",
+      "numerator": "transcript-1"
+    },
+    {
+      "denominator": "search-2",
+      "id": "utt-2",
+      "length": 11,
+      "lexicon": "pronunciation-2",
+      "numerator": "transcript-2"
+    }
+  ],
+  "case_id": "combined-distinct-graphs-shared-registry",
+  "grammars": {
+    "search-0": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a-in-context0",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              6,
+              0.6
+            ],
+            [
+              8,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 1,
+          "id": "a-change-context",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              -0.55
+            ],
+            [
+              15,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.27,
+          "dst": 0,
+          "id": "b-in-context0",
+          "label": 907,
+          "src": 0,
+          "terms": [
+            [
+              15,
+              -0.45
+            ],
+            [
+              11,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "a-in-context1",
+          "label": 101,
+          "src": 1,
+          "terms": [
+            [
+              9,
+              0.65
+            ],
+            [
+              27,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -0.08,
+          "dst": 1,
+          "id": "b-in-context1",
+          "label": 907,
+          "src": 1,
+          "terms": [
+            [
+              3,
+              -0.35
+            ],
+            [
+              24,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -2.9,
+          "dst": 1,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              30,
+              0.5
+            ],
+            [
+              6,
+              -0.35
+            ]
+          ]
+        },
+        {
+          "bias": -2.85,
+          "dst": 0,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              0,
+              -0.4
+            ],
+            [
+              8,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.3,
+          "dst": 1,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              11,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.12
+        ],
+        [
+          1,
+          -0.65
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    },
+    "search-1": {
+      "arcs": [
+        {
+          "bias": -3.6,
+          "dst": 1,
+          "id": "context-silence-0",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              4,
+              -0.5
+            ],
+            [
+              5,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.1,
+          "dst": 0,
+          "id": "a-0",
+          "label": 31,
+          "src": 0,
+          "terms": [
+            [
+              7,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 1,
+          "id": "b-0",
+          "label": 47,
+          "src": 0,
+          "terms": [
+            [
+              10,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -3.6,
+          "dst": 0,
+          "id": "context-silence-1",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              -0.5
+            ],
+            [
+              8,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.1,
+          "dst": 1,
+          "id": "a-1",
+          "label": 31,
+          "src": 1,
+          "terms": [
+            [
+              7,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "b-1",
+          "label": 47,
+          "src": 1,
+          "terms": [
+            [
+              10,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.25
+        ],
+        [
+          1,
+          -0.75
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    },
+    "search-2": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a",
+          "label": 10,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              -0.3
+            ],
+            [
+              28,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": 0.1,
+          "dst": 0,
+          "id": "b",
+          "label": 20,
+          "src": 0,
+          "terms": [
+            [
+              19,
+              0.5
+            ],
+            [
+              0,
+              -0.5
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    },
+    "transcript-0": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a-in-context0",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              6,
+              0.6
+            ],
+            [
+              8,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 1,
+          "id": "a-change-context",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              -0.55
+            ],
+            [
+              15,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "a-in-context1",
+          "label": 101,
+          "src": 1,
+          "terms": [
+            [
+              9,
+              0.65
+            ],
+            [
+              27,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -2.9,
+          "dst": 1,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              30,
+              0.5
+            ],
+            [
+              6,
+              -0.35
+            ]
+          ]
+        },
+        {
+          "bias": -2.85,
+          "dst": 0,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              0,
+              -0.4
+            ],
+            [
+              8,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.3,
+          "dst": 1,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              11,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.12
+        ],
+        [
+          1,
+          -0.65
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    },
+    "transcript-1": {
+      "arcs": [
+        {
+          "bias": -3.6,
+          "dst": 1,
+          "id": "context-silence-0",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              4,
+              -0.5
+            ],
+            [
+              5,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.1,
+          "dst": 0,
+          "id": "a-0",
+          "label": 31,
+          "src": 0,
+          "terms": [
+            [
+              7,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.6,
+          "dst": 0,
+          "id": "context-silence-1",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              -0.5
+            ],
+            [
+              8,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.1,
+          "dst": 1,
+          "id": "a-1",
+          "label": 31,
+          "src": 1,
+          "terms": [
+            [
+              7,
+              0.6
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.25
+        ],
+        [
+          1,
+          -0.75
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    },
+    "transcript-2": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a",
+          "label": 10,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              -0.3
+            ],
+            [
+              28,
+              0.6
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    }
+  },
+  "lexicons": {
+    "pronunciation-0": {
+      "arcs": [
+        {
+          "bias": -0.35,
+          "dst": 0,
+          "id": "between-words-blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 0,
+          "id": "word-a-short",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              0.6
+            ],
+            [
+              3,
+              -0.2
+            ],
+            [
+              6,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.3,
+          "dst": 1,
+          "id": "word-a-begin",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              9,
+              0.55
+            ],
+            [
+              0,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 0,
+          "id": "word-a-tail",
+          "ilabel": 2,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              12,
+              -0.5
+            ],
+            [
+              6,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "word-b",
+          "ilabel": 3,
+          "olabel": 907,
+          "src": 0,
+          "terms": [
+            [
+              15,
+              0.6
+            ],
+            [
+              9,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.48,
+          "dst": 1,
+          "id": "repeat-same-token",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 1,
+          "terms": [
+            [
+              3,
+              0.4
+            ],
+            [
+              18,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.65,
+          "dst": 0,
+          "id": "word-b-tail",
+          "ilabel": 3,
+          "olabel": 907,
+          "src": 1,
+          "terms": [
+            [
+              21,
+              0.5
+            ],
+            [
+              12,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 0,
+          "id": "word-a-duplicate-path",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              0.6
+            ],
+            [
+              3,
+              -0.2
+            ],
+            [
+              6,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.62,
+          "dst": 1,
+          "id": "word-a-accent",
+          "ilabel": 2,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              24,
+              -0.65
+            ],
+            [
+              9,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.0,
+          "dst": 2,
+          "id": "enter-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.45
+            ],
+            [
+              27,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -2.75,
+          "dst": 0,
+          "id": "leave-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              30,
+              -0.5
+            ],
+            [
+              6,
+              0.25
+            ]
+          ]
+        },
+        {
+          "bias": -3.1,
+          "dst": 2,
+          "id": "silence-between-phones",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              12,
+              0.4
+            ],
+            [
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -2.95,
+          "dst": 1,
+          "id": "resume-tail",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              5,
+              0.35
+            ],
+            [
+              9,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "silence-blank-frame",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              30,
+              0.3
+            ],
+            [
+              3,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.3,
+          "dst": 2,
+          "id": "silent-self-optional",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              27,
+              -0.4
+            ],
+            [
+              27,
+              0.2
+            ]
+          ]
+        },
+        {
+          "bias": -2.7,
+          "dst": 0,
+          "id": "unvoiced-word-a",
+          "ilabel": -1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              18,
+              0.5
+            ],
+            [
+              0,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -3.1,
+          "dst": 0,
+          "id": "unvoiced-word-b",
+          "ilabel": -1,
+          "olabel": 907,
+          "src": 1,
+          "terms": [
+            [
+              21,
+              -0.5
+            ],
+            [
+              15,
+              0.3
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.2
+        ],
+        [
+          1,
+          -0.75
+        ]
+      ],
+      "num_states": 3,
+      "start": 0
+    },
+    "pronunciation-1": {
+      "arcs": [
+        {
+          "bias": -3.7,
+          "dst": 1,
+          "id": "silence-clockwise-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              5,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 3,
+          "id": "silence-counter-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              17,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 0,
+          "id": "audible-a-0",
+          "ilabel": 1,
+          "olabel": 31,
+          "src": 0,
+          "terms": [
+            [
+              5,
+              -0.4
+            ],
+            [
+              29,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 1,
+          "id": "audible-b-0",
+          "ilabel": 2,
+          "olabel": 47,
+          "src": 0,
+          "terms": [
+            [
+              17,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 0,
+          "id": "unvoiced-token-0",
+          "ilabel": -1,
+          "olabel": 31,
+          "src": 0,
+          "terms": [
+            [
+              29,
+              -0.5
+            ],
+            [
+              1,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 0,
+          "id": "blank-0",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              4,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.7,
+          "dst": 2,
+          "id": "silence-clockwise-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              8,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 0,
+          "id": "silence-counter-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              20,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 1,
+          "id": "audible-a-1",
+          "ilabel": 1,
+          "olabel": 31,
+          "src": 1,
+          "terms": [
+            [
+              8,
+              -0.4
+            ],
+            [
+              29,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "audible-b-1",
+          "ilabel": 2,
+          "olabel": 47,
+          "src": 1,
+          "terms": [
+            [
+              20,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 1,
+          "id": "unvoiced-token-1",
+          "ilabel": -1,
+          "olabel": 31,
+          "src": 1,
+          "terms": [
+            [
+              29,
+              -0.5
+            ],
+            [
+              1,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 1,
+          "id": "blank-1",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.7,
+          "dst": 3,
+          "id": "silence-clockwise-2",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              11,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 1,
+          "id": "silence-counter-2",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              23,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 2,
+          "id": "audible-a-2",
+          "ilabel": 1,
+          "olabel": 31,
+          "src": 2,
+          "terms": [
+            [
+              11,
+              -0.4
+            ],
+            [
+              29,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 3,
+          "id": "audible-b-2",
+          "ilabel": 2,
+          "olabel": 47,
+          "src": 2,
+          "terms": [
+            [
+              23,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 2,
+          "id": "unvoiced-token-2",
+          "ilabel": -1,
+          "olabel": 31,
+          "src": 2,
+          "terms": [
+            [
+              29,
+              -0.5
+            ],
+            [
+              1,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "blank-2",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              4,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.7,
+          "dst": 0,
+          "id": "silence-clockwise-3",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 3,
+          "terms": [
+            [
+              14,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 2,
+          "id": "silence-counter-3",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 3,
+          "terms": [
+            [
+              26,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 3,
+          "id": "audible-a-3",
+          "ilabel": 1,
+          "olabel": 31,
+          "src": 3,
+          "terms": [
+            [
+              14,
+              -0.4
+            ],
+            [
+              29,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 0,
+          "id": "audible-b-3",
+          "ilabel": 2,
+          "olabel": 47,
+          "src": 3,
+          "terms": [
+            [
+              26,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.8,
+          "dst": 3,
+          "id": "unvoiced-token-3",
+          "ilabel": -1,
+          "olabel": 31,
+          "src": 3,
+          "terms": [
+            [
+              29,
+              -0.5
+            ],
+            [
+              1,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 3,
+          "id": "blank-3",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 3,
+          "terms": [
+            [
+              4,
+              0.3
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.2
+        ],
+        [
+          1,
+          -0.4
+        ],
+        [
+          2,
+          -0.6000000000000001
+        ],
+        [
+          3,
+          -0.8
+        ]
+      ],
+      "num_states": 4,
+      "start": 0
+    },
+    "pronunciation-2": {
+      "arcs": [
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              10,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": 0.12,
+          "dst": 0,
+          "id": "word-a",
+          "ilabel": 1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              0.65
+            ],
+            [
+              16,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.18,
+          "dst": 0,
+          "id": "word-b",
+          "ilabel": 2,
+          "olabel": 20,
+          "src": 0,
+          "terms": [
+            [
+              16,
+              0.5
+            ],
+            [
+              19,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -0.37,
+          "dst": 0,
+          "id": "word-a-repeat",
+          "ilabel": 1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              22,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 0,
+          "id": "insert-short-word",
+          "ilabel": -1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              25,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": 0.12,
+          "dst": 0,
+          "id": "same-pronunciation-distinct-source",
+          "ilabel": 1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              0.65
+            ],
+            [
+              16,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    }
+  },
+  "schema_version": 1
+}

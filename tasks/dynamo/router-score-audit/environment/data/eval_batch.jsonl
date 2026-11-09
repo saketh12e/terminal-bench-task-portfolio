@@ -1,0 +1,7 @@
+{"input_id":"v001","text":"package tracking late","served_at":"2026-07-05T12:00:00Z","gold_label":"shipping_delay"}
+{"input_id":"v002","text":"charged twice","served_at":"2026-07-05T12:02:00Z","gold_label":"ABSTAIN"}
+{"input_id":"v003","text":"cannot login reset","served_at":"2026-07-05T12:04:00Z","gold_label":"account_access"}
+{"input_id":"v004","text":"please cancel order","served_at":"2026-07-05T12:06:00Z","gold_label":"cancel_order"}
+{"input_id":"v005","text":"cafe\u0301 refund status","served_at":"2026-07-05T12:08:00Z","gold_label":"refund_status"}
+{"input_id":"v006","text":"wrong charge","served_at":"2026-07-05T12:10:00Z","gold_label":"billing_issue"}
+{"input_id":"v007","text":"promo code \ud83d\ude15","served_at":"2026-07-05T12:12:00Z","gold_label":"general_help"}

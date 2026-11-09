@@ -1,0 +1,256 @@
+{
+  "format": "closure-scenario-v1",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "name": "semantic-sharing",
+  "family": "semantic-sharing",
+  "summary": "Distinct labels with identical descriptors share one semantic action. Declared dependency order and duplicate occurrences remain meaningful; source locations of labels do not enter dependency identities.",
+  "manifest": {
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/emit",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/emit",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "b",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/bundle",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "cold",
+      "roots": [
+        "app",
+        "a",
+        "b"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "unused-config",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "unused": "new-root-identity"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "bundle",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "b",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "a",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "a",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/bundle",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "duplicate-dependency",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "b",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/main.res"
+        ],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/emit",
+        "params": {
+          "prefix": "different:",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "divergent-node",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "bundle",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "a",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "b",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "a",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/bundle",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "dependency-order",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

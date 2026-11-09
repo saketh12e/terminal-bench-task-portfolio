@@ -1,0 +1,12 @@
+{
+  "$id": "common/dependency_input.json",
+  "title": "Materialized dependency contribution",
+  "type": "object",
+  "required": ["output", "digest", "text"],
+  "additionalProperties": false,
+  "properties": {
+    "output": {"type": "string"},
+    "digest": {"type": "string"},
+    "text": {"type": "string"}
+  }
+}

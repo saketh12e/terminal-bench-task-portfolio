@@ -1,0 +1,1552 @@
+{
+  "campaign_work": 1673091,
+  "cases": [
+    {
+      "arrays_path": "fixtures/frames-blank-is-time/arrays.npz",
+      "arrays_sha256": "ca460d4cdf14fed2ad73f48f26d0380efcddf37923f32934ae9d8294af9f87b7",
+      "case_path": "fixtures/frames-blank-is-time/case.json",
+      "case_sha256": "d00d0ae9b2df61057921cbb93af3853628722ec633c1c2b0eae393ba3cfd2d1e",
+      "expected_path": "expected/frames-blank-is-time.npz",
+      "expected_sha256": "236443d1c1b4a5a60dd283818177b808e144914e7dabbede56b7141ce13e890a",
+      "expected_status": "independent_ready",
+      "family": "frame_label_semantics",
+      "id": "frames-blank-is-time",
+      "requirements": [
+        "acoustic_blank_consumes_frame",
+        "blank_output_epsilon",
+        "token_namespace_separate"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/frames-repeated-topology/arrays.npz",
+      "arrays_sha256": "c6203c9f74868cec2bfd70b40b576f82c4650e5208889b6bcb6a931d1d2b0c30",
+      "case_path": "fixtures/frames-repeated-topology/case.json",
+      "case_sha256": "1798f810bcc4b8ceef61dd49dbb5f408a8c54673d62f4eb805f0bcc55037fa49",
+      "expected_path": "expected/frames-repeated-topology.npz",
+      "expected_sha256": "6a3ca7e29f48245d2805646906b96109624f9697813e6358c05089a0bff1fad6",
+      "expected_status": "independent_ready",
+      "family": "frame_label_semantics",
+      "id": "frames-repeated-topology",
+      "requirements": [
+        "repeated_acoustic_labels_allowed",
+        "repeated_tokens_allowed",
+        "no_extra_ctc_collapse"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/frames-unvoiced-token/arrays.npz",
+      "arrays_sha256": "6ea02d7c00ad38443dc68d82395403fce69d2c839d2f45895a319dbb68dacece",
+      "case_path": "fixtures/frames-unvoiced-token/case.json",
+      "case_sha256": "e82f2d22bbdb58eb1809d5f263f19fefacb6f7e9afca5d445812349bc5890058",
+      "expected_path": "expected/frames-unvoiced-token.npz",
+      "expected_sha256": "9ea8937c4814a568dca5837253b5938481612a1a190e125145da7e5d7286f9c0",
+      "expected_status": "independent_ready",
+      "family": "frame_label_semantics",
+      "id": "frames-unvoiced-token",
+      "requirements": [
+        "matched_nonempty_token_consumes_no_frame",
+        "two_phone_pronunciation",
+        "frame_consuming_output_epsilon_tail"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/pairs-left-long-right-short/arrays.npz",
+      "arrays_sha256": "4ef1102c18e3982c8af607aeaa23e034d3ecf54baedbda9eb59d974776fd657d",
+      "case_path": "fixtures/pairs-left-long-right-short/case.json",
+      "case_sha256": "64d26857c4ca1516fd321f06989275013a6bb6ce7e8d8c24598142aeec9d9b1f",
+      "expected_path": "expected/pairs-left-long-right-short.npz",
+      "expected_sha256": "132a46d9832c0a0fbd79308f85259a54016112105fc5e5c98a9b52c85af61dc7",
+      "expected_status": "independent_ready",
+      "family": "epsilon_source_pair_identity",
+      "id": "pairs-left-long-right-short",
+      "requirements": [
+        "both_sided_epsilon",
+        "unequal_prefix_lengths_3_1",
+        "one_source_pair_once"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/pairs-right-long-left-short/arrays.npz",
+      "arrays_sha256": "b2153c8d7b272ad7ee3365eb0a6c2d89bb64c827bc69b09e2a46bfc2e7636a8d",
+      "case_path": "fixtures/pairs-right-long-left-short/case.json",
+      "case_sha256": "ed64b4006c5cb4d19b659914c05d682a74efffb00fe211e39703b01ece217fb7",
+      "expected_path": "expected/pairs-right-long-left-short.npz",
+      "expected_sha256": "0de5a3e922c4cb1be200ee980ef02fceb0aa2f204aef3b90d33673ce5c355ff0",
+      "expected_status": "independent_ready",
+      "family": "epsilon_source_pair_identity",
+      "id": "pairs-right-long-left-short",
+      "requirements": [
+        "both_sided_epsilon",
+        "unequal_prefix_lengths_1_3",
+        "frame_blank_cannot_advance_in_phase1"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/pairs-cyclic-accepting-phases/arrays.npz",
+      "arrays_sha256": "ff87a98d2e0eb953025b199ac5324d6daf7f87a8d94b59019643615cb577c114",
+      "case_path": "fixtures/pairs-cyclic-accepting-phases/case.json",
+      "case_sha256": "f7dfc4c141bb7448773341285976f4ec604d5080fcc49c066e09839c7870f6f3",
+      "expected_path": "expected/pairs-cyclic-accepting-phases.npz",
+      "expected_sha256": "6d99080356af5f33fec60252c00a9ca10123d7f635c473a509845f0b1f96936a",
+      "expected_status": "independent_ready",
+      "family": "epsilon_source_pair_identity",
+      "id": "pairs-cyclic-accepting-phases",
+      "requirements": [
+        "both_accepting_filter_phases",
+        "silent_token_resets_filter",
+        "cyclic_epsilon_source_identity"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ambiguity-exact-parallel/arrays.npz",
+      "arrays_sha256": "7f8a6cfcc8e34d35bbf0872ce8bfefcbce52e392a9f75e8a5a1fe7fc43fb2561",
+      "case_path": "fixtures/ambiguity-exact-parallel/case.json",
+      "case_sha256": "659dd48de64786ed39fa86cd82a33b5419c8461065491816207a3abaa5cc2b3b",
+      "expected_path": "expected/ambiguity-exact-parallel.npz",
+      "expected_sha256": "e65fc582c4aaebe98b0ee8708496e775af1b768da60253e5d4f2c001070f9cae",
+      "expected_status": "independent_ready",
+      "family": "genuine_ambiguity",
+      "id": "ambiguity-exact-parallel",
+      "requirements": [
+        "identical_parallel_arcs_are_distinct",
+        "sum_over_paths_not_strings",
+        "equal_weight_alternatives"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ambiguity-short-long-pronunciations/arrays.npz",
+      "arrays_sha256": "af14db216caaa6a5e374063bce49e10cb83b64d65439b75b848ca0e5f6682583",
+      "case_path": "fixtures/ambiguity-short-long-pronunciations/case.json",
+      "case_sha256": "46a21e6eabef876acace436baad0da9d16eda39f764f114ea6fce09eaa0f1c82",
+      "expected_path": "expected/ambiguity-short-long-pronunciations.npz",
+      "expected_sha256": "42d6a05c73a4b1b8f82f0e5e427bd5237deb6fb30a753b655bb5db50996e0b3f",
+      "expected_status": "independent_ready",
+      "family": "genuine_ambiguity",
+      "id": "ambiguity-short-long-pronunciations",
+      "requirements": [
+        "one_and_two_frame_pronunciations",
+        "branching_context_grammar",
+        "accent_alternative"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ambiguity-final-termination/arrays.npz",
+      "arrays_sha256": "9018300da17e660516a6c5893182286120def3e8ee9edf0719607a0cba55aa7e",
+      "case_path": "fixtures/ambiguity-final-termination/case.json",
+      "case_sha256": "f17c256bd280ea900289e240ccd82298d5b2e8c338206f0c12306519904359c0",
+      "expected_path": "expected/ambiguity-final-termination.npz",
+      "expected_sha256": "bc29510c78d20b275ced0f0766fc645a313627cb3bc374bddad8ef2d5a7bc7b4",
+      "expected_status": "independent_ready",
+      "family": "genuine_ambiguity",
+      "id": "ambiguity-final-termination",
+      "requirements": [
+        "multiple_final_states",
+        "final_subset_numerator",
+        "stopping_and_continuing_distinct"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/cycles-two-self-loops/arrays.npz",
+      "arrays_sha256": "e72ba9325bd9cce2849ad1a5a0603fe910a16d6c81a17d833058f11d272092a2",
+      "case_path": "fixtures/cycles-two-self-loops/case.json",
+      "case_sha256": "5754b50b20c9dd72f65050a54d5e30a3c3cc521b2aa6d3364739c928ab28ca1b",
+      "expected_path": "expected/cycles-two-self-loops.npz",
+      "expected_sha256": "6aa465f7aebe36ce2c0e98d501d33135dab6ca74c52d6dd95248a19bf96586f4",
+      "expected_status": "independent_ready",
+      "family": "silent_cycles",
+      "id": "cycles-two-self-loops",
+      "requirements": [
+        "infinite_silent_geometric_sum",
+        "repeated_parameter_visits",
+        "both_sides_silent_loops"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/cycles-branched-between-phones/arrays.npz",
+      "arrays_sha256": "63c8206018c5e1536939e83503f824d69f202474f7fbee82f31972e43c398ccf",
+      "case_path": "fixtures/cycles-branched-between-phones/case.json",
+      "case_sha256": "28ff4249004e214a8751d170d28d8dcdf0aa161a99ef55984f48a0f291afa1b5",
+      "expected_path": "expected/cycles-branched-between-phones.npz",
+      "expected_sha256": "52dbba30bee5f11af1df5c20eb17a500b3d68f86fe597ed859c9d4a021b0d761",
+      "expected_status": "independent_ready",
+      "family": "silent_cycles",
+      "id": "cycles-branched-between-phones",
+      "requirements": [
+        "branching_multistate_scc",
+        "closure_before_between_after_frames",
+        "differentiate_silent_resolvent"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/cycles-sixteen-state-scc/arrays.npz",
+      "arrays_sha256": "6330965007340f57ed1c08ffd9acbad2ecd22e5f79b3f58d0c9b664a00e6c6ad",
+      "case_path": "fixtures/cycles-sixteen-state-scc/case.json",
+      "case_sha256": "090635c808df1c8fd1f8cfdfc5278328f7a58b4f86772ba5e4dbbac5be799a14",
+      "expected_path": "expected/cycles-sixteen-state-scc.npz",
+      "expected_sha256": "9c0806b74b3d8bbad4b607a4a2ea9543cc2f8f9ff537cf1ff7a9755c645d024c",
+      "expected_status": "independent_ready",
+      "family": "silent_cycles",
+      "id": "cycles-sixteen-state-scc",
+      "requirements": [
+        "canonical_silent_scc_size_16",
+        "branching_silence_ring",
+        "matched_token_in_silent_scc"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/cycles-near-convergence-bound/arrays.npz",
+      "arrays_sha256": "ec798302137686dedc7909099f2f37fcd07295cba896e50937c2a965dfcaf5b0",
+      "case_path": "fixtures/cycles-near-convergence-bound/case.json",
+      "case_sha256": "24530e48a2145b37234230a7cc84aceec6476061dd48f3f1d564cd83728e0996",
+      "expected_path": "expected/cycles-near-convergence-bound.npz",
+      "expected_sha256": "ad22544145bad0e33d4c7fe60b1a9fc20759178c1361bf0ae661342e365cab7c",
+      "expected_status": "independent_ready",
+      "family": "silent_cycles",
+      "id": "cycles-near-convergence-bound",
+      "requirements": [
+        "silent_row_near_0_8",
+        "high_order_repeated_silent_visits",
+        "branched_resolvent_curvature",
+        "both_sided_epsilon_and_silent_token"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/boundary-T0-positive-cycles/arrays.npz",
+      "arrays_sha256": "53deef157b6660dabd4298417a9a46ae7c4a7c377ea509973e986c6cd2a84b31",
+      "case_path": "fixtures/boundary-T0-positive-cycles/case.json",
+      "case_sha256": "787c8955be1b42973719f27bd2351b98970213acd628836553c219bc2bc0c11a",
+      "expected_path": "expected/boundary-T0-positive-cycles.npz",
+      "expected_sha256": "3df9f4aba21f98a15f3d3a542b38c60e0b210ad78ae9661f81380462f5dacfc1",
+      "expected_status": "independent_ready",
+      "family": "boundaries",
+      "id": "boundary-T0-positive-cycles",
+      "requirements": [
+        "T0_array_shape",
+        "positive_empty_partition",
+        "silent_token_cycles_at_zero_frames",
+        "start_is_final"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/boundary-dead-unreachable/arrays.npz",
+      "arrays_sha256": "9cc965c097e5bf58237103ccaa6a1a840e7db47c4fcb0da2b46214e8121deef5",
+      "case_path": "fixtures/boundary-dead-unreachable/case.json",
+      "case_sha256": "d33c4ad918769b16d3ab6cd6e9cb826e9ab4941a45057fdb587b3594efe5e0d7",
+      "expected_path": "expected/boundary-dead-unreachable.npz",
+      "expected_sha256": "62d6d3aaa33fd2cc90893221893e7ed08324db0b554fd000d4437a5803636d1a",
+      "expected_status": "independent_ready",
+      "family": "boundaries",
+      "id": "boundary-dead-unreachable",
+      "requirements": [
+        "reachable_nonaccepting_branch_zero_mass",
+        "unreachable_silent_arc_ignored",
+        "unreachable_parameter_zero_derivative"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/boundary-unused-graphs-and-finals/arrays.npz",
+      "arrays_sha256": "c7cb800747682f73e66415a34385d565cfa0c8cfacbdc46abf56988026559e1f",
+      "case_path": "fixtures/boundary-unused-graphs-and-finals/case.json",
+      "case_sha256": "e0dcd6d01b457ca5500a69b849f8a0919305e0869d7f5f871150398c2ecf270b",
+      "expected_path": "expected/boundary-unused-graphs-and-finals.npz",
+      "expected_sha256": "a6c6aecbbf53cbb835c9f061f5298364c5722c6b572b9579f8363e3f7c69e38a",
+      "expected_status": "independent_ready",
+      "family": "boundaries",
+      "id": "boundary-unused-graphs-and-finals",
+      "requirements": [
+        "unused_graph_empty_finals",
+        "outgoing_arcs_at_final",
+        "positive_zero_length_item",
+        "ragged_zero_length"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/provenance-repeated-signed-cancellation/arrays.npz",
+      "arrays_sha256": "5314a0c26e842de74a36e923c370a19bc998e5991f3bf8aaceb7fe9dc79b9630",
+      "case_path": "fixtures/provenance-repeated-signed-cancellation/case.json",
+      "case_sha256": "94249d5dabcc67c960183028e0f2a663ba2f98dc5a5fe669cd275e24f2fe9dc8",
+      "expected_path": "expected/provenance-repeated-signed-cancellation.npz",
+      "expected_sha256": "3901b742cc023cf9f3ad35efc4bb520d41ff5ff98a2cf05b9f75b03cedb59cf9",
+      "expected_status": "independent_ready",
+      "family": "tied_parameter_provenance",
+      "id": "provenance-repeated-signed-cancellation",
+      "requirements": [
+        "repeat_index_sum",
+        "zero_coefficient_has_no_effect",
+        "exact_cancelled_parameter",
+        "left_right_num_den_ties"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/provenance-cross-utterance-shared/arrays.npz",
+      "arrays_sha256": "558783af67d242e5566eb9e807bd66d7b862259bdec1c7aa3b4c042ac0199596",
+      "case_path": "fixtures/provenance-cross-utterance-shared/case.json",
+      "case_sha256": "e78dc3d9820c5d42f368ddfffa7c61197e683f1a776ff62b369e1b563af123ec",
+      "expected_path": "expected/provenance-cross-utterance-shared.npz",
+      "expected_sha256": "e260e4308450bd2c0f1454ab5d1af8fce8f5934ed3e375667c68478bcd7d6376",
+      "expected_status": "independent_ready",
+      "family": "tied_parameter_provenance",
+      "id": "provenance-cross-utterance-shared",
+      "requirements": [
+        "same_graphs_shared_across_examples",
+        "signed_left_right_coefficients",
+        "unused_registry_tail"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/provenance-nonlocal-ids/arrays.npz",
+      "arrays_sha256": "0521d4aae2f1b0590cce821ee055d2c0f9de58e83768ae7e97269a2b63e5d0d3",
+      "case_path": "fixtures/provenance-nonlocal-ids/case.json",
+      "case_sha256": "f1733f2cbd8cb7e9bf3511301561423188dc1f0b02083ecc6b2a61f96eb70aea",
+      "expected_path": "expected/provenance-nonlocal-ids.npz",
+      "expected_sha256": "0cd24a2d277fcc683eaedc11074a0a09d178709c811ebcf4584b4502037a8fb6",
+      "expected_status": "independent_ready",
+      "family": "tied_parameter_provenance",
+      "id": "provenance-nonlocal-ids",
+      "requirements": [
+        "sparse_parameter_registry",
+        "unsorted_terms",
+        "original_parameter_coordinates"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/curvature-two-fully-mixed/arrays.npz",
+      "arrays_sha256": "d831912538ebdfb12a2d60bdd9cf27ac080351040737855ba4b1c600d2777a40",
+      "case_path": "fixtures/curvature-two-fully-mixed/case.json",
+      "case_sha256": "9b13293b87a686627ba5a7d494c2089c03de2d92e05c1fdfa3ae55fb313a8e22",
+      "expected_path": "expected/curvature-two-fully-mixed.npz",
+      "expected_sha256": "8dba2be7a2334176634f92538797ca8f8d959b92230eef7b7d6377cbeb850b65",
+      "expected_status": "independent_ready",
+      "family": "joint_curvature",
+      "id": "curvature-two-fully-mixed",
+      "requirements": [
+        "K2_fully_mixed_directions",
+        "nonzero_cross_blocks",
+        "hessian_symmetry"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/curvature-pure-block-directions/arrays.npz",
+      "arrays_sha256": "0f6ff784f79628b137a81444460011b4bba939c28ec3a14b0d114b4ab66ce3c7",
+      "case_path": "fixtures/curvature-pure-block-directions/case.json",
+      "case_sha256": "12b45a8e786b333c5af73055a4ea502e6dd5a9c9d944f25ceb3fa0201ad8333a",
+      "expected_path": "expected/curvature-pure-block-directions.npz",
+      "expected_sha256": "03094ca84f45bb4310203b8396886e15a0a5cadfeb17027192de79a64a42d5ac",
+      "expected_status": "independent_ready",
+      "family": "joint_curvature",
+      "id": "curvature-pure-block-directions",
+      "requirements": [
+        "acoustic_direction_induces_parameter_hvp",
+        "parameter_direction_induces_acoustic_hvp",
+        "cross_blocks_required"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/curvature-shift-and-unused-null/arrays.npz",
+      "arrays_sha256": "647a26930a9f0e57c859672be8537c1bf359d9055a05d73078c82c89808e737a",
+      "case_path": "fixtures/curvature-shift-and-unused-null/case.json",
+      "case_sha256": "3a180b2de18bc8a7e9f0596c668d049804dc4e2820ce57339d7eccdde1ce8eca",
+      "expected_path": "expected/curvature-shift-and-unused-null.npz",
+      "expected_sha256": "90535717dd016bd54ef2c6900ea42eebd1c7f9d5b792348f9087f983f6234d73",
+      "expected_status": "independent_ready",
+      "family": "joint_curvature",
+      "id": "curvature-shift-and-unused-null",
+      "requirements": [
+        "constant_per_frame_direction_null",
+        "unused_parameter_direction_null",
+        "second_direction_mixed"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-zero-weight-shared/arrays.npz",
+      "arrays_sha256": "bff9d63c2a456264a02c98c19b3acc981aec0616fbb18d4c909c2d76d18ab08e",
+      "case_path": "fixtures/ragged-zero-weight-shared/case.json",
+      "case_sha256": "04cbe53c9dc0b3e33d478a95d5d121dcc703265eed16493dbcb99a62221055dd",
+      "expected_path": "expected/ragged-zero-weight-shared.npz",
+      "expected_sha256": "8d71a812f850a2768b9e6511f3e6722d7a4afcc098e2a6b5a0260b78ee821d8f",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-zero-weight-shared",
+      "requirements": [
+        "zero_weight_acoustics_exact_zero",
+        "shared_params_survive_zero_weight",
+        "nonuniform_normalized_weights",
+        "ignored_padding"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-eight-utterances/arrays.npz",
+      "arrays_sha256": "1b6288c0858a4356580c80a5a602dc34dafe4ce9830356351d24fa6a2794992c",
+      "case_path": "fixtures/ragged-eight-utterances/case.json",
+      "case_sha256": "fc055e145a9cd8643251612794a3e35d2a5ff291952da8790d50f372ae6eefc8",
+      "expected_path": "expected/ragged-eight-utterances.npz",
+      "expected_sha256": "0c21fae5d49bc30c082e1ddbff056679d9acc7a511f9c5d0323e0278a01036b3",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-eight-utterances",
+      "requirements": [
+        "B8_max_batch",
+        "singleton_zero_length",
+        "strongly_nonuniform_weights",
+        "shared_param_reduction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-small-weight-sensitive/arrays.npz",
+      "arrays_sha256": "cb8aca813d8e2b44e0b47a400ac9d4d65203463b31a2c24054c2e63395312d6f",
+      "case_path": "fixtures/ragged-small-weight-sensitive/case.json",
+      "case_sha256": "edd72cdbfeb5f7e3356a0b1da0a828d614bafbf3fc542d8213fb5ef9bb9e4ca1",
+      "expected_path": "expected/ragged-small-weight-sensitive.npz",
+      "expected_sha256": "02e931c6ec31d45f7997234f6bc3b6cd56be60385223f98e627abdf2dce61526",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-small-weight-sensitive",
+      "requirements": [
+        "small_positive_weight_not_zero",
+        "no_unweighted_batch_mean",
+        "length_mask_per_item"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/representation-state-arc-token/arrays.npz",
+      "arrays_sha256": "af14db216caaa6a5e374063bce49e10cb83b64d65439b75b848ca0e5f6682583",
+      "case_path": "fixtures/representation-state-arc-token/case.json",
+      "case_sha256": "a3be4f6b9de76ade01bd9d652a16a056a11cbea76632da4f69b299b5cc795da3",
+      "expected_path": "expected/representation-state-arc-token.npz",
+      "expected_sha256": "ab4e3e9bea216064758991a9ef7db6b15033167fef1a1250ffafab2df9a9418b",
+      "expected_status": "independent_ready",
+      "family": "equivalent_representation",
+      "id": "representation-state-arc-token",
+      "requirements": [
+        "state_numbering_has_no_semantics",
+        "parallel_arc_order_preserves_mass",
+        "bijective_token_renaming",
+        "input_output_coordinate_identity"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/representation-parameter-ids/arrays.npz",
+      "arrays_sha256": "76ad468fd438d7c91adc8a2f59a0c95476c68819a234a613784e4f65af8b0440",
+      "case_path": "fixtures/representation-parameter-ids/case.json",
+      "case_sha256": "210574f60b9b6909f80e0b10953fc9bdf7083b1a165b0846726b291b6a9c7022",
+      "expected_path": "expected/representation-parameter-ids.npz",
+      "expected_sha256": "62de971018475cb7c187ce3d7224ec1189086962e184029572de7899a5453112",
+      "expected_status": "independent_ready",
+      "family": "equivalent_representation",
+      "id": "representation-parameter-ids",
+      "requirements": [
+        "original_parameter_registry_order",
+        "signed_repeated_terms_remapped",
+        "grad_and_joint_hvp_parameter_coordinates_permuted"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/representation-split-parallel/arrays.npz",
+      "arrays_sha256": "ff87a98d2e0eb953025b199ac5324d6daf7f87a8d94b59019643615cb577c114",
+      "case_path": "fixtures/representation-split-parallel/case.json",
+      "case_sha256": "6c22b68b5149d8b8d92a73b20c9e65a308441e0a47bb3dbcbb9af04f7b9dc45c",
+      "expected_path": "expected/representation-split-parallel.npz",
+      "expected_sha256": "8c8fcf0cb8fc3c820dddbceb070b6ef4ee802a1979be9a1720562676f7fb4d67",
+      "expected_status": "independent_ready",
+      "family": "equivalent_representation",
+      "id": "representation-split-parallel",
+      "requirements": [
+        "parallel_mass_adds",
+        "split_weight_representation_invariance",
+        "both_source_sides_split_independently"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/reuse-identifiers-baseline/arrays.npz",
+      "arrays_sha256": "93944567dd5f99cbaabbb061182027b7cec0e02234516cda2e76b0b035efa239",
+      "case_path": "fixtures/reuse-identifiers-baseline/case.json",
+      "case_sha256": "408b56ba40a3ede1eb69b96b8717334461cf9d639d2acf15f9a387b5d41c164a",
+      "expected_path": "expected/reuse-identifiers-baseline.npz",
+      "expected_sha256": "8b9e22ef2e7076a4567187888d4b64872dd11f389ac1677394c840d63d25dbb1",
+      "expected_status": "independent_ready",
+      "family": "topology_reuse",
+      "id": "reuse-identifiers-baseline",
+      "requirements": [
+        "local_ids_only",
+        "repeated_graph_objects",
+        "no_global_id_result_cache"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/reuse-identifiers-incidence/arrays.npz",
+      "arrays_sha256": "ee8001e10a14879a5fa7ed9a9e4726b4be7d9ed7af694b02f197cfcd5dd9992f",
+      "case_path": "fixtures/reuse-identifiers-incidence/case.json",
+      "case_sha256": "7f7d24e27adc45e3ea7b806e7f8c68b2a5ba8201d398de1876bcaa22372435be",
+      "expected_path": "expected/reuse-identifiers-incidence.npz",
+      "expected_sha256": "c2bd0dfe935b5b7974a0275a282b0b0e078fc5ad83dcef529eea2ab31a844e8d",
+      "expected_status": "independent_ready",
+      "family": "topology_reuse",
+      "id": "reuse-identifiers-incidence",
+      "requirements": [
+        "same_ids_changed_numeric_values",
+        "same_topology_changed_parameter_incidence"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/reuse-identifiers-start-finals/arrays.npz",
+      "arrays_sha256": "10ac450744daf99b8f4cd1ebd5cf8ba2bfaab8542b6a51bdebf514eb7c90511a",
+      "case_path": "fixtures/reuse-identifiers-start-finals/case.json",
+      "case_sha256": "7e491b6d2f8ea3a32bb00edefa860eb4af8c8c836e8cc4403f37fae0bfa17426",
+      "expected_path": "expected/reuse-identifiers-start-finals.npz",
+      "expected_sha256": "ba3bc048a531d2d97fb2b4329aac5209a223a46d6ea09fb77d04a976b065f1b0",
+      "expected_status": "independent_ready",
+      "family": "topology_reuse",
+      "id": "reuse-identifiers-start-finals",
+      "requirements": [
+        "same_ids_changed_start_final_assignments",
+        "topology_values_supplied_each_job"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/stability-T256-moderate-gaps/arrays.npz",
+      "arrays_sha256": "f1880d9ef0e1c98b64f8dcb735be98437a91348c45c1b62ecd4fc0e27b57a392",
+      "case_path": "fixtures/stability-T256-moderate-gaps/case.json",
+      "case_sha256": "8b6d213458fb32eefa232083d15890c4405114f5366b20a4c44b6fb7f7efbd64",
+      "expected_path": "expected/stability-T256-moderate-gaps.npz",
+      "expected_sha256": "b639abbc561346e65f955bb055e209c74ee20fad4539395ffa21be54d321a0ad",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "stability-T256-moderate-gaps",
+      "requirements": [
+        "T256",
+        "scaled_forward_partition",
+        "moderate_logit_gaps",
+        "finite_all_derivatives"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/stability-wide-gap-rare-short/arrays.npz",
+      "arrays_sha256": "5dbf5828fdc497441e51f5e2f1fa53b2c83df31c9a713f37917d7364a0963a53",
+      "case_path": "fixtures/stability-wide-gap-rare-short/case.json",
+      "case_sha256": "95b9ec38df17e4dff9610bd09b226caf606acc8583bf4fe0e79a6c3768cf0884",
+      "expected_path": "expected/stability-wide-gap-rare-short.npz",
+      "expected_sha256": "aeda57d06770f172ce3d817335e2b04af9da78db012eb76e743946d17520eaad",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "stability-wide-gap-rare-short",
+      "requirements": [
+        "wide_raw_logit_separation",
+        "rare_but_valid_numerator",
+        "avoid_rare_path_underflow_at_short_T"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/stability-shift-null-direction/arrays.npz",
+      "arrays_sha256": "ff1305ccdf7dfd9b4c412b813573fc91a7e6d35eaf13516a031bb7713e7a9d9f",
+      "case_path": "fixtures/stability-shift-null-direction/case.json",
+      "case_sha256": "22892d8a200a13abf8942252764efda5890f2e194dfd96d367e58519f34c3574",
+      "expected_path": "expected/stability-shift-null-direction.npz",
+      "expected_sha256": "7d03b50eb2630de451eb87d82e702ffdba582eaa070fadbe8cdc6b1e45f0e597",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "stability-shift-null-direction",
+      "requirements": [
+        "large_common_raw_logit_offset",
+        "constant_frame_shift_direction",
+        "softmax_second_derivative_chain"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/stability-T256-multiphone/arrays.npz",
+      "arrays_sha256": "7a55a2fd9983b32125bfc7698b6149a6f24dae55e2e8f13957388b464b96e539",
+      "case_path": "fixtures/stability-T256-multiphone/case.json",
+      "case_sha256": "3d69dfbc056d0110369a924f6fef3e3e45026c509b0d042d188609afea3e8d5e",
+      "expected_path": "expected/stability-T256-multiphone.npz",
+      "expected_sha256": "40af38e083f72bea00cc79858c240da4da361e5f4e2acb839d05e0442ee18e3b",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "stability-T256-multiphone",
+      "requirements": [
+        "T256_multiphone_branching",
+        "moderate_gaps_no_underflow_trap",
+        "both_sided_epsilon_long_sequence",
+        "trainable_silent_closure"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-pronunciation-training/arrays.npz",
+      "arrays_sha256": "a60e5c344825814e3b00f19c736e30d187d0a1573472cfd94b271fbe08ab0ed0",
+      "case_path": "fixtures/combined-pronunciation-training/case.json",
+      "case_sha256": "019fae6b3ad8bccf1ea0e31f40c6d9a7ec3a45b784bf68ec3bd560af6d78e9d6",
+      "expected_path": "expected/combined-pronunciation-training.npz",
+      "expected_sha256": "a4c4d1a450ff875a722eed4743b59ae39f9b244741b3ea9edc79b352c143b11f",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-pronunciation-training",
+      "requirements": [
+        "both_sided_epsilon",
+        "silent_token_cycles",
+        "parallel_multiphone_pronunciations",
+        "branching_silent_scc",
+        "multiple_finals",
+        "signed_repeated_ties",
+        "K2_mixed",
+        "ragged_nonuniform_zero_weight",
+        "unused_parameters"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-SCC-ragged-context/arrays.npz",
+      "arrays_sha256": "f87592117c0d722e2699e51daa0353d21595db3d0235c2a9a083e1071feeeb92",
+      "case_path": "fixtures/combined-SCC-ragged-context/case.json",
+      "case_sha256": "4dbc5f85227ada5426b21835ca77feb618073342a725d23d5abb47e2efc43871",
+      "expected_path": "expected/combined-SCC-ragged-context.npz",
+      "expected_sha256": "d5b3862fa0438eae96e7459810f1f8a3191aa251859d5ceb6af36715114ba5c3",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-SCC-ragged-context",
+      "requirements": [
+        "silent_scc_16",
+        "T0_positive_cycles",
+        "repeated_silent_visits",
+        "cross_example_ties",
+        "ragged_padding",
+        "K2_mixed",
+        "multiple_accepting_states"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-P384-V12-T24/arrays.npz",
+      "arrays_sha256": "29036fb8b83540fc1a6af25f2a983a04083b0fe09811e96ef8ecc779f65e2726",
+      "case_path": "fixtures/combined-P384-V12-T24/case.json",
+      "case_sha256": "91b7d2d4ce384d43eb1b0eb103a1de5116fd516f0fefeccae3efd7d07aa13b4a",
+      "expected_path": "expected/combined-P384-V12-T24.npz",
+      "expected_sha256": "4ddcbfec15f276e350480e4ead2c215d2c8fd327c9ce081e9c06ce1ddc77e624",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-P384-V12-T24",
+      "requirements": [
+        "P384",
+        "hundreds_active_parameter_coordinates",
+        "parallel_pronunciation_alternatives",
+        "both_sided_epsilon",
+        "silent_token_cycle",
+        "signed_repeated_cross_source_ties",
+        "K2_fully_mixed",
+        "V12_T24",
+        "joint_hvp_not_coordinate_finite_difference"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-distinct-graphs-shared-registry/arrays.npz",
+      "arrays_sha256": "5365d7c31bb7226c6318029d6d7ec01f218c4165a661498fe0ac527added1cf5",
+      "case_path": "fixtures/combined-distinct-graphs-shared-registry/case.json",
+      "case_sha256": "6db46f152e9d5f99eaac6d0f25d7c16fdadf03ccba82b26cab1f4fe06eeb2a4d",
+      "expected_path": "expected/combined-distinct-graphs-shared-registry.npz",
+      "expected_sha256": "2bfc528f06407b29c18f462d3842427a522a4075d057bba9e8d2e66406bf9d39",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-distinct-graphs-shared-registry",
+      "requirements": [
+        "three_distinct_lexicons_and_transcript_grammars",
+        "shared_parameter_registry",
+        "silent_scc_16_and_multiphone_and_selfloops",
+        "ragged_K2_mixed",
+        "nonuniform_weights",
+        "positive_empty_utterance"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-common-weight-scale/arrays.npz",
+      "arrays_sha256": "a1c32d94fac863eecf0fc76d0c0a061dd6610ecd5882dee42ac2add02ecfd599",
+      "case_path": "fixtures/ragged-common-weight-scale/case.json",
+      "case_sha256": "5b1a4efa3637acb2c45e791b3c1f3eb66fd578b78c07affacff65581d008197e",
+      "expected_path": "expected/ragged-common-weight-scale.npz",
+      "expected_sha256": "8d71a812f850a2768b9e6511f3e6722d7a4afcc098e2a6b5a0260b78ee821d8f",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-common-weight-scale",
+      "requirements": [
+        "normalized_weighted_objective",
+        "common_weight_scale_invariance",
+        "shared_graph_parameter_reduction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-padding-variant/arrays.npz",
+      "arrays_sha256": "b36c6a3173b2608f98044ffaa301058e43f52d3537878330c0e3c4c493fd1760",
+      "case_path": "fixtures/combined-padding-variant/case.json",
+      "case_sha256": "e01802b9162070e011605c0c8eacf23692853c4b7fec399b1a87b669c6b069fe",
+      "expected_path": "expected/combined-padding-variant.npz",
+      "expected_sha256": "8997fc7bdde582da5a31b359773e82fa154b15f6ed6207f8ddb56d0045585e85",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-padding-variant",
+      "requirements": [
+        "padded_values_ignored",
+        "padded_directions_ignored",
+        "padding_extension_exact_zero"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-batch-permutation/arrays.npz",
+      "arrays_sha256": "fe0832ccd5bc60b480a3cbca89fb9fb782bc953eed9d704bf7f62b5966dc0363",
+      "case_path": "fixtures/combined-batch-permutation/case.json",
+      "case_sha256": "bda415a46ac9a910c2034fed2f284d4fbcc8d9ae03fa46bd6d96cae91eae5610",
+      "expected_path": "expected/combined-batch-permutation.npz",
+      "expected_sha256": "58482dce3e81297cb19b7f685b3b753ab46de423ad9c5ebf89b3ce94fa26783a",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-batch-permutation",
+      "requirements": [
+        "batch_order_output_mapping",
+        "normalized_ragged_reduction",
+        "shared_parameters_across_items"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/stability-T256-shift-variant/arrays.npz",
+      "arrays_sha256": "5f2c86438b1d8545933fcb39a3ea0548694ccacae931c417de881db656813325",
+      "case_path": "fixtures/stability-T256-shift-variant/case.json",
+      "case_sha256": "26854125539febb63eb2cfe798a595abc96f9ea86d3cbda2b3bb8af9ca65590d",
+      "expected_path": "expected/stability-T256-shift-variant.npz",
+      "expected_sha256": "809974d7ac5d6f29732226c5cc2cc7c22017141ee9c882be05b56d7859f1c6f4",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "stability-T256-shift-variant",
+      "requirements": [
+        "raw_logit_common_shift_invariance",
+        "joint_hvp_same_coordinates"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/provenance-registry-permutation/arrays.npz",
+      "arrays_sha256": "4c8b0cecda2946d05cafff19e312ca8920f04d8da964475518fa88e7ce254c97",
+      "case_path": "fixtures/provenance-registry-permutation/case.json",
+      "case_sha256": "4fe12d25d6ca55f31c7abcfde22ac5f6dbd34585290a9c2295250582dc6eb10a",
+      "expected_path": "expected/provenance-registry-permutation.npz",
+      "expected_sha256": "6c5f5e62c706ca0d69bcd450b5fa5ab5442c631c968d4156ef4388b3722724d7",
+      "expected_status": "independent_ready",
+      "family": "tied_parameter_provenance",
+      "id": "provenance-registry-permutation",
+      "requirements": [
+        "original_parameter_registry_order",
+        "signed_repeated_terms_remapped",
+        "grad_and_joint_hvp_parameter_coordinates_permuted"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/combined-state-token-permutation/arrays.npz",
+      "arrays_sha256": "a60e5c344825814e3b00f19c736e30d187d0a1573472cfd94b271fbe08ab0ed0",
+      "case_path": "fixtures/combined-state-token-permutation/case.json",
+      "case_sha256": "c50db4351a8c72ba225b046d567621dedb2909ffe17678fca058aeb57f0cb42f",
+      "expected_path": "expected/combined-state-token-permutation.npz",
+      "expected_sha256": "d4534aab0faf98ddb09a980355720446248ab405ed05f227e337c7a93f5d25be",
+      "expected_status": "independent_ready",
+      "family": "combined_jobs",
+      "id": "combined-state-token-permutation",
+      "requirements": [
+        "state_numbering_has_no_semantics",
+        "parallel_arc_order_preserves_mass",
+        "bijective_token_renaming",
+        "input_output_coordinate_identity"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-regroup-main/arrays.npz",
+      "arrays_sha256": "596d55b3faa6d8f6deafeb4788b3eed2c5632c7405803ff527e25b079497b3bd",
+      "case_path": "fixtures/ragged-regroup-main/case.json",
+      "case_sha256": "4ae377c9c6bc6b66376c48d0f4582266b65655d02b4277e1295e346639d96b9d",
+      "expected_path": "expected/ragged-regroup-main.npz",
+      "expected_sha256": "869597189e866d5304c971f4dc24ff7c984897d0c25b13e000048d25284d8246",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-regroup-main",
+      "requirements": [
+        "batch_regrouping_weight_fraction",
+        "shared_parameter_registry_across_subbatches",
+        "joint_hvp_mixed_direction_restriction",
+        "ragged_mask_and_scattered_acoustic_coordinates"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-regroup-tail/arrays.npz",
+      "arrays_sha256": "9f1d4f5baca052611039fa3f127f0457ca6cd17efbad61523de2de6e532448af",
+      "case_path": "fixtures/ragged-regroup-tail/case.json",
+      "case_sha256": "284668a0aa575ae9db9700fdf1a46fda97c562ca947fcd805a0ebc9400680ff7",
+      "expected_path": "expected/ragged-regroup-tail.npz",
+      "expected_sha256": "72e16d8985f8e6ef8efb83d88131856e24ad88c5332a00b1efafa1078513e12b",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-regroup-tail",
+      "requirements": [
+        "batch_regrouping_weight_fraction",
+        "shared_parameter_registry_across_subbatches",
+        "joint_hvp_mixed_direction_restriction",
+        "ragged_mask_and_scattered_acoustic_coordinates"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/frames-token-zero-namespace/arrays.npz",
+      "arrays_sha256": "fdf6aca1453be903fd9a1569c8ff6c9a3192a883956e2804521a65cc372f6d2e",
+      "case_path": "fixtures/frames-token-zero-namespace/case.json",
+      "case_sha256": "0f75c271936120e13597f49231e05f3cd0d8904dbf3817414d9723dfc78b373d",
+      "expected_path": "expected/frames-token-zero-namespace.npz",
+      "expected_sha256": "4d8e9cb2f44f90f520cf00f124b7cc051e90259190e3714190ed15cdd30e2b55",
+      "expected_status": "independent_ready",
+      "family": "frame_label_semantics",
+      "id": "frames-token-zero-namespace",
+      "requirements": [
+        "token_zero_is_ordinary_token",
+        "token_and_acoustic_namespaces_distinct"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/ragged-unsorted-utterance-ids/arrays.npz",
+      "arrays_sha256": "47948aabe05b64550030277fcdc1619c711cca913425315673e304423c58a814",
+      "case_path": "fixtures/ragged-unsorted-utterance-ids/case.json",
+      "case_sha256": "dbcd19f39ac932ec75307083d412ef48bc2e7ed262d7ad248408a1b822a4faad",
+      "expected_path": "expected/ragged-unsorted-utterance-ids.npz",
+      "expected_sha256": "d65c71e359442f954cac5763ffbd22af7140aaf416f004b7fc02c7b354edeff0",
+      "expected_status": "independent_ready",
+      "family": "ragged_weighting",
+      "id": "ragged-unsorted-utterance-ids",
+      "requirements": [
+        "input_order_not_lexicographic_id_order",
+        "shared_weighted_ragged_curvature"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/scaled-prefix-pronunciation/arrays.npz",
+      "arrays_sha256": "a60e5c344825814e3b00f19c736e30d187d0a1573472cfd94b271fbe08ab0ed0",
+      "case_path": "fixtures/scaled-prefix-pronunciation/case.json",
+      "case_sha256": "60fa99a2e2c88ea6096bd874fd176df2179a03b821c2753fc3ed8de02920f0e7",
+      "expected_path": "expected/scaled-prefix-pronunciation.npz",
+      "expected_sha256": "a4c4d1a450ff875a722eed4743b59ae39f9b244741b3ea9edc79b352c143b11f",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "scaled-prefix-pronunciation",
+      "requirements": [
+        "silent_path_scaling",
+        "shared_parameter_cancellation",
+        "full_joint_curvature"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/scaled-prefix-sixteen-cycle/arrays.npz",
+      "arrays_sha256": "6330965007340f57ed1c08ffd9acbad2ecd22e5f79b3f58d0c9b664a00e6c6ad",
+      "case_path": "fixtures/scaled-prefix-sixteen-cycle/case.json",
+      "case_sha256": "1ca69ee9f5adc7e6364e00b63d4300ce407861480c3f86dbfc1523da33bbda07",
+      "expected_path": "expected/scaled-prefix-sixteen-cycle.npz",
+      "expected_sha256": "9c0806b74b3d8bbad4b607a4a2ea9543cc2f8f9ff537cf1ff7a9755c645d024c",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "scaled-prefix-sixteen-cycle",
+      "requirements": [
+        "silent_path_scaling",
+        "shared_parameter_cancellation",
+        "full_joint_curvature"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/scaled-bridges-pronunciation/arrays.npz",
+      "arrays_sha256": "a60e5c344825814e3b00f19c736e30d187d0a1573472cfd94b271fbe08ab0ed0",
+      "case_path": "fixtures/scaled-bridges-pronunciation/case.json",
+      "case_sha256": "a2a8f01edc739a58090f5fcbb4f842c0bd3c49e91e0afde116613bad6750ee97",
+      "expected_path": "expected/scaled-bridges-pronunciation.npz",
+      "expected_sha256": "a4c4d1a450ff875a722eed4743b59ae39f9b244741b3ea9edc79b352c143b11f",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "scaled-bridges-pronunciation",
+      "requirements": [
+        "silent_path_scaling",
+        "shared_parameter_cancellation",
+        "full_joint_curvature"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/scaled-bridges-shared-provenance/arrays.npz",
+      "arrays_sha256": "558783af67d242e5566eb9e807bd66d7b862259bdec1c7aa3b4c042ac0199596",
+      "case_path": "fixtures/scaled-bridges-shared-provenance/case.json",
+      "case_sha256": "b32b0d217837d2937006f9ef06c75f41da5c0589ed6f35ce5f085044b931fe7a",
+      "expected_path": "expected/scaled-bridges-shared-provenance.npz",
+      "expected_sha256": "e260e4308450bd2c0f1454ab5d1af8fce8f5934ed3e375667c68478bcd7d6376",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "scaled-bridges-shared-provenance",
+      "requirements": [
+        "silent_path_scaling",
+        "shared_parameter_cancellation",
+        "full_joint_curvature"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-cross64/arrays.npz",
+      "arrays_sha256": "01b65a60ba1754f3dc27490030226d64aa609d0fc562f67473e4e0c4fbbeb441",
+      "case_path": "fixtures/extreme-cross64/case.json",
+      "case_sha256": "39e162859fcc31a2593e4b8020d0862fe93ddbeeca0f88c381ea1891f27e8283",
+      "expected_path": "expected/extreme-cross64.npz",
+      "expected_sha256": "2ce027ee145bc64a006265e8e8af47893f0b62e343b55ed0a2e3c6ba52a19579",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-cross64",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-cross128/arrays.npz",
+      "arrays_sha256": "7e275953d67be03030c8b691ea311f3e3509f3e9b2f36553ebc31cd92c65c961",
+      "case_path": "fixtures/extreme-cross128/case.json",
+      "case_sha256": "aaed61f80e0a1bf815eb22e5d31144884e28d5b8d793c027d08f9b8031832aef",
+      "expected_path": "expected/extreme-cross128.npz",
+      "expected_sha256": "af944e098da0395fc7ec15056b33ac7906559115bdd7f211ae98fb60754235f4",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-cross128",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-cross256/arrays.npz",
+      "arrays_sha256": "37693143ce3b3df23bb8f6321dd4feba2fcce6259536d762802a52f7d6eb3447",
+      "case_path": "fixtures/extreme-cross256/case.json",
+      "case_sha256": "745afe23ed492b7088b91c35eec6427f1821928155b9c1c84965b99b36962b61",
+      "expected_path": "expected/extreme-cross256.npz",
+      "expected_sha256": "1849badc8b94714ee0991bcd2dca27b39502f820b71ffdc2e72786b7196ed6e0",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-cross256",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix36-cross64/arrays.npz",
+      "arrays_sha256": "94786956e4e69235833019a58fb0c2fc03ee4ff887b4341487e9094e7169f2ac",
+      "case_path": "fixtures/extreme-prefix36-cross64/case.json",
+      "case_sha256": "33aa7bb418b677844a5ccf1bba7e95dc8bf742526ddc020eac85239fa5a653ae",
+      "expected_path": "expected/extreme-prefix36-cross64.npz",
+      "expected_sha256": "b1dd3ba2a56a35cf644d997815571f27befbb72cba0619a0e036f6b82ee4c343",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix36-cross64",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix48-cross128/arrays.npz",
+      "arrays_sha256": "63ad662510213a4673d01bdbf3f57b4e92511798ffd813d67c1c80d5152337b3",
+      "case_path": "fixtures/extreme-prefix48-cross128/case.json",
+      "case_sha256": "30589a23308181d43ff2fe49d65bdafc63d73963aa19b4eb6614eb8cbf95bda5",
+      "expected_path": "expected/extreme-prefix48-cross128.npz",
+      "expected_sha256": "5f6f9db0711a45d24b182bd785166da7af42bd2502f2241eb16931f7de909e0f",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix48-cross128",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix60-cross256/arrays.npz",
+      "arrays_sha256": "9a7ea43b44b29097b3639ac739cd1885967e27ae2722fda0c619b6ee02ac3a85",
+      "case_path": "fixtures/extreme-prefix60-cross256/case.json",
+      "case_sha256": "88322ceaef62d87c64ad8fa463c23f03b11d25274eca63f0cdf4e090441fbeea",
+      "expected_path": "expected/extreme-prefix60-cross256.npz",
+      "expected_sha256": "3cdd9d26527b915cd32e874c3612c5634a48b64c053dcc851cc5add5e49b0a12",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix60-cross256",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix40-cross128-30/arrays.npz",
+      "arrays_sha256": "1598ffbf5a493b7f7274116ea05a9143c820fe19e9cce58f2743472ad88f0f5c",
+      "case_path": "fixtures/extreme-prefix40-cross128-30/case.json",
+      "case_sha256": "f571363cafaff5ff22a5b8f85fb1cea7cecff70d5fbfd92c7e680da0b8c2a5f8",
+      "expected_path": "expected/extreme-prefix40-cross128-30.npz",
+      "expected_sha256": "e4618c19d40a3c24a088ca96c77020ae6b356bc15d16edcd0cd0c3ef19bcc052",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix40-cross128-30",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix36-ragged256-zero/arrays.npz",
+      "arrays_sha256": "5afbac5ba4ade75a488b9d9a52ae8f1d8945a49f9217b286c4db64eef06b2d7b",
+      "case_path": "fixtures/extreme-prefix36-ragged256-zero/case.json",
+      "case_sha256": "723b2bbad99e8f3785b9568d892bb136d467b7db7e057109677d87d1c7f6d6e2",
+      "expected_path": "expected/extreme-prefix36-ragged256-zero.npz",
+      "expected_sha256": "653ea28e5449a3f8349ec421a08bd034dbfd7f6c353697f8ed06395810cddf91",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix36-ragged256-zero",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix48-ragged128/arrays.npz",
+      "arrays_sha256": "684fe56b5c4b0bd517418a5502e61a91e739492d9f6eef47017791f17ce0c546",
+      "case_path": "fixtures/extreme-prefix48-ragged128/case.json",
+      "case_sha256": "74ffd5682c89494db70042e14aee1df644be4aa9535a6564d1bf891901b62262",
+      "expected_path": "expected/extreme-prefix48-ragged128.npz",
+      "expected_sha256": "f1f86cd2806a37e68fb51f8ee218c692dfa61c0d9def4754b67ec3e3c7f4a6f7",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix48-ragged128",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    },
+    {
+      "arrays_path": "fixtures/extreme-prefix60-empty-control/arrays.npz",
+      "arrays_sha256": "1dcf42528a4afcafb649ed6d03fc587d95d49e28eb085a791e4ea6989d875b2d",
+      "case_path": "fixtures/extreme-prefix60-empty-control/case.json",
+      "case_sha256": "1bdd87bc12cb3c9e9b35e92e7247de4164e3760c4a06ecae0dd21c82ac0a605f",
+      "expected_path": "expected/extreme-prefix60-empty-control.npz",
+      "expected_sha256": "e2be6644b0dc6c8e51c66bc646167a013cdc2873028dc766db2aadd1253ab823",
+      "expected_status": "independent_ready",
+      "family": "numerical_stability",
+      "id": "extreme-prefix60-empty-control",
+      "requirements": [
+        "viable_low_prefix_branch_recovery",
+        "intra_frame_silent_log_scaling",
+        "both_source_epsilon_pair_identity",
+        "parallel_signed_repeated_terms",
+        "full_joint_curvature",
+        "strict_weighted_language_restriction"
+      ]
+    }
+  ],
+  "expected_policy": "Original RIGHT_FIRST expectations preserved; additions use analytic branch jets or exact common-factor cancellation; general log-semiring RIGHT_FIRST solver and reference cross-check all five arrays.",
+  "family_counts": {
+    "boundaries": 3,
+    "combined_jobs": 7,
+    "epsilon_source_pair_identity": 3,
+    "equivalent_representation": 3,
+    "frame_label_semantics": 4,
+    "genuine_ambiguity": 3,
+    "joint_curvature": 3,
+    "numerical_stability": 19,
+    "ragged_weighting": 7,
+    "silent_cycles": 4,
+    "tied_parameter_provenance": 4,
+    "topology_reuse": 3
+  },
+  "private_cases": 63,
+  "private_generation_status": "instances_validated",
+  "private_scc_work": 1699466,
+  "private_work": 1672581,
+  "public": {
+    "arrays_path": "fixtures/public/arrays.npz",
+    "arrays_sha256": "bd5e942464a5a3336b585050d10dea583fa48205a0c339523996685eb727a5c0",
+    "case_path": "fixtures/public/case.json",
+    "case_sha256": "ebe37509ad5f7587aece0671f0d8c0fab4b0ef4b87aca303b1ff22d9f9f08a17",
+    "expected_path": "expected/public.npz",
+    "expected_sha256": "a72e70aeb14c516910b755cc04bdce8f61b954555f0b5f14ee3e52a5b732fd19",
+    "expected_status": "independent_ready",
+    "family": "public",
+    "id": "public"
+  },
+  "relations": [
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "ambiguity-short-long-pronunciations--representation-state-arc-token",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ],
+        "state_old_to_new": {
+          "('grammars', 2)": [
+            0,
+            1
+          ],
+          "('lexicons', 3)": [
+            1,
+            0,
+            2
+          ]
+        },
+        "token_old_to_new": {
+          "101": 900001,
+          "907": 900138
+        }
+      },
+      "source": "ambiguity-short-long-pronunciations",
+      "target": "representation-state-arc-token",
+      "type": "state_arc_token_permutation"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "provenance-nonlocal-ids--representation-parameter-ids",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "hvp_logits"
+        ],
+        "parameter_new_to_old": [
+          0,
+          46,
+          37,
+          25,
+          10,
+          16,
+          14,
+          13,
+          36,
+          42,
+          40,
+          29,
+          12,
+          34,
+          1,
+          4,
+          51,
+          43,
+          2,
+          30,
+          3,
+          11,
+          7,
+          20,
+          35,
+          44,
+          38,
+          22,
+          49,
+          50,
+          33,
+          6,
+          5,
+          9,
+          17,
+          18,
+          31,
+          48,
+          28,
+          24,
+          47,
+          23,
+          45,
+          32,
+          41,
+          26,
+          39,
+          15,
+          27,
+          52,
+          8,
+          19,
+          21
+        ]
+      },
+      "source": "provenance-nonlocal-ids",
+      "target": "representation-parameter-ids",
+      "type": "parameter_permutation"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "pairs-cyclic-accepting-phases--representation-split-parallel",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ]
+      },
+      "source": "pairs-cyclic-accepting-phases",
+      "target": "representation-split-parallel",
+      "type": "split_parallel_weights"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "ragged-zero-weight-shared--ragged-common-weight-scale",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ],
+        "weight_scale": 1.75
+      },
+      "source": "ragged-zero-weight-shared",
+      "target": "ragged-common-weight-scale",
+      "type": "weight_scale"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-pronunciation-training--combined-padding-variant",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_params",
+          "hvp_params"
+        ],
+        "original_padded_T": 10
+      },
+      "source": "combined-pronunciation-training",
+      "target": "combined-padding-variant",
+      "type": "padding"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-SCC-ragged-context--combined-batch-permutation",
+      "output_mapping": {
+        "batch_new_to_old": [
+          2,
+          0,
+          1
+        ],
+        "identity_fields": [
+          "loss",
+          "grad_params",
+          "hvp_params"
+        ]
+      },
+      "source": "combined-SCC-ragged-context",
+      "target": "combined-batch-permutation",
+      "type": "batch_permutation"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "stability-T256-moderate-gaps--stability-T256-shift-variant",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ],
+        "per_frame_shift_range": [
+          -11.780053876281517,
+          11.814478577612826
+        ]
+      },
+      "source": "stability-T256-moderate-gaps",
+      "target": "stability-T256-shift-variant",
+      "type": "common_logit_shift"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "provenance-repeated-signed-cancellation--provenance-registry-permutation",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "hvp_logits"
+        ],
+        "parameter_new_to_old": [
+          10,
+          4,
+          11,
+          18,
+          19,
+          7,
+          15,
+          12,
+          9,
+          14,
+          5,
+          16,
+          1,
+          8,
+          6,
+          17,
+          13,
+          20,
+          2,
+          0,
+          3
+        ]
+      },
+      "source": "provenance-repeated-signed-cancellation",
+      "target": "provenance-registry-permutation",
+      "type": "parameter_permutation"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-pronunciation-training--combined-state-token-permutation",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ],
+        "state_old_to_new": {
+          "('grammars', 2)": [
+            1,
+            0
+          ],
+          "('lexicons', 3)": [
+            2,
+            1,
+            0
+          ]
+        },
+        "token_old_to_new": {
+          "101": 900138,
+          "907": 900001
+        }
+      },
+      "source": "combined-pronunciation-training",
+      "target": "combined-state-token-permutation",
+      "type": "state_arc_token_permutation"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-pronunciation-training--batch-regrouping",
+      "output_mapping": {
+        "acoustic_fields": "scatter member.weight_fraction * member[field] using batch_indices",
+        "identity_fields": [],
+        "members": [
+          {
+            "batch_indices": [
+              2,
+              0
+            ],
+            "case_id": "ragged-regroup-main",
+            "weight_fraction": 0.7922077922077921,
+            "weight_total": 3.0500000000000003
+          },
+          {
+            "batch_indices": [
+              3,
+              1
+            ],
+            "case_id": "ragged-regroup-tail",
+            "weight_fraction": 0.20779220779220778,
+            "weight_total": 0.8
+          }
+        ],
+        "parameter_coordinates": "shared original registry, never concatenated",
+        "scalar_parameter_fields": "sum member.weight_fraction * member[field]"
+      },
+      "source": "combined-pronunciation-training",
+      "source_weight_total": 3.8500000000000005,
+      "type": "batch_regrouping"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-pronunciation-training--scaled-prefix-pronunciation",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ]
+      },
+      "source": "combined-pronunciation-training",
+      "target": "scaled-prefix-pronunciation",
+      "type": "common_path_factor"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "cycles-sixteen-state-scc--scaled-prefix-sixteen-cycle",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ]
+      },
+      "source": "cycles-sixteen-state-scc",
+      "target": "scaled-prefix-sixteen-cycle",
+      "type": "common_path_factor"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "combined-pronunciation-training--scaled-bridges-pronunciation",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ]
+      },
+      "source": "combined-pronunciation-training",
+      "target": "scaled-bridges-pronunciation",
+      "type": "common_path_factor"
+    },
+    {
+      "expected_status": "independent_agreement",
+      "fields": [
+        "loss",
+        "grad_logits",
+        "grad_params",
+        "hvp_logits",
+        "hvp_params"
+      ],
+      "id": "provenance-cross-utterance-shared--scaled-bridges-shared-provenance",
+      "output_mapping": {
+        "identity_fields": [
+          "loss",
+          "grad_logits",
+          "grad_params",
+          "hvp_logits",
+          "hvp_params"
+        ]
+      },
+      "source": "provenance-cross-utterance-shared",
+      "target": "scaled-bridges-shared-provenance",
+      "type": "common_path_factor"
+    }
+  ],
+  "schema_version": 1
+}

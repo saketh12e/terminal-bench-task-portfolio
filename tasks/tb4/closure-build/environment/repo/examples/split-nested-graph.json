@@ -1,0 +1,420 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-nested-graph",
+  "family": "split-nested",
+  "summary": "A split edge reaches nodes whose own edges split again; one nested branch removes the outer key so both outer branches share a leaf token. The consumer's forest uses static adjacency; the descendant's own closure mode changes only the descendant's inputs.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/sub": {
+        "text": "sub\n",
+        "executable": false
+      },
+      "src/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "src/mid": {
+        "text": "mid\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "sub": {
+      "kind": "emit",
+      "srcs": [
+        "src/sub"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "leaf": {
+      "kind": "compile",
+      "srcs": [
+        "src/leaf"
+      ],
+      "deps": [
+        {
+          "label": "sub",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "k"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "mid": {
+      "kind": "emit",
+      "srcs": [
+        "src/mid"
+      ],
+      "deps": [
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "k": "1"
+                },
+                "unset": [
+                  "v"
+                ]
+              },
+              {
+                "base": "target",
+                "set": {
+                  "k": "2"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app-preorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "mid",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "v": "x"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "v": "y"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app-topological": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "mid",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "v": "x"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "v": "y"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app-postorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "mid",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "v": "x"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "v": "y"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "app-preorder",
+        "app-topological",
+        "app-postorder"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold",
+      "config": {
+        "v": "base"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "mid",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/mid"
+        ],
+        "deps": [
+          {
+            "label": "leaf",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "k": "1"
+                  },
+                  "unset": [
+                    "v"
+                  ]
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "k": "2"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false,
+            "closure": "preorder"
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app-preorder",
+        "app-topological",
+        "app-postorder"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "descendant-preorder",
+      "config": {
+        "v": "base"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "mid",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/mid"
+        ],
+        "deps": [
+          {
+            "label": "leaf",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "k": "1"
+                  },
+                  "unset": [
+                    "v"
+                  ]
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "k": "2"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false,
+            "closure": "topological"
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app-preorder",
+        "app-topological",
+        "app-postorder"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "descendant-equal-topological",
+      "config": {
+        "v": "base"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/sub",
+      "text": "sub v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app-preorder",
+        "app-topological",
+        "app-postorder"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "deep-edit",
+      "config": {
+        "v": "base"
+      }
+    }
+  ]
+}

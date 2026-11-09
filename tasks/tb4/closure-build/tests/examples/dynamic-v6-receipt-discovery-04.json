@@ -1,0 +1,140 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-v6-receipt-discovery-04",
+  "family": "receipt-discovery",
+  "summary": "dynamic-v1 receipt discovery structural witness 4",
+  "dynamic": true,
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/root": {
+        "text": "root\n#forge-edge {\"label\":\"left\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n#forge-edge {\"label\":\"right\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/left": {
+        "text": "left\n#forge-edge {\"label\":\"base\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/right": {
+        "text": "right\n#forge-edge {\"label\":\"base\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/base": {
+        "text": "base\n",
+        "executable": false
+      }
+    }
+  },
+  "rule_defaults": {},
+  "manifest": {
+    "root": {
+      "kind": "emit",
+      "srcs": [
+        "src/root"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "left": {
+      "kind": "emit",
+      "srcs": [
+        "src/left"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "right": {
+      "kind": "emit",
+      "srcs": [
+        "src/right"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "base": {
+      "kind": "emit",
+      "srcs": [
+        "src/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "dynamic-diamond",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "diamond-warm",
+      "roots": [
+        "base",
+        "root"
+      ],
+      "expect": {
+        "status": "ok",
+        "executions": 0,
+        "analyses": 0
+      }
+    }
+  ]
+}

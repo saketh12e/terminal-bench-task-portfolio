@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h30",
+  "family": "file-hazards",
+  "summary": "Selected source content is observed even without a declared config key. The default selected English source changes locale output. Selection determines the effective source list even though the locale rule declares no config_keys.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "assets/locale"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "assets/locale/en.res",
+      "text": "welcome=Welcome home\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "assets/locale"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

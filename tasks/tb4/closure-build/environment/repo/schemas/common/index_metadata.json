@@ -1,0 +1,24 @@
+{
+  "$id": "common/index_metadata.json",
+  "title": "Indexed workspace observation metadata",
+  "type": "object",
+  "required": ["workspace", "epoch", "generation", "journal"],
+  "additionalProperties": false,
+  "properties": {
+    "workspace": {"type": "string", "minLength": 1},
+    "epoch": {"type": "integer", "minimum": 0},
+    "generation": {"type": "integer", "minimum": 0},
+    "journal": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["generation", "paths"],
+        "additionalProperties": false,
+        "properties": {
+          "generation": {"type": "integer", "minimum": 0},
+          "paths": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$id": "rpc/prepare.json",
+  "title": "Atomic publication prepare RPC",
+  "type": "object",
+  "required": ["op", "request_id", "revision", "tree"],
+  "additionalProperties": false,
+  "properties": {
+    "op": {"const": "prepare"},
+    "request_id": true,
+    "revision": true,
+    "tree": true
+  }
+}

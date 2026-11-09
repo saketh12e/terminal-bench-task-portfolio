@@ -1,0 +1,53 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h18",
+  "family": "file-hazards",
+  "summary": "A direct include cycle is distinct from a shared header. Following the same configured include path on the active recursion stack returns include_cycle; a previous common.inc cache observation does not suppress traversal.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "include/base/common.inc",
+      "text": "#include \"common.inc\"\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "include_cycle",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

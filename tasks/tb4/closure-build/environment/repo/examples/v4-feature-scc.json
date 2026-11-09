@@ -1,0 +1,219 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-feature-scc",
+  "family": "v4-features",
+  "summary": "Positive feature SCCs and self-implications terminate at the least closed set. Feature SCCs do not create dependency graph cycles. Alternate SCC entry features produce identical actions. Feature facts are not appended directly to descriptors.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "a": {
+            "enable": [
+              "feature:b"
+            ],
+            "add": {
+              "srcs": [
+                "work/extra"
+              ]
+            }
+          },
+          "b": {
+            "enable": [
+              "feature:c"
+            ],
+            "add": {
+              "deps": [
+                {
+                  "label": "leaf",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ]
+            }
+          },
+          "c": {
+            "enable": [
+              "feature:a"
+            ],
+            "add": {
+              "params": {
+                "prefix": "cycle:"
+              }
+            }
+          },
+          "noop": {
+            "enable": [
+              "feature:noop"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {},
+        "conflicts": [
+          [
+            "a",
+            "a"
+          ]
+        ]
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "positive-scc",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "a"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "alternate-entry",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "c"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "self-implication",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "a",
+            "noop"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "deactivate",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "reactivate",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "b"
+          ],
+          "default_features": true
+        }
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": false
+}

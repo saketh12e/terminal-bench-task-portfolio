@@ -1,0 +1,24 @@
+{
+  "$id": "common/build_result.json",
+  "title": "Coordinator finish result",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["status", "roots"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {"const": "ok"},
+        "roots": {"$ref": "publication_tree.json"}
+      }
+    },
+    {
+      "type": "object",
+      "required": ["status", "code"],
+      "additionalProperties": false,
+      "properties": {
+        "status": {"const": "error"},
+        "code": {"type": "string", "minLength": 1}
+      }
+    }
+  ]
+}

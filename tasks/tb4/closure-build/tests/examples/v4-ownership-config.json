@@ -1,0 +1,321 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-ownership-config",
+  "family": "v4-features-index",
+  "summary": "A planned provider at one configuration cannot own another configuration's include. Split consumers require owners at each exact effective configuration. Manifest-only ownership and source-content changes must be rediscovered while filesystem observations remain reusable.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "work/main": {
+        "text": "#include \"value\"\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "provider": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "export": {
+            "enable": [],
+            "add": {
+              "exports": {
+                "gen/value": "out"
+              }
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      },
+      "select": {
+        "arch": {
+          "arm": {
+            "params": {
+              "prefix": "ARM\n",
+              "suffix": ""
+            }
+          },
+          "*": {}
+        }
+      }
+    },
+    "unit": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "x86"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "provider",
+          "output": "out",
+          "transition": {
+            "base": "target",
+            "set": {
+              "arch": "arm"
+            },
+            "unset": []
+          },
+          "order_only": true,
+          "features": [
+            "export"
+          ],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "wrong-config-owner",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "rule",
+      "label": "app",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "unit",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "arm"
+                  },
+                  "unset": []
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "x86"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          },
+          {
+            "label": "provider",
+            "output": "out",
+            "transition": {
+              "base": "target",
+              "set": {
+                "arch": "arm"
+              },
+              "unset": []
+            },
+            "order_only": true,
+            "features": [
+              "export"
+            ],
+            "default_features": true
+          },
+          {
+            "label": "provider",
+            "output": "out",
+            "transition": {
+              "base": "target",
+              "set": {
+                "arch": "x86"
+              },
+              "unset": []
+            },
+            "order_only": true,
+            "features": [
+              "export"
+            ],
+            "default_features": true
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "both-configs-owned",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-config-owners",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "provider",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "new\n",
+          "suffix": ""
+        },
+        "exports": {},
+        "feature_model": {
+          "default": [],
+          "definitions": {
+            "export": {
+              "enable": [],
+              "add": {
+                "exports": {
+                  "gen/value": "out"
+                }
+              }
+            }
+          },
+          "optional": {},
+          "conflicts": []
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "provider-definition-edit",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": true
+}

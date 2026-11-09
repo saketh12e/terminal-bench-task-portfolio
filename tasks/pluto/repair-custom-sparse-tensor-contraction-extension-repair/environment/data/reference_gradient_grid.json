@@ -1,0 +1,7 @@
+{
+  "run_id": "sparse-contraction-desk-001",
+  "dense_cols": 2,
+  "pattern_ids": ["P001", "P002", "P003", "P004", "P005", "P006"],
+  "max_training_steps": 100,
+  "loss_divergence_threshold": 0.5
+}

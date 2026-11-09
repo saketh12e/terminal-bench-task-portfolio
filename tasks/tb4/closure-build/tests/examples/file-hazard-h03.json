@@ -1,0 +1,52 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h03",
+  "family": "file-hazards",
+  "summary": "Literal tool-link spelling participates in identity. Compiler action keys change because the literal link chain changes; equal tool text yields equal compiled bytes, so the bundler can reuse its action.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "tools/compile",
+      "target": "./compile-v1"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "case_id": "pronunciation-minibatch",
+  "lexicons": {
+    "shared": {
+      "num_states": 3,
+      "start": 2,
+      "finals": [
+        [
+          0,
+          -0.3
+        ],
+        [
+          2,
+          -1.5
+        ]
+      ],
+      "arcs": [
+        {
+          "id": "a-main",
+          "src": 2,
+          "dst": 0,
+          "ilabel": 1,
+          "olabel": 10,
+          "bias": -0.4,
+          "terms": [
+            [
+              0,
+              0.5
+            ],
+            [
+              0,
+              0.25
+            ],
+            [
+              1,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "id": "a-alt",
+          "src": 2,
+          "dst": 0,
+          "ilabel": 1,
+          "olabel": 10,
+          "bias": -1.0,
+          "terms": [
+            [
+              2,
+              -0.25
+            ],
+            [
+              3,
+              0.3
+            ]
+          ]
+        },
+        {
+          "id": "b-main",
+          "src": 2,
+          "dst": 0,
+          "ilabel": 2,
+          "olabel": 20,
+          "bias": -0.2,
+          "terms": [
+            [
+              1,
+              0.3
+            ],
+            [
+              4,
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "blank-before",
+          "src": 2,
+          "dst": 2,
+          "ilabel": 0,
+          "olabel": -1,
+          "bias": -0.9,
+          "terms": [
+            [
+              4,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "id": "blank-after",
+          "src": 0,
+          "dst": 0,
+          "ilabel": 0,
+          "olabel": -1,
+          "bias": -0.7,
+          "terms": [
+            [
+              4,
+              -0.15
+            ]
+          ]
+        },
+        {
+          "id": "optional-before",
+          "src": 2,
+          "dst": 2,
+          "ilabel": -1,
+          "olabel": -1,
+          "bias": -3.0,
+          "terms": [
+            [
+              0,
+              0.15
+            ],
+            [
+              5,
+              0.1
+            ]
+          ]
+        },
+        {
+          "id": "optional-after",
+          "src": 0,
+          "dst": 0,
+          "ilabel": -1,
+          "olabel": -1,
+          "bias": -3.2,
+          "terms": [
+            [
+              1,
+              -0.1
+            ],
+            [
+              5,
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "unvoiced-token",
+          "src": 2,
+          "dst": 0,
+          "ilabel": -1,
+          "olabel": 10,
+          "bias": -3.4,
+          "terms": [
+            [
+              2,
+              0.2
+            ],
+            [
+              6,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "id": "unreachable",
+          "src": 1,
+          "dst": 1,
+          "ilabel": 3,
+          "olabel": 99,
+          "bias": -0.1,
+          "terms": [
+            [
+              7,
+              1.0
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "grammars": {
+    "transcript": {
+      "num_states": 3,
+      "start": 1,
+      "finals": [
+        [
+          0,
+          -0.2
+        ],
+        [
+          2,
+          -1.1
+        ]
+      ],
+      "arcs": [
+        {
+          "id": "pre-silence",
+          "src": 1,
+          "dst": 1,
+          "label": -1,
+          "bias": -3.1,
+          "terms": [
+            [
+              5,
+              0.1
+            ]
+          ]
+        },
+        {
+          "id": "post-silence",
+          "src": 0,
+          "dst": 0,
+          "label": -1,
+          "bias": -3.3,
+          "terms": [
+            [
+              6,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "id": "optional-prefix",
+          "src": 1,
+          "dst": 2,
+          "label": -1,
+          "bias": -3.0,
+          "terms": [
+            [
+              3,
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "token-1-10",
+          "src": 1,
+          "dst": 0,
+          "label": 10,
+          "bias": -0.2,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.0
+            ]
+          ]
+        },
+        {
+          "id": "token-2-10",
+          "src": 2,
+          "dst": 0,
+          "label": 10,
+          "bias": -0.2,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.1
+            ]
+          ]
+        }
+      ]
+    },
+    "unconstrained": {
+      "num_states": 3,
+      "start": 1,
+      "finals": [
+        [
+          0,
+          -0.2
+        ],
+        [
+          2,
+          -1.1
+        ]
+      ],
+      "arcs": [
+        {
+          "id": "pre-silence",
+          "src": 1,
+          "dst": 1,
+          "label": -1,
+          "bias": -3.1,
+          "terms": [
+            [
+              5,
+              0.1
+            ]
+          ]
+        },
+        {
+          "id": "post-silence",
+          "src": 0,
+          "dst": 0,
+          "label": -1,
+          "bias": -3.3,
+          "terms": [
+            [
+              6,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "id": "optional-prefix",
+          "src": 1,
+          "dst": 2,
+          "label": -1,
+          "bias": -3.0,
+          "terms": [
+            [
+              3,
+              0.2
+            ]
+          ]
+        },
+        {
+          "id": "token-1-10",
+          "src": 1,
+          "dst": 0,
+          "label": 10,
+          "bias": -0.2,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.0
+            ]
+          ]
+        },
+        {
+          "id": "token-1-20",
+          "src": 1,
+          "dst": 0,
+          "label": 20,
+          "bias": -0.4,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.0
+            ]
+          ]
+        },
+        {
+          "id": "token-2-10",
+          "src": 2,
+          "dst": 0,
+          "label": 10,
+          "bias": -0.2,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.1
+            ]
+          ]
+        },
+        {
+          "id": "token-2-20",
+          "src": 2,
+          "dst": 0,
+          "label": 20,
+          "bias": -0.4,
+          "terms": [
+            [
+              0,
+              -0.35
+            ],
+            [
+              2,
+              0.15
+            ],
+            [
+              3,
+              0.1
+            ]
+          ]
+        }
+      ]
+    }
+  },
+  "batch": [
+    {
+      "id": "utterance-0",
+      "lexicon": "shared",
+      "numerator": "transcript",
+      "denominator": "unconstrained",
+      "length": 4
+    },
+    {
+      "id": "utterance-1",
+      "lexicon": "shared",
+      "numerator": "transcript",
+      "denominator": "unconstrained",
+      "length": 0
+    },
+    {
+      "id": "utterance-2",
+      "lexicon": "shared",
+      "numerator": "transcript",
+      "denominator": "unconstrained",
+      "length": 3
+    }
+  ]
+}

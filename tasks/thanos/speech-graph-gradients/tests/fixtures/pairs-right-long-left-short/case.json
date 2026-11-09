@@ -1,0 +1,252 @@
+{
+  "batch": [
+    {
+      "denominator": "search",
+      "id": "utt-0",
+      "length": 4,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    }
+  ],
+  "case_id": "pairs-right-long-left-short",
+  "grammars": {
+    "search": {
+      "arcs": [
+        {
+          "bias": -1.25,
+          "dst": 1,
+          "id": "right-prefix-0",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -1.45,
+          "dst": 2,
+          "id": "right-prefix-1",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              1,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -1.65,
+          "dst": 3,
+          "id": "right-prefix-2",
+          "label": -1,
+          "src": 2,
+          "terms": [
+            [
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 3,
+          "id": "a",
+          "label": 11,
+          "src": 3,
+          "terms": [
+            [
+              4,
+              0.5
+            ],
+            [
+              0,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.13,
+          "dst": 3,
+          "id": "b",
+          "label": 29,
+          "src": 3,
+          "terms": [
+            [
+              5,
+              0.55
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          3,
+          -0.15
+        ]
+      ],
+      "num_states": 4,
+      "start": 0
+    },
+    "transcript": {
+      "arcs": [
+        {
+          "bias": -1.25,
+          "dst": 1,
+          "id": "right-prefix-0",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -1.45,
+          "dst": 2,
+          "id": "right-prefix-1",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              1,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -1.65,
+          "dst": 3,
+          "id": "right-prefix-2",
+          "label": -1,
+          "src": 2,
+          "terms": [
+            [
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 3,
+          "id": "a",
+          "label": 11,
+          "src": 3,
+          "terms": [
+            [
+              4,
+              0.5
+            ],
+            [
+              0,
+              -0.3
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          3,
+          -0.15
+        ]
+      ],
+      "num_states": 4,
+      "start": 0
+    }
+  },
+  "lexicons": {
+    "pronunciation": {
+      "arcs": [
+        {
+          "bias": -1.1,
+          "dst": 1,
+          "id": "left-prefix-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 0,
+          "id": "prefix-blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.18,
+          "dst": 1,
+          "id": "pronounced-a",
+          "ilabel": 1,
+          "olabel": 11,
+          "src": 1,
+          "terms": [
+            [
+              0,
+              0.65
+            ],
+            [
+              4,
+              -0.55
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 1,
+          "id": "pronounced-b",
+          "ilabel": 2,
+          "olabel": 29,
+          "src": 1,
+          "terms": [
+            [
+              3,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.28,
+          "dst": 1,
+          "id": "final-blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              7,
+              0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          1,
+          -0.27
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    }
+  },
+  "schema_version": 1
+}

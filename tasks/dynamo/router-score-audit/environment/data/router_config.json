@@ -1,0 +1,58 @@
+{
+  "schema_version": "router-config-v1",
+  "abstain_label": "ABSTAIN",
+  "abstain_margin_micro": 25000,
+  "labels": [
+    {
+      "label_id": "account_access",
+      "verbalizers": [
+        "login reset",
+        "account access",
+        "password reset"
+      ],
+      "prior_micro": -10000
+    },
+    {
+      "label_id": "billing_issue",
+      "verbalizers": [
+        "billing charge",
+        "invoice charge"
+      ],
+      "prior_micro": 20000
+    },
+    {
+      "label_id": "cancel_order",
+      "verbalizers": [
+        "cancel order",
+        "order cancel"
+      ],
+      "prior_micro": -15000
+    },
+    {
+      "label_id": "refund_status",
+      "verbalizers": [
+        "refund status",
+        "return label"
+      ],
+      "prior_micro": 10000
+    },
+    {
+      "label_id": "shipping_delay",
+      "verbalizers": [
+        "shipping delay",
+        "delivery late",
+        "package lost"
+      ],
+      "prior_micro": 5000
+    },
+    {
+      "label_id": "general_help",
+      "verbalizers": [
+        "general help",
+        "store pickup",
+        "gift card"
+      ],
+      "prior_micro": -20000
+    }
+  ]
+}

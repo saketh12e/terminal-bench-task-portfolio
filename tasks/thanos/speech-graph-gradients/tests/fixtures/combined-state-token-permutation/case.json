@@ -1,0 +1,626 @@
+{
+  "batch": [
+    {
+      "denominator": "search",
+      "id": "utt-0",
+      "length": 0,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-1",
+      "length": 3,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-2",
+      "length": 7,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-3",
+      "length": 2,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    }
+  ],
+  "case_id": "combined-state-token-permutation",
+  "grammars": {
+    "search": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 1,
+          "id": "a-in-context0",
+          "label": 900138,
+          "src": 1,
+          "terms": [
+            [
+              13,
+              -0.5
+            ],
+            [
+              2,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.0,
+          "dst": 0,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              2,
+              -0.35
+            ],
+            [
+              10,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.08,
+          "dst": 0,
+          "id": "b-in-context1",
+          "label": 900001,
+          "src": 0,
+          "terms": [
+            [
+              8,
+              0.6
+            ],
+            [
+              1,
+              -0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 0,
+          "id": "a-change-context",
+          "label": 900138,
+          "src": 1,
+          "terms": [
+            [
+              5,
+              0.4
+            ],
+            [
+              1,
+              -0.55
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 1,
+          "id": "a-in-context1",
+          "label": 900138,
+          "src": 0,
+          "terms": [
+            [
+              9,
+              -0.25
+            ],
+            [
+              3,
+              0.65
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 0,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              14,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.27,
+          "dst": 1,
+          "id": "b-in-context0",
+          "label": 900001,
+          "src": 1,
+          "terms": [
+            [
+              14,
+              0.4
+            ],
+            [
+              5,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -2.95,
+          "dst": 1,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              0.3
+            ],
+            [
+              0,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.65
+        ],
+        [
+          1,
+          -0.12
+        ]
+      ],
+      "num_states": 2,
+      "start": 1
+    },
+    "transcript": {
+      "arcs": [
+        {
+          "bias": -2.95,
+          "dst": 1,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              13,
+              0.3
+            ],
+            [
+              0,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 1,
+          "id": "a-in-context1",
+          "label": 900138,
+          "src": 0,
+          "terms": [
+            [
+              9,
+              -0.25
+            ],
+            [
+              3,
+              0.65
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 0,
+          "id": "a-change-context",
+          "label": 900138,
+          "src": 1,
+          "terms": [
+            [
+              5,
+              0.4
+            ],
+            [
+              1,
+              -0.55
+            ]
+          ]
+        },
+        {
+          "bias": -0.15,
+          "dst": 1,
+          "id": "a-in-context0",
+          "label": 900138,
+          "src": 1,
+          "terms": [
+            [
+              13,
+              -0.5
+            ],
+            [
+              2,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.0,
+          "dst": 0,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              2,
+              -0.35
+            ],
+            [
+              10,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 0,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              14,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.65
+        ],
+        [
+          1,
+          -0.12
+        ]
+      ],
+      "num_states": 2,
+      "start": 1
+    }
+  },
+  "lexicons": {
+    "pronunciation": {
+      "arcs": [
+        {
+          "bias": -0.62,
+          "dst": 1,
+          "id": "word-a-accent",
+          "ilabel": 2,
+          "olabel": 900138,
+          "src": 2,
+          "terms": [
+            [
+              3,
+              0.3
+            ],
+            [
+              8,
+              -0.65
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 2,
+          "id": "word-a-tail",
+          "ilabel": 2,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              2,
+              0.35
+            ],
+            [
+              4,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.65,
+          "dst": 2,
+          "id": "word-b-tail",
+          "ilabel": 3,
+          "olabel": 900001,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              -0.3
+            ],
+            [
+              7,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -2.8000000000000003,
+          "dst": 2,
+          "id": "unvoiced-word-a",
+          "ilabel": -1,
+          "olabel": 900138,
+          "src": 2,
+          "terms": [
+            [
+              0,
+              -0.25
+            ],
+            [
+              6,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 2,
+          "id": "word-a-duplicate-path",
+          "ilabel": 1,
+          "olabel": 900138,
+          "src": 2,
+          "terms": [
+            [
+              2,
+              -0.45
+            ],
+            [
+              1,
+              -0.2
+            ],
+            [
+              1,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 2,
+          "id": "word-a-short",
+          "ilabel": 1,
+          "olabel": 900138,
+          "src": 2,
+          "terms": [
+            [
+              2,
+              -0.45
+            ],
+            [
+              1,
+              -0.2
+            ],
+            [
+              1,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.2,
+          "dst": 0,
+          "id": "silence-between-phones",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              11,
+              -0.3
+            ],
+            [
+              4,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -3.1,
+          "dst": 0,
+          "id": "enter-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              9,
+              -0.45
+            ],
+            [
+              0,
+              0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.48,
+          "dst": 1,
+          "id": "repeat-same-token",
+          "ilabel": 1,
+          "olabel": 900138,
+          "src": 1,
+          "terms": [
+            [
+              6,
+              -0.4
+            ],
+            [
+              1,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.35,
+          "dst": 2,
+          "id": "between-words-blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              0,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -3.2,
+          "dst": 2,
+          "id": "unvoiced-word-b",
+          "ilabel": -1,
+          "olabel": 900001,
+          "src": 1,
+          "terms": [
+            [
+              5,
+              0.3
+            ],
+            [
+              7,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -2.85,
+          "dst": 2,
+          "id": "leave-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              0.25
+            ],
+            [
+              10,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 0,
+          "id": "silence-blank-frame",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.3
+            ],
+            [
+              10,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 0,
+          "id": "silent-self-optional",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              9,
+              0.2
+            ],
+            [
+              9,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.3,
+          "dst": 1,
+          "id": "word-a-begin",
+          "ilabel": 1,
+          "olabel": 900138,
+          "src": 2,
+          "terms": [
+            [
+              0,
+              -0.25
+            ],
+            [
+              3,
+              0.55
+            ]
+          ]
+        },
+        {
+          "bias": -3.0500000000000003,
+          "dst": 1,
+          "id": "resume-tail",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              -0.5
+            ],
+            [
+              12,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.15,
+          "dst": 2,
+          "id": "word-b",
+          "ilabel": 3,
+          "olabel": 900001,
+          "src": 2,
+          "terms": [
+            [
+              3,
+              -0.5
+            ],
+            [
+              5,
+              0.6
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          1,
+          -0.75
+        ],
+        [
+          2,
+          -0.2
+        ]
+      ],
+      "num_states": 3,
+      "start": 2
+    }
+  },
+  "schema_version": 1
+}

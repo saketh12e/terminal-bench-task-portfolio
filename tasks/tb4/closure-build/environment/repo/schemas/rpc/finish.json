@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/finish.json",
+  "title": "Final coordinator result RPC",
+  "type": "object",
+  "required": ["op", "result"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "finish"}, "result": true}
+}

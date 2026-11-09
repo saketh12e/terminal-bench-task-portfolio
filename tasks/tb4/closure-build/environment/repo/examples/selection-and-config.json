@@ -1,0 +1,203 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "selection-and-config",
+  "family": "selection-and-config",
+  "summary": "Absent/empty declared configuration, deduplicated declarations, effective selected fields, unused config identity and demand-scoped selection errors.",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "compile",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "mode",
+        "mode"
+      ],
+      "tool": "tools/compile",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "select": {
+        "mode": {
+          "debug": {
+            "params": {
+              "prefix": "debug",
+              "suffix": ""
+            }
+          },
+          "*": {
+            "params": {
+              "prefix": "release",
+              "suffix": ""
+            }
+          }
+        }
+      }
+    },
+    "irrelevant": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/emit",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {
+        "unused/out": "out"
+      },
+      "select": {
+        "platform": {
+          "special": {
+            "srcs": [
+              "does-not-exist"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "absent-mode",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "empty-mode",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": ""
+      }
+    },
+    {
+      "op": "build",
+      "name": "debug",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "debug"
+      }
+    },
+    {
+      "op": "build",
+      "name": "unused-config",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "debug",
+        "unused": "different"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "irrelevant",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/emit",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {
+          "unused/out": "out"
+        },
+        "select": {
+          "platform": {
+            "other": {
+              "srcs": [
+                "also-not-present"
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "unreachable-select-miss",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "debug"
+      }
+    },
+    {
+      "op": "build",
+      "name": "demand-select-miss",
+      "roots": [
+        "irrelevant"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "select_miss",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

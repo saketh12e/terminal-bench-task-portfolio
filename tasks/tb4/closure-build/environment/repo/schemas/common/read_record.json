@@ -1,0 +1,26 @@
+{
+  "$id": "common/read_record.json",
+  "title": "Successful workspace read observation",
+  "type": "object",
+  "required": ["path", "resolved", "chain", "exists"],
+  "additionalProperties": false,
+  "properties": {
+    "path": {"type": "string", "minLength": 1},
+    "resolved": {"type": "string"},
+    "chain": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["path", "target"],
+        "additionalProperties": false,
+        "properties": {
+          "path": {"type": "string", "minLength": 1},
+          "target": {"type": "string"}
+        }
+      }
+    },
+    "exists": {"type": "boolean"},
+    "text": {"type": "string"},
+    "executable": {"type": "boolean"}
+  }
+}

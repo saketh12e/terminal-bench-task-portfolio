@@ -1,0 +1,309 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-recovery",
+  "family": "v4-features-index",
+  "summary": "New optional reads from unfinished attempts may repeat, while previously completed baseline records must remain retained. All three deterministic cuts preserve cache and publication semantics. A-B-A journals invalidate even when final bytes match. Completed empty-root requests retain prior undemanded observations. Truncate advances epoch and permits cold index reads.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "compile",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "extra": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/extra"
+              ]
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "on": {
+            "enable": [
+              "dep:child"
+            ],
+            "add": {}
+          },
+          "weak": {
+            "enable": [
+              "child?/extra"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "child": {
+            "label": "leaf",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": false
+          }
+        },
+        "conflicts": []
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "completed-baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "new-read-cut",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      },
+      "crashes": [
+        {
+          "point": "after_execute",
+          "match": {
+            "kind": "compile"
+          }
+        },
+        {
+          "point": "after_prepare"
+        },
+        {
+          "point": "after_commit"
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "retained-after-cuts",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/extra",
+      "text": "extra changed\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "receipt-only",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      },
+      "crashes": [
+        {
+          "point": "after_execute"
+        }
+      ],
+      "retry": false
+    },
+    {
+      "op": "write",
+      "path": "work/extra",
+      "text": "extra\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "journal-aba-retry",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "committed-unfinished",
+      "roots": [
+        "app"
+      ],
+      "expect": {},
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      },
+      "crashes": [
+        {
+          "point": "after_commit"
+        }
+      ],
+      "retry": false
+    },
+    {
+      "op": "build",
+      "name": "empty-roots",
+      "roots": [],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "retained-undemanded",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "state_fault",
+      "fault": "truncate"
+    },
+    {
+      "op": "build",
+      "name": "explicit-epoch-reset",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "weak",
+            "on"
+          ],
+          "default_features": true
+        }
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": true
+}

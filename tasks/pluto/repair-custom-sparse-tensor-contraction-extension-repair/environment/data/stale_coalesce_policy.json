@@ -1,0 +1,20 @@
+{
+  "case_id": "sparse-contraction-desk-stale",
+  "active_patterns": ["P001"],
+  "pattern_dependency_graph": {
+    "expected_closure": ["P001"],
+    "edges": []
+  },
+  "patterns": [
+    {
+      "pattern_id": "P001",
+      "rows": 3,
+      "cols": 4,
+      "row": [0, 0, 1, 2],
+      "col": [0, 0, 2, 1],
+      "val": [1.0, 2.0, -1.0, 0.5],
+      "dense": [1.0, 0.0, 0.0, 1.0, 0.5, 0.5, 1.0, 0.0],
+      "target_out": [3.0, 0.0, -0.5, 0.5, 0.25, 0.25]
+    }
+  ]
+}

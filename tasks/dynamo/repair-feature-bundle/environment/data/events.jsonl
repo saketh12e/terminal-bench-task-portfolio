@@ -1,0 +1,11 @@
+{"record_id":"n-click-1","revision":1,"entity_id":"north","event_ms":1000,"available_ms":1000,"ingest_seq":9,"kind":"click","amount":0.0,"target":null}
+{"record_id":"n-buy-1","revision":1,"entity_id":"north","event_ms":1200,"available_ms":1200,"ingest_seq":10,"kind":"purchase","amount":4.0,"target":null}
+{"record_id":"n-dec-1","revision":1,"entity_id":"north","event_ms":1300,"available_ms":1300,"ingest_seq":11,"kind":"decision","amount":0.0,"target":1}
+{"record_id":"h-click-1","revision":1,"entity_id":"hazel","event_ms":900,"available_ms":900,"ingest_seq":2,"kind":"click","amount":0.0,"target":null}
+{"record_id":"h-ref-1","revision":1,"entity_id":"hazel","event_ms":1100,"available_ms":1100,"ingest_seq":3,"kind":"refund","amount":1.0,"target":null}
+{"record_id":"h-dec-1","revision":1,"entity_id":"hazel","event_ms":1300,"available_ms":1300,"ingest_seq":4,"kind":"decision","amount":0.0,"target":0}
+{"record_id":"n-click-1","revision":2,"entity_id":"north","event_ms":1000,"available_ms":1100,"ingest_seq":12,"kind":"click","amount":0.0,"target":null}
+{"record_id":"r-click-1","revision":1,"entity_id":"rivulet","event_ms":100,"available_ms":100,"ingest_seq":1,"kind":"click","amount":0.0,"target":null}
+{"record_id":"r-dec-1","revision":1,"entity_id":"rivulet","event_ms":1300,"available_ms":1300,"ingest_seq":5,"kind":"decision","amount":0.0,"target":1}
+{"record_id":"s-click-1","revision":1,"entity_id":"south","event_ms":1100,"available_ms":1100,"ingest_seq":6,"kind":"refund","amount":0.0,"target":null}
+{"record_id":"s-dec-1","revision":1,"entity_id":"south","event_ms":1500,"available_ms":1500,"ingest_seq":7,"kind":"decision","amount":0.0,"target":0}

@@ -1,0 +1,608 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-release-lifecycle",
+  "family": "closure-release",
+  "summary": "A release image collects split target variants whose codec shares one host tool token; generated ABI headers follow each branch configuration. Order-only policy edits, generated edits, cache damage, cuts, supersession and garbage state compose.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/runtime": {
+        "text": "runtime\n",
+        "executable": false
+      },
+      "src/hosttool": {
+        "text": "hosttool\n",
+        "executable": false
+      },
+      "src/codec": {
+        "text": "#include \"abi\"\ncodec\n",
+        "executable": false
+      },
+      "src/policy": {
+        "text": "policy\n",
+        "executable": false
+      },
+      "src/app": {
+        "text": "app\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "abi": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {
+        "gen/abi": "out"
+      },
+      "select": {
+        "arch": {
+          "arm": {
+            "params": {
+              "prefix": "abi arm\n",
+              "suffix": ""
+            }
+          },
+          "*": {
+            "params": {
+              "prefix": "abi generic\n",
+              "suffix": ""
+            }
+          }
+        }
+      }
+    },
+    "runtime": {
+      "kind": "compile",
+      "srcs": [
+        "src/runtime"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "hosttool": {
+      "kind": "emit",
+      "srcs": [
+        "src/hosttool"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "codec": {
+      "kind": "emit",
+      "srcs": [
+        "src/codec"
+      ],
+      "deps": [
+        {
+          "label": "runtime",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "hosttool",
+          "output": "out",
+          "transition": "host",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "policy": {
+      "kind": "emit",
+      "srcs": [
+        "src/policy"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "src/app"
+      ],
+      "deps": [
+        {
+          "label": "codec",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "runtime",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "policy",
+          "output": "out",
+          "transition": "target",
+          "order_only": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "image": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "app",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "x86"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "sdk": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "app",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        },
+        {
+          "label": "policy",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              "target"
+            ]
+          },
+          "order_only": true,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "listing": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "app",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        },
+        {
+          "label": "runtime",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "listing",
+        "sdk",
+        "image"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "warm",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "write",
+      "path": "src/policy",
+      "text": "policy v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "order-only-edit",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "rule",
+      "label": "abi",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {
+          "gen/abi": "out"
+        },
+        "select": {
+          "arch": {
+            "arm": {
+              "params": {
+                "prefix": "abi arm v2\n",
+                "suffix": ""
+              }
+            },
+            "*": {
+              "params": {
+                "prefix": "abi generic\n",
+                "suffix": ""
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "arm-generated-edit",
+      "crashes": [
+        {
+          "point": "after_execute",
+          "match": {
+            "observes": "gen/abi"
+          }
+        },
+        {
+          "point": "after_prepare"
+        }
+      ],
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "cache_fault",
+      "fault": "corrupt_blob",
+      "match": {
+        "source": "src/runtime"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "runtime-cache-repair",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "write",
+      "path": "src/hosttool",
+      "text": "hosttool v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "name": "abandoned-prepare",
+      "crashes": [
+        {
+          "point": "after_prepare"
+        }
+      ],
+      "retry": false,
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "rule",
+      "label": "image",
+      "rule": {
+        "kind": "bundle",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "app",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "x86"
+                  },
+                  "unset": []
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "arch": "arm"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false,
+            "closure": "topological"
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "superseding-reorder",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    },
+    {
+      "op": "state_fault",
+      "fault": "garbage"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "image",
+        "sdk",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "garbage-state",
+      "config": {
+        "arch": "target"
+      },
+      "host": {
+        "arch": "host"
+      },
+      "environment": {}
+    }
+  ]
+}

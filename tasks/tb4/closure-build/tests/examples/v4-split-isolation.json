@@ -1,0 +1,230 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-split-isolation",
+  "family": "v4-features",
+  "summary": "Split child facts are isolated by full configuration. Repeated host branches share facts but retain ordinary input occurrences. Host convergence merges features and OR defaults with an existing target branch. Unused configuration changes node identity even when some action descriptors share keys.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "work/red": {
+        "text": "red\n",
+        "executable": false
+      },
+      "work/blue": {
+        "text": "blue\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "defaulted"
+        ],
+        "definitions": {
+          "red": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/red"
+              ]
+            }
+          },
+          "blue": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/blue"
+              ]
+            }
+          },
+          "defaulted": {
+            "enable": [],
+            "add": {
+              "params": {
+                "prefix": "default:"
+              }
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "x86"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "features": [
+            "red"
+          ],
+          "default_features": false
+        },
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "base": "target",
+            "set": {
+              "arch": "arm"
+            },
+            "unset": []
+          },
+          "order_only": false,
+          "features": [
+            "blue"
+          ],
+          "default_features": true
+        },
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              "host"
+            ]
+          },
+          "order_only": false,
+          "features": [
+            "blue"
+          ],
+          "default_features": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "split-disjoint",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "build",
+      "name": "host-converges",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "arm"
+      }
+    },
+    {
+      "op": "build",
+      "name": "host-disjoint-again",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "host": {
+        "arch": "host"
+      }
+    },
+    {
+      "op": "build",
+      "name": "config-noise",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "unused": "new"
+      },
+      "host": {
+        "arch": "host"
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": false
+}

@@ -1,0 +1,151 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-index-negative-probes",
+  "family": "v4-index",
+  "summary": "Absent records are retained observations. Creating earlier candidates invalidates negative probes and changes include precedence. Unobserved later candidates need no read while an earlier source wins. Deleting the winner reuses valid negatives and reads invalidated fallback paths.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/main": {
+        "text": "#include? \"h\"\nmain\n",
+        "executable": false
+      },
+      "work/other": {
+        "text": "other\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "work/first",
+        "work/last"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "all-missing",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "missing-retained",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/last/h",
+      "text": "last\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "late-created",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/first/h",
+      "text": "first\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "earlier-created",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/last/h",
+      "text": "unobserved change\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "earlier-still-wins",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "delete",
+      "path": "work/first/h"
+    },
+    {
+      "op": "build",
+      "name": "fallback-changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "delete",
+      "path": "work/last/h"
+    },
+    {
+      "op": "build",
+      "name": "all-missing-again",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": false,
+  "indexed": true
+}

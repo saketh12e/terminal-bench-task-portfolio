@@ -1,0 +1,226 @@
+{
+  "batch": [
+    {
+      "denominator": "d",
+      "id": "b",
+      "length": 2,
+      "lexicon": "l",
+      "numerator": "n"
+    }
+  ],
+  "case_id": "frames-token-zero-namespace",
+  "grammars": {
+    "d": {
+      "arcs": [
+        {
+          "bias": -2.6,
+          "dst": 1,
+          "id": "right_eps",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "bias": -0.5,
+          "dst": 2,
+          "id": "epsilon_route_token",
+          "label": 0,
+          "src": 1,
+          "terms": [
+            [
+              2,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.6,
+          "dst": 2,
+          "id": "direct_token",
+          "label": 8,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -2.5,
+          "dst": 3,
+          "id": "final_eps",
+          "label": -1,
+          "src": 2,
+          "terms": [
+            [
+              3,
+              0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          2,
+          -0.2
+        ],
+        [
+          3,
+          -0.5
+        ]
+      ],
+      "num_states": 4,
+      "start": 0
+    },
+    "n": {
+      "arcs": [
+        {
+          "bias": -2.6,
+          "dst": 1,
+          "id": "right_eps",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "bias": -0.5,
+          "dst": 2,
+          "id": "epsilon_route_token",
+          "label": 0,
+          "src": 1,
+          "terms": [
+            [
+              2,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -2.5,
+          "dst": 3,
+          "id": "final_eps",
+          "label": -1,
+          "src": 2,
+          "terms": [
+            [
+              3,
+              0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          2,
+          -0.2
+        ],
+        [
+          3,
+          -0.5
+        ]
+      ],
+      "num_states": 4,
+      "start": 0
+    }
+  },
+  "lexicons": {
+    "l": {
+      "arcs": [
+        {
+          "bias": -2.3,
+          "dst": 1,
+          "id": "left_eps",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "epsilon_route_token",
+          "ilabel": 1,
+          "olabel": 0,
+          "src": 1,
+          "terms": [
+            [
+              1,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "direct_token",
+          "ilabel": 1,
+          "olabel": 8,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -2.3,
+          "dst": 0,
+          "id": "prefix_blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              0.2
+            ]
+          ]
+        },
+        {
+          "bias": -2.2,
+          "dst": 2,
+          "id": "suffix_blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              4,
+              -0.2
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          1,
+          -0.3
+        ],
+        [
+          2,
+          -0.8
+        ]
+      ],
+      "num_states": 3,
+      "start": 0
+    }
+  },
+  "schema_version": 1
+}

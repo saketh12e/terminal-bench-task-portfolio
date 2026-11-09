@@ -1,0 +1,5 @@
+{
+  "segment_delimiter": "|",
+  "segment_names": ["pattern_id", "row", "col", "nnz_index"],
+  "digest_hex_length": 16
+}

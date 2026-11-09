@@ -1,0 +1,252 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-merge-order",
+  "family": "v4-features",
+  "summary": "Feature additions append list fields with occurrences and update map keys in lexical feature order. Later params override exact keys while earlier suffix keys survive. Feature-added exports own generated includes only after static planning. Added env/config declarations affect action identity and distinguish absent from empty. Feature-added include directories resolve a real include; duplicate declarations retain first-occurrence semantics. Later feature exports overwrite an earlier mapping to a different output of the same provider.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "#include \"piece\"\nextra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "work/main": {
+        "text": "#include \"value\"\nmain\n",
+        "executable": false
+      },
+      "work/inc/piece": {
+        "text": "included piece\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "provider": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out",
+        "aux"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "base:",
+        "suffix": ":base"
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "zulu": {
+            "enable": [],
+            "add": {
+              "params": {
+                "prefix": "Z:"
+              },
+              "exports": {
+                "gen/value": "aux"
+              }
+            }
+          },
+          "alpha": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/extra"
+              ],
+              "params": {
+                "prefix": "A:",
+                "suffix": ":A"
+              },
+              "deps": [
+                {
+                  "label": "leaf",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ],
+              "include_dirs": [
+                "work/inc"
+              ],
+              "env": [
+                "FLAGS",
+                "FLAGS"
+              ],
+              "config_keys": [
+                "arch",
+                "arch"
+              ],
+              "exports": {
+                "gen/value": "out"
+              }
+            }
+          },
+          "middle": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/base"
+              ],
+              "deps": [
+                {
+                  "label": "leaf",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ]
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [
+        {
+          "label": "provider",
+          "output": "out",
+          "transition": "target",
+          "order_only": true,
+          "features": [
+            "zulu",
+            "middle",
+            "alpha"
+          ],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "lexical-merge",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "arm"
+      },
+      "environment": {
+        "FLAGS": "one"
+      }
+    },
+    {
+      "op": "build",
+      "name": "environment-change",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "arm"
+      },
+      "environment": {
+        "FLAGS": "two"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/base",
+      "text": "base edited\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "added-source-edit",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "arm"
+      }
+    },
+    {
+      "op": "build",
+      "name": "present-empty-config",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": ""
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": false
+}

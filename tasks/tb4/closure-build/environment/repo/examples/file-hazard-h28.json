@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h28",
+  "family": "file-hazards",
+  "summary": "A directory-component link changes the terminal include. The same requested path now resolves through a directory alias to the compatibility platform. File-only symlink handling would miss the change.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/platform-link",
+      "target": "compat"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

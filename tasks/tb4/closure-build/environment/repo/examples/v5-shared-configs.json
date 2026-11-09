@@ -1,0 +1,378 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v5-shared-configs",
+  "family": "provider-resolution",
+  "summary": "One group binds both configured instances; host demand excludes the target-local cheap candidate.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "tool-v5\n",
+        "executable": true
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      },
+      "src/x": {
+        "text": "x\n",
+        "executable": false
+      },
+      "src/y": {
+        "text": "y\n",
+        "executable": false
+      },
+      "src/z": {
+        "text": "z\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "consumer",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              "host"
+            ]
+          },
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "consumer": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "use"
+        ],
+        "definitions": {
+          "use": {
+            "enable": [
+              "dep:p"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p": {
+            "choice": "G"
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "provider": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "A": {
+            "enable": [],
+            "add": {
+              "params": {
+                "pick": "A"
+              }
+            }
+          },
+          "B": {
+            "enable": [],
+            "add": {
+              "params": {
+                "pick": "B"
+              }
+            }
+          },
+          "banA": {
+            "enable": [],
+            "add": {}
+          }
+        },
+        "optional": {},
+        "conflicts": [
+          [
+            "A",
+            "banA"
+          ]
+        ]
+      },
+      "select": {
+        "arch": {
+          "target": {},
+          "host": {
+            "feature_model": {
+              "default": [
+                "banA"
+              ],
+              "definitions": {
+                "A": {
+                  "enable": [],
+                  "add": {
+                    "params": {
+                      "pick": "A"
+                    }
+                  }
+                },
+                "B": {
+                  "enable": [],
+                  "add": {
+                    "params": {
+                      "pick": "B"
+                    }
+                  }
+                },
+                "banA": {
+                  "enable": [],
+                  "add": {}
+                }
+              },
+              "optional": {},
+              "conflicts": [
+                [
+                  "A",
+                  "banA"
+                ]
+              ]
+            }
+          }
+        }
+      }
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "x": {
+      "kind": "emit",
+      "srcs": [
+        "src/x"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "y": {
+      "kind": "emit",
+      "srcs": [
+        "src/y"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "z": {
+      "kind": "emit",
+      "srcs": [
+        "src/z"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {
+      "arch": "target"
+    },
+    "host": {
+      "arch": "host"
+    },
+    "environment": {},
+    "resolution": {
+      "groups": {
+        "G": [
+          {
+            "id": "cheap",
+            "edge": {
+              "label": "provider",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [
+                "A"
+              ],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "shared",
+            "edge": {
+              "label": "provider",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [
+                "B"
+              ],
+              "default_features": true
+            },
+            "cost": 3,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ]
+      },
+      "budgets": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "choose",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "resolution_planning": true,
+  "feature_planning": true,
+  "indexed": false
+}

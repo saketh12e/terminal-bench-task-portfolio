@@ -1,0 +1,6 @@
+order_id,line_id,sku,currency,total_discount,total_adjustment,discount_basis,adjustment_basis
+H100,L1,SKU-KAPPA,USD,-0.05,-0.01,gross,quantity
+H200,L1,SKU-LAMBDA,USD,-0.10,0.02,quantity,gross
+H300,L1,SKU-MU,USD,-0.25,0.00,quantity,quantity
+H400,L1,SKU-NU,USD,-0.01,0.00,equal,quantity
+H500,L1,SKU-SET,USD,-0.03,0.05,equal,gross

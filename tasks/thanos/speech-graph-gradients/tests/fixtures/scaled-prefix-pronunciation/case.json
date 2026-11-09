@@ -1,0 +1,2562 @@
+{
+  "batch": [
+    {
+      "denominator": "search",
+      "id": "utt-0",
+      "length": 0,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-1",
+      "length": 3,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-2",
+      "length": 7,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    },
+    {
+      "denominator": "search",
+      "id": "utt-3",
+      "length": 2,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    }
+  ],
+  "case_id": "scaled-prefix-pronunciation",
+  "grammars": {
+    "search": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a-in-context0",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              0.6
+            ],
+            [
+              13,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 1,
+          "id": "a-change-context",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.55
+            ],
+            [
+              5,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.27,
+          "dst": 0,
+          "id": "b-in-context0",
+          "label": 907,
+          "src": 0,
+          "terms": [
+            [
+              5,
+              -0.45
+            ],
+            [
+              14,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "a-in-context1",
+          "label": 101,
+          "src": 1,
+          "terms": [
+            [
+              3,
+              0.65
+            ],
+            [
+              9,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -0.08,
+          "dst": 1,
+          "id": "b-in-context1",
+          "label": 907,
+          "src": 1,
+          "terms": [
+            [
+              1,
+              -0.35
+            ],
+            [
+              8,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": -3.0,
+          "dst": 1,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              10,
+              0.5
+            ],
+            [
+              2,
+              -0.35
+            ]
+          ]
+        },
+        {
+          "bias": -2.95,
+          "dst": 0,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              0,
+              -0.4
+            ],
+            [
+              13,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 1,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              14,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.12
+        ],
+        [
+          1,
+          -0.65
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    },
+    "transcript": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a-in-context0",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              0.6
+            ],
+            [
+              13,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.63,
+          "dst": 1,
+          "id": "a-change-context",
+          "label": 101,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.55
+            ],
+            [
+              5,
+              0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "a-in-context1",
+          "label": 101,
+          "src": 1,
+          "terms": [
+            [
+              3,
+              0.65
+            ],
+            [
+              9,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -3.0,
+          "dst": 1,
+          "id": "optional-boundary",
+          "label": -1,
+          "src": 0,
+          "terms": [
+            [
+              10,
+              0.5
+            ],
+            [
+              2,
+              -0.35
+            ]
+          ]
+        },
+        {
+          "bias": -2.95,
+          "dst": 0,
+          "id": "optional-boundary-return",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              0,
+              -0.4
+            ],
+            [
+              13,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 1,
+          "id": "context-pause-loop",
+          "label": -1,
+          "src": 1,
+          "terms": [
+            [
+              14,
+              -0.4
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.12
+        ],
+        [
+          1,
+          -0.65
+        ]
+      ],
+      "num_states": 2,
+      "start": 0
+    }
+  },
+  "lexicons": {
+    "pronunciation": {
+      "arcs": [
+        {
+          "bias": -0.35,
+          "dst": 0,
+          "id": "between-words-blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 0,
+          "id": "word-a-short",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              0.6
+            ],
+            [
+              1,
+              -0.2
+            ],
+            [
+              2,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.3,
+          "dst": 1,
+          "id": "word-a-begin",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              0.55
+            ],
+            [
+              0,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -0.25,
+          "dst": 0,
+          "id": "word-a-tail",
+          "ilabel": 2,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              -0.5
+            ],
+            [
+              2,
+              0.35
+            ]
+          ]
+        },
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "word-b",
+          "ilabel": 3,
+          "olabel": 907,
+          "src": 0,
+          "terms": [
+            [
+              5,
+              0.6
+            ],
+            [
+              3,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.48,
+          "dst": 1,
+          "id": "repeat-same-token",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 1,
+          "terms": [
+            [
+              1,
+              0.4
+            ],
+            [
+              6,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.65,
+          "dst": 0,
+          "id": "word-b-tail",
+          "ilabel": 3,
+          "olabel": 907,
+          "src": 1,
+          "terms": [
+            [
+              7,
+              0.5
+            ],
+            [
+              4,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -0.05,
+          "dst": 0,
+          "id": "word-a-duplicate-path",
+          "ilabel": 1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              0.6
+            ],
+            [
+              1,
+              -0.2
+            ],
+            [
+              2,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -0.62,
+          "dst": 1,
+          "id": "word-a-accent",
+          "ilabel": 2,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              8,
+              -0.65
+            ],
+            [
+              3,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.1,
+          "dst": 2,
+          "id": "enter-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.45
+            ],
+            [
+              9,
+              -0.45
+            ]
+          ]
+        },
+        {
+          "bias": -2.85,
+          "dst": 0,
+          "id": "leave-silence",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              10,
+              -0.5
+            ],
+            [
+              2,
+              0.25
+            ]
+          ]
+        },
+        {
+          "bias": -3.2,
+          "dst": 2,
+          "id": "silence-between-phones",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 1,
+          "terms": [
+            [
+              4,
+              0.4
+            ],
+            [
+              11,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.0500000000000003,
+          "dst": 1,
+          "id": "resume-tail",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              12,
+              0.35
+            ],
+            [
+              3,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "bias": -0.4,
+          "dst": 2,
+          "id": "silence-blank-frame",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              10,
+              0.3
+            ],
+            [
+              1,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 2,
+          "id": "silent-self-optional",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 2,
+          "terms": [
+            [
+              9,
+              -0.4
+            ],
+            [
+              9,
+              0.2
+            ]
+          ]
+        },
+        {
+          "bias": -2.8000000000000003,
+          "dst": 0,
+          "id": "unvoiced-word-a",
+          "ilabel": -1,
+          "olabel": 101,
+          "src": 0,
+          "terms": [
+            [
+              6,
+              0.5
+            ],
+            [
+              0,
+              -0.25
+            ]
+          ]
+        },
+        {
+          "bias": -3.2,
+          "dst": 0,
+          "id": "unvoiced-word-b",
+          "ilabel": -1,
+          "olabel": 907,
+          "src": 1,
+          "terms": [
+            [
+              7,
+              -0.5
+            ],
+            [
+              5,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 4,
+          "id": "stable-prefix-0-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 3,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 4,
+          "id": "stable-prefix-0-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 3,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 5,
+          "id": "stable-prefix-1-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 4,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 5,
+          "id": "stable-prefix-1-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 4,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 6,
+          "id": "stable-prefix-2-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 5,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 6,
+          "id": "stable-prefix-2-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 5,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 7,
+          "id": "stable-prefix-3-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 6,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 7,
+          "id": "stable-prefix-3-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 6,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 8,
+          "id": "stable-prefix-4-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 7,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 8,
+          "id": "stable-prefix-4-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 7,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 9,
+          "id": "stable-prefix-5-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 8,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 9,
+          "id": "stable-prefix-5-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 8,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 10,
+          "id": "stable-prefix-6-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 9,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 10,
+          "id": "stable-prefix-6-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 9,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 11,
+          "id": "stable-prefix-7-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 10,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 11,
+          "id": "stable-prefix-7-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 10,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 12,
+          "id": "stable-prefix-8-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 11,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 12,
+          "id": "stable-prefix-8-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 11,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 13,
+          "id": "stable-prefix-9-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 12,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 13,
+          "id": "stable-prefix-9-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 12,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 14,
+          "id": "stable-prefix-10-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 13,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 14,
+          "id": "stable-prefix-10-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 13,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 15,
+          "id": "stable-prefix-11-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 14,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 15,
+          "id": "stable-prefix-11-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 14,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 16,
+          "id": "stable-prefix-12-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 15,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 16,
+          "id": "stable-prefix-12-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 15,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 17,
+          "id": "stable-prefix-13-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 16,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 17,
+          "id": "stable-prefix-13-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 16,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 18,
+          "id": "stable-prefix-14-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 17,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 18,
+          "id": "stable-prefix-14-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 17,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 19,
+          "id": "stable-prefix-15-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 18,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 19,
+          "id": "stable-prefix-15-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 18,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 20,
+          "id": "stable-prefix-16-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 19,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 20,
+          "id": "stable-prefix-16-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 19,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 21,
+          "id": "stable-prefix-17-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 20,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 21,
+          "id": "stable-prefix-17-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 20,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 22,
+          "id": "stable-prefix-18-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 21,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 22,
+          "id": "stable-prefix-18-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 21,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 23,
+          "id": "stable-prefix-19-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 22,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 23,
+          "id": "stable-prefix-19-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 22,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 24,
+          "id": "stable-prefix-20-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 23,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 24,
+          "id": "stable-prefix-20-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 23,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 25,
+          "id": "stable-prefix-21-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 24,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 25,
+          "id": "stable-prefix-21-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 24,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 26,
+          "id": "stable-prefix-22-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 25,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 26,
+          "id": "stable-prefix-22-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 25,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 27,
+          "id": "stable-prefix-23-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 26,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 27,
+          "id": "stable-prefix-23-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 26,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 28,
+          "id": "stable-prefix-24-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 27,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 28,
+          "id": "stable-prefix-24-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 27,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 29,
+          "id": "stable-prefix-25-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 28,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 29,
+          "id": "stable-prefix-25-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 28,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 30,
+          "id": "stable-prefix-26-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 29,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 30,
+          "id": "stable-prefix-26-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 29,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 31,
+          "id": "stable-prefix-27-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 30,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 31,
+          "id": "stable-prefix-27-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 30,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 32,
+          "id": "stable-prefix-28-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 31,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 32,
+          "id": "stable-prefix-28-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 31,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 33,
+          "id": "stable-prefix-29-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 32,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 33,
+          "id": "stable-prefix-29-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 32,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 34,
+          "id": "stable-prefix-30-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 33,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 34,
+          "id": "stable-prefix-30-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 33,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 35,
+          "id": "stable-prefix-31-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 34,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 35,
+          "id": "stable-prefix-31-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 34,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 36,
+          "id": "stable-prefix-32-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 35,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 36,
+          "id": "stable-prefix-32-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 35,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 37,
+          "id": "stable-prefix-33-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 36,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 37,
+          "id": "stable-prefix-33-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 36,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 38,
+          "id": "stable-prefix-34-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 37,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 38,
+          "id": "stable-prefix-34-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 37,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 39,
+          "id": "stable-prefix-35-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 38,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 39,
+          "id": "stable-prefix-35-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 38,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 40,
+          "id": "stable-prefix-36-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 39,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 40,
+          "id": "stable-prefix-36-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 39,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 41,
+          "id": "stable-prefix-37-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 40,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 41,
+          "id": "stable-prefix-37-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 40,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 42,
+          "id": "stable-prefix-38-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 41,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 42,
+          "id": "stable-prefix-38-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 41,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 43,
+          "id": "stable-prefix-39-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 42,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 43,
+          "id": "stable-prefix-39-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 42,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 44,
+          "id": "stable-prefix-40-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 43,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 44,
+          "id": "stable-prefix-40-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 43,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 45,
+          "id": "stable-prefix-41-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 44,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 45,
+          "id": "stable-prefix-41-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 44,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 46,
+          "id": "stable-prefix-42-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 45,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 46,
+          "id": "stable-prefix-42-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 45,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 0,
+          "id": "stable-prefix-43-0",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 46,
+          "terms": [
+            [
+              0,
+              0.2
+            ],
+            [
+              1,
+              -0.15
+            ],
+            [
+              0,
+              0.1
+            ]
+          ]
+        },
+        {
+          "bias": -21.0,
+          "dst": 0,
+          "id": "stable-prefix-43-1",
+          "ilabel": -1,
+          "olabel": -1,
+          "src": 46,
+          "terms": [
+            [
+              0,
+              -0.2
+            ],
+            [
+              1,
+              0.15
+            ],
+            [
+              0,
+              -0.1
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          -0.2
+        ],
+        [
+          1,
+          -0.75
+        ]
+      ],
+      "num_states": 47,
+      "start": 3
+    }
+  },
+  "schema_version": 1
+}

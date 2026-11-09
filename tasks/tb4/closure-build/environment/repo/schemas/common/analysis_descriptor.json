@@ -1,0 +1,15 @@
+{
+  "$id": "common/analysis_descriptor.json",
+  "title": "Dynamic analysis descriptor",
+  "type": "object",
+  "required": ["kind", "params", "tool", "config", "environment", "sources"],
+  "additionalProperties": false,
+  "properties": {
+    "kind": {"enum": ["emit", "compile", "bundle"]},
+    "params": {"type": "object", "additionalProperties": {"type": "string"}},
+    "tool": {"$ref": "tool_record.json"},
+    "config": {"type": "array", "items": {"$ref": "declaration.json"}},
+    "environment": {"type": "array", "items": {"$ref": "declaration.json"}},
+    "sources": {"type": "array", "items": {"$ref": "source.json"}}
+  }
+}

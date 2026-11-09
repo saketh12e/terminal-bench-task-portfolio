@@ -1,0 +1,141 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "flagship-lifecycle",
+  "family": "flagship-lifecycle",
+  "summary": "The 38-entry desktop resource workspace: cold/warm builds, metadata edits, a missing required source, root removal, an empty root set, and cached root restoration.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "cold",
+      "roots": [
+        "app",
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "diagnostics",
+        "app",
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "config/version.txt",
+      "text": "version=1.4.1\n"
+    },
+    {
+      "op": "build",
+      "name": "version-change",
+      "roots": [
+        "app",
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "docs/release-notes.txt",
+      "text": "Changes: corrected incremental resource lookup.\n"
+    },
+    {
+      "op": "build",
+      "name": "release-notes-change",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rename",
+      "path": "config/package.txt",
+      "to": "config/package.saved"
+    },
+    {
+      "op": "build",
+      "name": "missing-package",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_source",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "rename",
+      "path": "config/package.saved",
+      "to": "config/package.txt"
+    },
+    {
+      "op": "build",
+      "name": "restored-package",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "diagnostics-only",
+      "roots": [
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "empty-root-set",
+      "roots": [],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "restore-root-set",
+      "roots": [
+        "app",
+        "diagnostics"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

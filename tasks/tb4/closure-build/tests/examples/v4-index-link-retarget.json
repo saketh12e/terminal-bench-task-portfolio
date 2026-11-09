@@ -1,0 +1,135 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-index-link-retarget",
+  "family": "v4-index",
+  "summary": "Literal symlink-target changes invalidate identity even for equal bytes. Both requested link and resolved terminal prefixes belong to the watch set. After retargeting, a former terminal is no longer part of the current record's watches.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/main": {
+        "text": "body\n",
+        "executable": false
+      },
+      "work/other": {
+        "text": "other\n",
+        "executable": false
+      },
+      "work/a": {
+        "text": "equal\n",
+        "executable": false
+      },
+      "work/b": {
+        "text": "equal\n",
+        "executable": false
+      },
+      "work/link": {
+        "symlink": "a"
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/link"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "link-a",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "work/link",
+      "target": "./a"
+    },
+    {
+      "op": "build",
+      "name": "literal-target-changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "work/link",
+      "target": "b"
+    },
+    {
+      "op": "build",
+      "name": "same-bytes-new-terminal",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/a",
+      "text": "old terminal changed\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "old-terminal-unwatched",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/b",
+      "text": "new terminal\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "terminal-edit",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": false,
+  "indexed": true
+}

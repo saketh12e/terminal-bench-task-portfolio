@@ -1,0 +1,276 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v5-unsat-barrier",
+  "family": "provider-resolution",
+  "summary": "No globally feasible policy may read files, execute or publish even after an earlier successful request.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "tool-v5\n",
+        "executable": true
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      },
+      "src/x": {
+        "text": "x\n",
+        "executable": false
+      },
+      "src/y": {
+        "text": "y\n",
+        "executable": false
+      },
+      "src/z": {
+        "text": "z\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "use"
+        ],
+        "definitions": {
+          "use": {
+            "enable": [
+              "dep:p",
+              "dep:q"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p": {
+            "choice": "G"
+          },
+          "q": {
+            "choice": "H"
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "x": {
+      "kind": "emit",
+      "srcs": [
+        "src/x"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "y": {
+      "kind": "emit",
+      "srcs": [
+        "src/y"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "z": {
+      "kind": "emit",
+      "srcs": [
+        "src/z"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {},
+    "resolution": {
+      "groups": {
+        "G": [
+          {
+            "id": "g",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {},
+            "requires": {},
+            "excludes": {
+              "H": [
+                "h"
+              ]
+            }
+          }
+        ],
+        "H": [
+          {
+            "id": "h",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ]
+      },
+      "budgets": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "empty",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [],
+          "default_features": false
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "unsat",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "resolution_unsatisfiable",
+        "published_unchanged": true,
+        "executions": 0
+      }
+    }
+  ],
+  "resolution_planning": true,
+  "feature_planning": true,
+  "indexed": true
+}

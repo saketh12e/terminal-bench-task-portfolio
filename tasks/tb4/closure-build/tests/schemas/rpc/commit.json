@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/commit.json",
+  "title": "Publication commit RPC",
+  "type": "object",
+  "required": ["op", "txid"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "commit"}, "txid": true}
+}

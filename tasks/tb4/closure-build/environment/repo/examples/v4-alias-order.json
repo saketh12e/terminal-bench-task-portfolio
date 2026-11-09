@@ -1,0 +1,260 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-alias-order",
+  "family": "v4-features",
+  "summary": "Base deps precede lexically sorted feature-add deps, followed by lexically sorted optional aliases. Each active alias appears once, but aliases sharing a node preserve separate occurrences. Different outputs of one node remain distinct. An empty feature changes no descriptor and must reuse actions.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out",
+        "aux"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "core": {
+      "kind": "emit",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "core",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [],
+        "definitions": {
+          "zed": {
+            "enable": [
+              "dep:zulu",
+              "dep:alpha"
+            ],
+            "add": {
+              "deps": [
+                {
+                  "label": "leaf",
+                  "output": "aux",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ]
+            }
+          },
+          "early": {
+            "enable": [
+              "dep:alpha"
+            ],
+            "add": {
+              "deps": [
+                {
+                  "label": "core",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ]
+            }
+          },
+          "empty": {
+            "enable": [],
+            "add": {}
+          }
+        },
+        "optional": {
+          "zulu": {
+            "label": "leaf",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          },
+          "alpha": {
+            "label": "leaf",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          }
+        },
+        "conflicts": []
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "reverse-activation",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "zed",
+            "early"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "sorted-activation",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "early",
+            "zed"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "irrelevant-feature",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "empty",
+            "early",
+            "zed"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "one-alias",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "early"
+          ],
+          "default_features": true
+        }
+      }
+    },
+    {
+      "op": "build",
+      "name": "both-again",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "zed",
+            "early"
+          ],
+          "default_features": true
+        }
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": false
+}

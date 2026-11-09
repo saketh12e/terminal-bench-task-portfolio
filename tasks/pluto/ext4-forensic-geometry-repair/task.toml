@@ -1,0 +1,33 @@
+schema_version = "1.1"
+
+[task]
+name = "pluto/ext4-forensic-geometry-repair"
+description = "Repair a digital-forensics disk pipeline that rebuilds a wiped MBR and corrupted ext4 backup superblock on an incident image but emits false-green attestation and wrong sector trace verbs."
+authors = [{ name = "Saketh Thumuluri", email = "tumulurisaketh@gmail.com" }]
+keywords = ["forensics", "ext4", "mbr", "filesystem", "disk-image", "python"]
+
+[metadata]
+author_name = "Saketh Thumuluri"
+author_email = "tumulurisaketh@gmail.com"
+difficulty = "hard"
+category = "security"
+tags = ["forensics", "ext4", "partition", "superblock", "binary", "bugfix", "python"]
+difficulty_explanation = "Coupled binary disk recovery, registry binding resolution, carve digest verification, and late output finalization without false-green readiness."
+solution_explanation = "Repair coupled disk geometry, live attestation sync, post-publish finalization, and trace binding resolution without false-green readiness flags."
+verification_explanation = "System-wide pytest reruns recovery_batch_runner.py and checks binary outputs, JSON attestation fields, envelope digest, and finalized sector trace against reference geometry."
+expert_time_estimate_hours = 3.5
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 4096
+gpus = 0
+allow_internet = true

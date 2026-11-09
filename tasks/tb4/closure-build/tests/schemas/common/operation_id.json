@@ -1,0 +1,5 @@
+{
+  "$id": "common/operation_id.json",
+  "title": "Durable dynamic operation identity",
+  "$ref": "digest.json"
+}

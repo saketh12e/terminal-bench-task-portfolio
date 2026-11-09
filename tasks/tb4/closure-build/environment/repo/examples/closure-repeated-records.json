@@ -1,0 +1,405 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-repeated-records",
+  "family": "closure-dedup-scope",
+  "summary": "Equivalent split branches identify one node: plain edges keep both occurrences, a collection suppresses the repeated token, and repeating a dependency record repeats its contribution. Host and target branches converge only when their mappings are equal.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/core": {
+        "text": "core\n",
+        "executable": false
+      },
+      "src/lib": {
+        "text": "lib\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "core": {
+      "kind": "emit",
+      "srcs": [
+        "src/core"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "lib": {
+      "kind": "compile",
+      "srcs": [
+        "src/lib"
+      ],
+      "deps": [
+        {
+          "label": "core",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "plain-twice": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              {
+                "base": "target",
+                "set": {},
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "closure-once": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              {
+                "base": "target",
+                "set": {},
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "records-repeat": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        },
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "records-overlap": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        },
+        {
+          "label": "core",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "host-or-target": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              "target"
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "single-host": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host"
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "plain-host": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "lib",
+          "output": "out",
+          "transition": "host",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "plain-twice",
+        "closure-once",
+        "records-repeat",
+        "records-overlap",
+        "host-or-target",
+        "single-host",
+        "plain-host"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "equal-target-and-host"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "plain-twice",
+        "closure-once",
+        "records-repeat",
+        "records-overlap",
+        "host-or-target",
+        "single-host",
+        "plain-host"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "distinct-host",
+      "config": {
+        "arch": "t"
+      },
+      "host": {
+        "arch": "h"
+      },
+      "environment": {}
+    },
+    {
+      "op": "rule",
+      "label": "lib",
+      "rule": {
+        "kind": "compile",
+        "srcs": [
+          "src/lib"
+        ],
+        "deps": [
+          {
+            "label": "core",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [
+          "arch"
+        ],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "plain-twice",
+        "closure-once",
+        "records-repeat",
+        "records-overlap",
+        "host-or-target",
+        "single-host",
+        "plain-host"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "declared-arch",
+      "config": {
+        "arch": "t"
+      },
+      "host": {
+        "arch": "h"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "plain-twice",
+        "closure-once",
+        "records-repeat",
+        "records-overlap",
+        "host-or-target",
+        "single-host",
+        "plain-host"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "converged-again",
+      "config": {
+        "arch": "h"
+      },
+      "host": {
+        "arch": "h"
+      }
+    }
+  ]
+}

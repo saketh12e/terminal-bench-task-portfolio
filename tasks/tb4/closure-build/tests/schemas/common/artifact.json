@@ -1,0 +1,11 @@
+{
+  "$id": "common/artifact.json",
+  "title": "Content-addressed output artifact",
+  "type": "object",
+  "required": ["digest", "text"],
+  "additionalProperties": false,
+  "properties": {
+    "digest": {"$ref": "digest.json"},
+    "text": {"type": "string"}
+  }
+}

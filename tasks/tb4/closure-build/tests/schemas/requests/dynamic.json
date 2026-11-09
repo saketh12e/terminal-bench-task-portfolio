@@ -1,0 +1,21 @@
+{
+  "$id": "requests/dynamic.json",
+  "title": "Receipt-driven dynamic build request",
+  "type": "object",
+  "required": ["request_id", "revision", "roots", "manifest", "config", "host", "environment", "execution"],
+  "additionalProperties": false,
+  "properties": {
+    "request_id": true,
+    "revision": true,
+    "roots": true,
+    "manifest": true,
+    "config": true,
+    "host": true,
+    "environment": true,
+    "execution": {"const": "dynamic-v1"},
+    "planning": true,
+    "features": true,
+    "resolution": true,
+    "index": true
+  }
+}

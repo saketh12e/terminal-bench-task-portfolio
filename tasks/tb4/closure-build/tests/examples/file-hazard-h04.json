@@ -1,0 +1,53 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h04",
+  "family": "file-hazards",
+  "summary": "Executable permission is required even with a cached result. A warm bundle cache cannot conceal a non-executable tool; return not_executable and preserve the committed root tree.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "chmod",
+      "path": "tools/bundle",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "not_executable",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

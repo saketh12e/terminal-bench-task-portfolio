@@ -1,0 +1,158 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "configured-transition-reproduction",
+  "family": "configured-transitions",
+  "summary": "configured transitions",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "source": {
+        "text": "library\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "compile",
+      "srcs": [
+        "source"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch",
+        "optional",
+        "host_only"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "root": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "base": "target",
+            "set": {
+              "arch": "arm"
+            },
+            "unset": [
+              "optional"
+            ]
+          },
+          "order_only": false
+        },
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "base": "host",
+            "set": {
+              "arch": "riscv"
+            },
+            "unset": []
+          },
+          "order_only": false
+        },
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": {
+            "base": "target",
+            "set": {
+              "arch": "arm",
+              "optional": ""
+            },
+            "unset": []
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "target",
+        "optional": "yes"
+      },
+      "host": {
+        "arch": "host",
+        "host_only": "present"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "target",
+        "optional": "yes",
+        "noise": "ignored"
+      },
+      "host": {
+        "arch": "host",
+        "host_only": "present"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "leaf",
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "arm"
+      },
+      "host": {
+        "arch": "host"
+      }
+    }
+  ]
+}

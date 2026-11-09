@@ -1,0 +1,20 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-basic",
+  "family": "receipt-discovery",
+  "dynamic": true,
+  "workspace": {"files": {
+    "tools/emit": {"text": "emitter-v1\n", "executable": true},
+    "src/root.res": {"text": "root\n#forge-edge {\"label\":\"lib\",\"output\":\"out\",\"transition\":\"target\",\"order_only\":false}\n"},
+    "src/lib.res": {"text": "library\n"}
+  }},
+  "rule_defaults": {"kind": "emit", "srcs": [], "deps": [], "outputs": ["out"], "include_dirs": [], "env": [], "config_keys": [], "tool": "tools/emit", "params": {"prefix": "", "suffix": ""}, "exports": {}},
+  "manifest": {
+    "root": {"srcs": ["src/root.res"]},
+    "lib": {"srcs": ["src/lib.res"]}
+  },
+  "steps": [
+    {"op": "build", "name": "cold", "roots": ["root"], "expect": {"status": "ok", "executions": 2, "analyses": 2}},
+    {"op": "build", "name": "warm", "roots": ["root"], "expect": {"status": "ok", "executions": 0, "analyses": 0}}
+  ]
+}

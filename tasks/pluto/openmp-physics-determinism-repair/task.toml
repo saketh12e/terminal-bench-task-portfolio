@@ -1,0 +1,33 @@
+schema_version = "1.1"
+
+[task]
+name = "pluto/openmp-physics-determinism-repair"
+description = "Repair a rigid-body physics twin-run pipeline that exits cleanly but drifts frame digests due to unstable contact ordering, non-deterministic parallel reduction, float32 integration, partial twin comparison, and registry/policy dispatch mismatch."
+authors = [{ name = "Saketh Thumuluri", email = "tumulurisaketh@gmail.com" }]
+keywords = ["physics", "simulation", "determinism", "parallel", "game-engine", "python"]
+
+[metadata]
+author_name = "Saketh Thumuluri"
+author_email = "tumulurisaketh@gmail.com"
+difficulty = "hard"
+category = "scientific-computing"
+tags = ["physics", "simulation", "determinism", "parallel", "integrator", "bugfix", "python"]
+difficulty_explanation = "Requires stable contact ordering, deterministic impulse reduction, float64 Euler integration, full twin digest comparison, registry-backed replay verbs, and live attestation fields aligned with reference digests."
+solution_explanation = "Fix contact_graph sort, impulse_accumulator ordering, integrator_step precision, frame_encoder canonical state, parallel_guard buckets, twin_run_harness comparison, scenario_loader registry source, and stability_report attestation passthrough."
+verification_explanation = "System-wide pytest reruns physics_sim_runner.py and checks twin verdict, ledger/reference digest equality, integrator audit, attestation run_digest, and sim_replay_trace registry verbs."
+expert_time_estimate_hours = 3.0
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 4096
+gpus = 0
+allow_internet = true

@@ -1,0 +1,14 @@
+{"input_id":"h001","text":"where is my delivery","served_at":"2026-07-05T13:00:00Z","gold_label":"shipping_delay"}
+{"input_id":"h002","text":"password not working","served_at":"2026-07-05T13:02:00Z","gold_label":"account_access"}
+{"input_id":"h003","text":"gift card","served_at":"2026-07-02T11:00:00Z","gold_label":"general_help"}
+{"input_id":"h004","text":"label damaged","served_at":"2026-07-05T13:04:00Z","gold_label":"refund_status"}
+{"input_id":"h005","text":"pickup store","served_at":"2026-07-05T13:06:00Z","gold_label":"general_help"}
+{"input_id":"h006","text":"\uff30\uff32\uff2f\uff2d\uff2f code \ud83d\ude15","served_at":"2026-07-05T13:08:00Z","gold_label":"general_help"}
+{"input_id":"h007","text":"","served_at":"2026-07-05T13:10:00Z","gold_label":""}
+{"input_id":"h008","text":"invoice","served_at":"2026-07-05T13:12:00Z","gold_label":"billing_issue"}
+{"input_id":"h009","text":"package lost","served_at":"2026-07-05T13:14:00Z","gold_label":"shipping_delay"}
+{"input_id":"h010","text":"return label","served_at":"2026-07-05T13:16:00Z","gold_label":"refund_status"}
+{"input_id":"h011","text":"account access","served_at":"2026-07-05T13:18:00Z","gold_label":"account_access"}
+{"input_id":"h012","text":"gift card","served_at":"2026-07-05T13:20:00Z","gold_label":"general_help"}
+{"input_id":"h013","text":"invoice","served_at":"2026-07-01T10:00:00Z","gold_label":"billing_issue"}
+{"input_id":"h014","text":"label damaged","served_at":"2026-07-01T10:05:00Z","gold_label":"refund_status"}

@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h07",
+  "family": "file-hazards",
+  "summary": "Generated parent bytes retain nested generated include discovery. The changed outer provider output must still be recursively expanded: records.inc is discovered from the provider suffix in the generated path's directory.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/main"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "schemas/protocol.txt",
+      "text": "wire-version=4\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/main"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/cache_get.json",
+  "title": "Legacy semantic cache lookup RPC",
+  "type": "object",
+  "required": ["op", "key"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "cache_get"}, "key": {"$ref": "../common/digest.json"}}
+}

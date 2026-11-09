@@ -1,0 +1,52 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h29",
+  "family": "file-hazards",
+  "summary": "Source-link chain identity survives equal terminal bytes. The literal source-link target changes its observation and action key even though its normalized terminal path and emitted object bytes remain equal.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "symlink",
+      "path": "include/active-theme.inc",
+      "target": "./base/theme.inc"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

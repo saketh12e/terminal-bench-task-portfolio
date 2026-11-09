@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "id": "mosaic-ring-hole",
+      "n": 16,
+      "dt": 0.0015625,
+      "steps": 4,
+      "case": {
+        "kind": "loop",
+        "wavevector": [
+          1,
+          -1
+        ],
+        "amplitude": 0.06,
+        "phase": 0.417,
+        "density": 1.2,
+        "pressure": 0.9,
+        "field": 0.83,
+        "velocity": 0.21
+      },
+      "mosaic": [
+        [
+          {
+            "id": "bottom",
+            "bounds": [
+              2,
+              14,
+              2,
+              5
+            ],
+            "owner": 0
+          },
+          {
+            "id": "top",
+            "bounds": [
+              2,
+              14,
+              11,
+              14
+            ],
+            "owner": 0
+          },
+          {
+            "id": "left",
+            "bounds": [
+              2,
+              5,
+              5,
+              11
+            ],
+            "owner": 0
+          },
+          {
+            "id": "right",
+            "bounds": [
+              11,
+              14,
+              5,
+              11
+            ],
+            "owner": 0
+          }
+        ]
+      ],
+      "step_dts": [
+        0.00125,
+        0.0021875,
+        0.0016875,
+        0.001125
+      ],
+      "tree_splits": [
+        [
+          0.32
+        ],
+        [
+          0.485
+        ],
+        [
+          0.65
+        ],
+        [
+          0.43
+        ]
+      ],
+      "events": []
+    }
+  ]
+}

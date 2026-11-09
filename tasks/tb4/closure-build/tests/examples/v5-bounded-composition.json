@@ -1,0 +1,690 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v5-bounded-composition",
+  "family": "provider-resolution",
+  "summary": "Eight groups couple capacity optimization, effective dependency bounds, static output compatibility and deterministic recovery.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "tool-v5\n",
+        "executable": true
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      },
+      "src/x": {
+        "text": "x\n",
+        "executable": false
+      },
+      "src/y": {
+        "text": "y\n",
+        "executable": false
+      },
+      "src/z": {
+        "text": "z\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "use"
+        ],
+        "definitions": {
+          "use": {
+            "enable": [
+              "dep:p0",
+              "dep:p1",
+              "dep:p2",
+              "dep:p3",
+              "dep:p4",
+              "dep:p5",
+              "dep:p6",
+              "dep:p7"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p0": {
+            "choice": "G0"
+          },
+          "p1": {
+            "choice": "G1"
+          },
+          "p2": {
+            "choice": "G2"
+          },
+          "p3": {
+            "choice": "G3"
+          },
+          "p4": {
+            "choice": "G4"
+          },
+          "p5": {
+            "choice": "G5"
+          },
+          "p6": {
+            "choice": "G6"
+          },
+          "p7": {
+            "choice": "G7"
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "overfull": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        },
+        {
+          "label": "a",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "more"
+        ],
+        "definitions": {
+          "more": {
+            "enable": [],
+            "add": {
+              "deps": [
+                {
+                  "label": "b",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              ]
+            }
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      }
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "x": {
+      "kind": "emit",
+      "srcs": [
+        "src/x"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "y": {
+      "kind": "emit",
+      "srcs": [
+        "src/y"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "z": {
+      "kind": "emit",
+      "srcs": [
+        "src/z"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {},
+    "resolution": {
+      "groups": {
+        "G0": [
+          {
+            "id": "heavy0",
+            "edge": {
+              "label": "overfull",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light0",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 1,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G1": [
+          {
+            "id": "heavy1",
+            "edge": {
+              "label": "a",
+              "output": "absent",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light1",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 2,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G2": [
+          {
+            "id": "heavy2",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light2",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 3,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G3": [
+          {
+            "id": "heavy3",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light3",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 4,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G4": [
+          {
+            "id": "heavy4",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light4",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 5,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G5": [
+          {
+            "id": "heavy5",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light5",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 6,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G6": [
+          {
+            "id": "heavy6",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light6",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 7,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ],
+        "G7": [
+          {
+            "id": "heavy7",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 0,
+            "claims": {
+              "pool": 2
+            },
+            "requires": {},
+            "excludes": {}
+          },
+          {
+            "id": "light7",
+            "edge": {
+              "label": "b",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 8,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ]
+      },
+      "budgets": {
+        "pool": 6
+      }
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "choose",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "drop_action"
+    },
+    {
+      "op": "build",
+      "name": "recover",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crashes": [
+        {
+          "point": "after_execute"
+        },
+        {
+          "point": "after_prepare"
+        },
+        {
+          "point": "after_commit"
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "resolution_planning": true,
+  "feature_planning": true,
+  "indexed": true
+}

@@ -1,0 +1,143 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-v6-static-dynamic-composition-07",
+  "family": "static-dynamic-composition",
+  "summary": "dynamic-v1 static dynamic composition structural witness 7",
+  "dynamic": true,
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/root": {
+        "text": "#include \"h\"\n",
+        "executable": false
+      },
+      "src/mid": {
+        "text": "mid\n",
+        "executable": false
+      },
+      "src/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "inc/h": {
+        "text": "header\n",
+        "executable": false
+      }
+    }
+  },
+  "rule_defaults": {},
+  "manifest": {
+    "root": {
+      "kind": "emit",
+      "srcs": [
+        "src/root"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "inc"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "mid": {
+      "kind": "emit",
+      "srcs": [
+        "src/mid"
+      ],
+      "deps": [
+        {
+          "label": "leaf",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "src/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "preprocessed-static",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "inc/h",
+      "text": "header edit\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "include-edit",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

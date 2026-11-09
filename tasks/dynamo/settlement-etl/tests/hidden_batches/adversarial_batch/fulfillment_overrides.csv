@@ -1,0 +1,4 @@
+override_key,source_row_id,event_key,quantity_delta,uom,ship_from_location,event_at,effective_at,sequence_id,is_void
+H-OV1,HOV001,H-E2,0,EACH,,,2026-03-10T09:25:00Z,1,false
+H-OV1,HOV002,H-E2,1,EACH,LOC_P,2026-03-10T18:45:00Z,2026-03-10T20:00:00Z,2,false
+H-OV2,HOV003,H-E3,9,EACH,LOC_W,2026-03-11T23:00:00Z,2026-03-11T10:00:00Z,1,true

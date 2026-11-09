@@ -1,0 +1,155 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-v6-cross-root-config-sharing-04",
+  "family": "cross-root-config-sharing",
+  "summary": "dynamic-v1 cross root config sharing structural witness 4",
+  "dynamic": true,
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/root": {
+        "text": "root\n#forge-edge {\"label\":\"leaf\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      },
+      "src/other": {
+        "text": "other\n#forge-edge {\"label\":\"leaf\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      }
+    }
+  },
+  "rule_defaults": {},
+  "manifest": {
+    "root": {
+      "kind": "emit",
+      "srcs": [
+        "src/root"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "other": {
+      "kind": "emit",
+      "srcs": [
+        "src/other"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "src/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "mode"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "select": {
+        "mode": {
+          "a": {
+            "params": {
+              "prefix": "A",
+              "suffix": ""
+            }
+          },
+          "b": {
+            "params": {
+              "prefix": "B",
+              "suffix": ""
+            }
+          },
+          "*": {}
+        }
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "mode-a",
+      "roots": [
+        "root",
+        "other"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "a"
+      }
+    },
+    {
+      "op": "build",
+      "name": "mode-b",
+      "roots": [
+        "root",
+        "other"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "b"
+      }
+    },
+    {
+      "op": "build",
+      "name": "mode-a-again",
+      "roots": [
+        "other",
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "mode": "a"
+      }
+    }
+  ]
+}

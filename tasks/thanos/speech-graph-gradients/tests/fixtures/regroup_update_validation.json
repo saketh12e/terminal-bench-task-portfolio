@@ -1,0 +1,45 @@
+{
+  "all_independent_expected_ready": true,
+  "all_relations_passed": true,
+  "batch_new_to_old": [
+    2,
+    0,
+    1
+  ],
+  "changed_original_files": [
+    "tasks/speech-graph-gradients/tests/fixtures/combined-batch-permutation/case.json",
+    "tasks/speech-graph-gradients/tests/fixtures/combined-batch-permutation/arrays.npz",
+    "tasks/speech-graph-gradients/tests/expected/combined-batch-permutation.npz"
+  ],
+  "current_cases": 47,
+  "generation_domain_seconds": 0.2022093749983469,
+  "oracle_case_ids": [
+    "combined-batch-permutation",
+    "ragged-regroup-main",
+    "ragged-regroup-tail"
+  ],
+  "original_cases": 45,
+  "other_original_files_unchanged_in_content_and_mtime": true,
+  "other_original_manifest_entries_preserved": true,
+  "regroup_members": [
+    {
+      "batch_new_to_old": [
+        2,
+        0
+      ],
+      "id": "ragged-regroup-main",
+      "weight_fraction": 0.7922077922077922
+    },
+    {
+      "batch_new_to_old": [
+        3,
+        1
+      ],
+      "id": "ragged-regroup-tail",
+      "weight_fraction": 0.2077922077922078
+    }
+  ],
+  "regroup_source": "combined-pronunciation-training",
+  "relations": 10,
+  "scope": "Original revision-2 fixtures; revision-3 additions independently validated in authoring evidence."
+}

@@ -1,0 +1,12 @@
+{
+  "$id": "common/execution_receipt.json",
+  "title": "Durable dynamic final-execution receipt",
+  "type": "object",
+  "required": ["operation_id", "action_key", "outputs"],
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {"$ref": "operation_id.json"},
+    "action_key": {"$ref": "digest.json"},
+    "outputs": {"$ref": "output_map.json"}
+  }
+}

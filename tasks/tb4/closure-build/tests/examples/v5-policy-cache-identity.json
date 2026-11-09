@@ -1,0 +1,274 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v5-policy-cache-identity",
+  "family": "provider-resolution",
+  "summary": "Policy IDs and prices change while chosen edge semantics stay identical, preserving warm action and read reuse.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "tool-v5\n",
+        "executable": true
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      },
+      "src/x": {
+        "text": "x\n",
+        "executable": false
+      },
+      "src/y": {
+        "text": "y\n",
+        "executable": false
+      },
+      "src/z": {
+        "text": "z\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "use"
+        ],
+        "definitions": {
+          "use": {
+            "enable": [
+              "dep:p"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "p": {
+            "choice": "G"
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "x": {
+      "kind": "emit",
+      "srcs": [
+        "src/x"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "y": {
+      "kind": "emit",
+      "srcs": [
+        "src/y"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "z": {
+      "kind": "emit",
+      "srcs": [
+        "src/z"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {},
+    "resolution": {
+      "groups": {
+        "G": [
+          {
+            "id": "original",
+            "edge": {
+              "label": "a",
+              "output": "out",
+              "transition": "target",
+              "order_only": false,
+              "features": [],
+              "default_features": true
+            },
+            "cost": 8,
+            "claims": {},
+            "requires": {},
+            "excludes": {}
+          }
+        ]
+      },
+      "budgets": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "cold",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "renamed",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "resolution": {
+        "groups": {
+          "G": [
+            {
+              "id": "renamed",
+              "edge": {
+                "label": "a",
+                "output": "out",
+                "transition": "target",
+                "order_only": false,
+                "features": [],
+                "default_features": true
+              },
+              "cost": 0,
+              "claims": {},
+              "requires": {},
+              "excludes": {}
+            }
+          ]
+        },
+        "budgets": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "original",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "resolution_planning": true,
+  "feature_planning": true,
+  "indexed": true
+}

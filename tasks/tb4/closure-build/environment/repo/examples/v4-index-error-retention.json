@@ -1,0 +1,142 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-index-error-retention",
+  "family": "v4-index",
+  "summary": "Successful reads from a finished semantic-error request must be retained. Missing include probes are successful absent responses even though the build fails. Unrelated edits do not release retention obligations after errors.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/main": {
+        "text": "#include \"required\"\n",
+        "executable": false
+      },
+      "work/other": {
+        "text": "other\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "missing-include",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "build",
+      "name": "same-error-retains-reads",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/other",
+      "text": "unrelated\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "unrelated-error",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/required",
+      "text": "found\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "repaired",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "delete",
+      "path": "work/required"
+    },
+    {
+      "op": "build",
+      "name": "deleted-again",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/required",
+      "text": "found\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "restored",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": false,
+  "indexed": true
+}

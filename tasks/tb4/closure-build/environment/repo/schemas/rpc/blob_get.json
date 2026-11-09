@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/blob_get.json",
+  "title": "Content-addressed blob lookup RPC",
+  "type": "object",
+  "required": ["op", "digest"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "blob_get"}, "digest": {"$ref": "../common/digest.json"}}
+}

@@ -1,0 +1,23 @@
+{
+  "$id": "common/declaration.json",
+  "title": "Ordered declared configuration or environment value",
+  "type": "array",
+  "minItems": 3,
+  "maxItems": 3,
+  "anyOf": [
+    {
+      "prefixItems": [
+        {"type": "string"},
+        {"const": true},
+        {"type": "string"}
+      ]
+    },
+    {
+      "prefixItems": [
+        {"type": "string"},
+        {"const": false},
+        {"type": "null"}
+      ]
+    }
+  ]
+}

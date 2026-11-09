@@ -1,0 +1,371 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-distinct-tokens",
+  "family": "closure-identity",
+  "summary": "Collection tokens are configured node plus output. Equal-byte outputs of one node, identical rules under different labels and different configurations sharing one action all remain separate inputs, while their materialization shares executions.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/pair": {
+        "text": "same\n",
+        "executable": false
+      },
+      "src/twin": {
+        "text": "twin\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "pair": {
+      "kind": "emit",
+      "srcs": [
+        "src/pair"
+      ],
+      "deps": [],
+      "outputs": [
+        "a",
+        "b"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "twin-x": {
+      "kind": "emit",
+      "srcs": [
+        "src/twin"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "twin-y": {
+      "kind": "emit",
+      "srcs": [
+        "src/twin"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "cfg": {
+      "kind": "emit",
+      "srcs": [
+        "src/twin"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "mid": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "pair",
+          "output": "a",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "pair",
+          "output": "b",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "twin-x",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "twin-y",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "cfg",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "mode": "one"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "mode": "two"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "members": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "mid",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "inputs": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "mid",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "members",
+        "inputs",
+        "mid"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold"
+    },
+    {
+      "op": "cache_fault",
+      "fault": "evict_blob",
+      "match": {
+        "source": "src/twin"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "members",
+        "inputs",
+        "mid"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "shared-action-repair"
+    },
+    {
+      "op": "rule",
+      "label": "pair",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/pair"
+        ],
+        "deps": [],
+        "outputs": [
+          "b",
+          "a"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "members",
+        "inputs",
+        "mid"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "producer-output-order"
+    },
+    {
+      "op": "rule",
+      "label": "mid",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [
+          {
+            "label": "pair",
+            "output": "b",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "pair",
+            "output": "a",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "twin-x",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "twin-y",
+            "output": "out",
+            "transition": "target",
+            "order_only": false
+          },
+          {
+            "label": "cfg",
+            "output": "out",
+            "transition": {
+              "split": [
+                {
+                  "base": "target",
+                  "set": {
+                    "mode": "one"
+                  },
+                  "unset": []
+                },
+                {
+                  "base": "target",
+                  "set": {
+                    "mode": "two"
+                  },
+                  "unset": []
+                }
+              ]
+            },
+            "order_only": false
+          }
+        ],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "members",
+        "inputs",
+        "mid"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "consumer-output-order"
+    }
+  ]
+}

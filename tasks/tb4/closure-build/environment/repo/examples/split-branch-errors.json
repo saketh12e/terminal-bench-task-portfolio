@@ -1,0 +1,793 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-branch-errors",
+  "family": "split-branch-errors",
+  "summary": "A failing split branch is never dropped: missing outputs on content and order-only edges, a missing branch source, a branch selection miss, an oversized branch result beside a valid branch and a branch that recreates its caller each fail the request.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/ok": {
+        "text": "ok\n",
+        "executable": false
+      },
+      "src/lane-a": {
+        "text": "lane a\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "baseline": {
+      "kind": "emit",
+      "srcs": [
+        "src/ok"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "baseline"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "baseline"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "mode": {
+              "one": {
+                "outputs": [
+                  "out"
+                ]
+              },
+              "*": {
+                "outputs": [
+                  "out",
+                  "extra"
+                ]
+              }
+            }
+          }
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "extra",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "mode": "two"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "mode": "one"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false,
+              "closure": "preorder"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_output",
+        "published_unchanged": true
+      },
+      "name": "content-missing-output"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "mode": {
+              "one": {
+                "outputs": [
+                  "out"
+                ]
+              },
+              "*": {
+                "outputs": [
+                  "out",
+                  "extra"
+                ]
+              }
+            }
+          }
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "extra",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "mode": "two"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "mode": "one"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": true,
+              "closure": "topological"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_output",
+        "published_unchanged": true
+      },
+      "name": "order-only-missing-output"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "lanes": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "lane": {
+              "a": {
+                "srcs": [
+                  "src/lane-a"
+                ]
+              },
+              "b": {
+                "srcs": [
+                  "src/lane-b"
+                ]
+              }
+            }
+          }
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "lanes",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "a"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "b"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false,
+              "closure": "postorder"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_source",
+        "published_unchanged": true
+      },
+      "name": "branch-missing-source"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "lanes": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "lane": {
+              "a": {
+                "srcs": [
+                  "src/lane-a"
+                ]
+              },
+              "b": {
+                "srcs": [
+                  "src/lane-b"
+                ]
+              }
+            }
+          }
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "lanes",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "a"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "z"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "select_miss",
+        "published_unchanged": true
+      },
+      "name": "branch-select-miss"
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "child": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "child",
+              "output": "out",
+              "transition": {
+                "split": [
+                  "target",
+                  {
+                    "base": "target",
+                    "set": {
+                      "sixth": "x"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "invalid_manifest",
+        "published_unchanged": true
+      },
+      "name": "branch-overflow",
+      "config": {
+        "k0": "x",
+        "k1": "x",
+        "k2": "x",
+        "k3": "x",
+        "k4": "x"
+      }
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "stage": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "stage": {
+              "entry": {
+                "deps": [
+                  {
+                    "label": "stage",
+                    "output": "out",
+                    "transition": {
+                      "split": [
+                        {
+                          "base": "target",
+                          "set": {
+                            "stage": "leaf"
+                          },
+                          "unset": []
+                        },
+                        "target"
+                      ]
+                    },
+                    "order_only": false
+                  }
+                ]
+              },
+              "*": {}
+            }
+          }
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "stage"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "dependency_cycle",
+        "published_unchanged": true
+      },
+      "name": "branch-cycle",
+      "config": {
+        "stage": "entry"
+      }
+    },
+    {
+      "op": "manifest",
+      "manifest": {
+        "baseline": {
+          "kind": "emit",
+          "srcs": [
+            "src/ok"
+          ],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        },
+        "lanes": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {},
+          "select": {
+            "lane": {
+              "a": {
+                "srcs": [
+                  "src/lane-a"
+                ]
+              },
+              "b": {
+                "srcs": [
+                  "src/lane-b"
+                ]
+              }
+            }
+          }
+        },
+        "bad": {
+          "kind": "emit",
+          "srcs": [],
+          "deps": [
+            {
+              "label": "lanes",
+              "output": "out",
+              "transition": {
+                "split": [
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "a"
+                    },
+                    "unset": []
+                  },
+                  {
+                    "base": "target",
+                    "set": {
+                      "lane": "a"
+                    },
+                    "unset": []
+                  }
+                ]
+              },
+              "order_only": false,
+              "closure": "postorder"
+            }
+          ],
+          "outputs": [
+            "out"
+          ],
+          "include_dirs": [],
+          "env": [],
+          "config_keys": [],
+          "tool": "tools/main",
+          "params": {
+            "prefix": "",
+            "suffix": ""
+          },
+          "exports": {}
+        }
+      },
+      "raw": true
+    },
+    {
+      "op": "build",
+      "roots": [
+        "bad",
+        "baseline"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "valid-branches"
+    }
+  ]
+}

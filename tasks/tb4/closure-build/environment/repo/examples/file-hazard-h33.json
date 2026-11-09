@@ -1,0 +1,51 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h33",
+  "family": "file-hazards",
+  "summary": "An empty regular input remains a present source. The icons entry stays in the ordered source list with empty expanded text; it is neither deleted nor a missing_source error.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "assets/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "assets/ui/icons.res",
+      "text": ""
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "assets/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

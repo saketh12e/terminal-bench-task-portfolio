@@ -1,0 +1,260 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "split-independent-branches",
+  "family": "split-transitions",
+  "summary": "Every split branch starts from the caller or original host mapping; branches never pipe results into one another. A nested host branch resets to the request host even below a target-patched node, and equal results share one configured node.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/unit": {
+        "text": "unit\n",
+        "executable": false
+      },
+      "src/tool": {
+        "text": "tool\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "unit": {
+      "kind": "compile",
+      "srcs": [
+        "src/unit"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch",
+        "mode"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "tool": {
+      "kind": "compile",
+      "srcs": [
+        "src/tool"
+      ],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              {
+                "base": "host",
+                "set": {
+                  "mode": "boot"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "mode": "tool-debug"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [
+        "arch",
+        "mode"
+      ],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "mode": "dbg"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {},
+                "unset": [
+                  "mode"
+                ]
+              },
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        },
+        {
+          "label": "tool",
+          "output": "out",
+          "transition": {
+            "split": [
+              "host",
+              {
+                "base": "target",
+                "set": {
+                  "arch": "arm"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold",
+      "config": {
+        "arch": "x86",
+        "mode": "rel"
+      },
+      "host": {
+        "arch": "build",
+        "mode": "hm"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "tool"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "warm-extra-root",
+      "config": {
+        "arch": "x86",
+        "mode": "rel"
+      },
+      "host": {
+        "arch": "build",
+        "mode": "hm"
+      },
+      "environment": {}
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "caller-arm",
+      "config": {
+        "arch": "arm",
+        "mode": "rel"
+      },
+      "host": {
+        "arch": "build",
+        "mode": "hm"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "host-changed",
+      "config": {
+        "arch": "x86",
+        "mode": "rel"
+      },
+      "host": {
+        "arch": "build2",
+        "mode": "hm"
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "app",
+        "tool"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "original-again",
+      "config": {
+        "arch": "x86",
+        "mode": "rel"
+      },
+      "host": {
+        "arch": "build",
+        "mode": "hm"
+      },
+      "environment": {}
+    }
+  ]
+}

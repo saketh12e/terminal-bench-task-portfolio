@@ -1,0 +1,20 @@
+{
+  "$id": "requests/indexed.json",
+  "title": "Indexed legacy or feature build request",
+  "type": "object",
+  "required": ["request_id", "revision", "roots", "manifest", "config", "host", "environment", "index"],
+  "additionalProperties": false,
+  "properties": {
+    "request_id": true,
+    "revision": true,
+    "roots": true,
+    "manifest": true,
+    "config": true,
+    "host": true,
+    "environment": true,
+    "planning": true,
+    "features": true,
+    "resolution": true,
+    "index": true
+  }
+}

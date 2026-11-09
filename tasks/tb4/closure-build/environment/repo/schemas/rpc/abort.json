@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/abort.json",
+  "title": "Prepared transaction abort RPC",
+  "type": "object",
+  "required": ["op", "txid"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "abort"}, "txid": true}
+}

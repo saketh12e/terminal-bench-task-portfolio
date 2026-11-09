@@ -1,0 +1,12 @@
+{
+  "$id": "common/analysis_receipt.json",
+  "title": "Durable dynamic analysis receipt",
+  "type": "object",
+  "required": ["operation_id", "analysis_key", "edges"],
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {"$ref": "operation_id.json"},
+    "analysis_key": {"$ref": "digest.json"},
+    "edges": {"type": "array", "items": {"$ref": "dynamic_edge.json"}}
+  }
+}

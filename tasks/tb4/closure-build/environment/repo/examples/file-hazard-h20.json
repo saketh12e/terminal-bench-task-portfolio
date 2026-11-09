@@ -1,0 +1,57 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h20",
+  "family": "file-hazards",
+  "summary": "An inactive nested include must not create a dependency. Under release mode, the nested debug include is inactive and never read. Creating its file cannot invalidate the storage action.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "write",
+      "path": "include/base/features.inc",
+      "text": "#if mode=debug\n#if tracing=on\n#include \"debug-only.inc\"\n#else\nassertions=on\n#endif\n#else\nassertions=off\n#endif\n"
+    },
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "include/base/debug-only.inc",
+      "text": "debug-instrumentation=v2\n"
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+Certify the teacher-feedback training system in `/app/demand.json`. Write `/app/{atlas,equilibria,selection,sensitivities,curriculum}.json`.
+
+For each fit normalize training weights. Compute training-only feature mean μ and s=√(weighted population variance+scale_floor²). Use z=[(x−μ)/s,1(head=0),1(head=1),1]. Physical coefficients v=Tw satisfy v[:3]=w[:3]/s, v[3:5]=w[3:5], v[5]=w[5]−μ·v[:3]. Require w[3]+w[4]=0 and normal·v≤offset+b·relax for every raw inequality.
+
+For local parameters (u,b)∈[0,1]², residual r=z·w−((1−u)y+u·teacher). Minimize strictly in priority order: half the sum of squared per-head mean residuals (weights normalized within head); half the sum of squared full-training moments mean(z_0 r),mean(z_1 r); then ½mean(r²)+½Σ ridge[j]w[j]². Each priority minimizes over all preceding minimizers. The final model w_i(u,b) is unique.
+
+For external θ=(a,b)∈[0,1]², all feedback equations hold simultaneously: u_i=clip(a+f.offset+f.normal·T_k w_k(u_k,b),0,1), where f=feedback[i], k=f.source. Include ALL equilibria, including unstable branches and refit feedback. Validation loss V is the mean, over nonempty validation fits, of ½mean((z·w−y)²), using each fit's training transformation and separately normalized validation weights. Select θ and an equilibrium globally minimizing V.
+
+All artifacts have integer version 2 and exactly the described keys. `atlas.json` is {"version":2,"fits":{fit:[cell,...]}}. Each cell has vertices, weights W(6,3), multipliers L(3,m,3), equality_multiplier [e_0,e_1,e_2] of shapes (1,3),(3,3),(5,3). Laws multiply [1,u,b]; m is the raw inequality count. Vertices form a cyclic convex positive-area polygon. Each fit's cells cover the square; ≤256 cells/fit.
+
+Let B_0,B_1 map w to head-mean and feature-moment predictions, E=[0,0,0,1,1,0], D_0=E,D_1=[E;B_0],D_2=[E;B_0;B_1], A=normal·T. Write priority gradients H_jw+g_j0+u g_j1. Throughout each cell require feasibility, Ew=0, λ_j≥0, complementarity, and H_jw+g_j0+u g_j1+A^Tλ_j+D_j^Tν_j=0 for every priority. Later equality rows preserve earlier optimal prediction summaries.
+
+`equilibria.json` is {"version":2,"cells":[{"vertices":[[a,b],...],"blends":U,"weights":{fit:W}},...]}, with U(4,3), W(6,3), multiplying [1,a,b]; blend rows follow input fit order. Cells must represent exactly the complete equilibrium graph, retaining overlapping distinct branches; ≤4096 cells. Both atlases allow alternative partitions, refinements, ordering, overlapping valid cells, either polygon orientation and valid dual choices; ≤32 vertices/polygon.
+
+`selection.json` is {"version":2,"theta":[a,b],"blends":[4],"value":number,"models":{fit:[6]}}. Any equilibrium within 1e-6 of the global minimum is accepted.
+
+`sensitivities.json` is {"version":2,"queries":{id:[{"blends":[4],"blend_directions":[4],"weights":{fit:[6]},"directions":{fit:[6]},"validation_direction":number},...]}}. Return the complete unordered set of branch limits and right derivatives along θ+h d,h↓0. Retain distinct continuations sharing a limiting blend; valid duplicates are allowed. For rounded event coordinates supporting lines within 3e-9 are incident; unit outward normals dotted with normalized d are tangent within 1e-9. Query directions remain in the square.
+
+The curriculum prescribes independent phases, each with θ vertices, positive leg durations and an initial blend. Choose a continuous equilibrium path throughout each phase, starting AND ending at its initial blend. For leg k, θ(τ)=(1−τ)θ_k+τθ_{k+1}, τ∈[0,1]; physical time advances by durations[k]·τ. Minimize the sum of physical-time integrals of V across phases subject to curriculum.budgets: total exposure ∫Σ_i u_i/4 dt and energy ∫Σ_i||T_i dw_i/dt||²/4 dt. The budgets couple all phases; resets between phases have no cost.
+
+`curriculum.json` is {"version":2,"phases":{id:[piece,...]},"totals":[loss,exposure,energy]}. Each piece is {"leg":integer,"span":[lo,hi],"blends":U,"weights":{fit:W}}, with U(4,2), W(6,2) multiplying [1,τ]. Chronological positive-length pieces cover every leg exactly once and maintain blend/model continuity, including turns. Path laws match equilibrium laws coefficientwise. Refinements are allowed; ≤512 pieces/phase. Return any budget-feasible curriculum within 1e-6 of minimum loss; budget slack is 1e-7. The event-incidence convention above also applies at curriculum endpoints.
+
+Artifacts must be regular nonsymlink files ≤32 MiB, with unique keys and finite real numbers. Scaled tolerance means tol·(1+max absolute compared value): blends/models/integrated totals use 1e-7, derivatives 1e-5; objective error is 1e-6 absolute. Coefficients are bounded by1e8. Input-only scales are S_i=1+Σ|A_ik|+|offset_i|+|relax_i| and R_jk=1+Σ|H_jkl|+|g_j0k|+|g_j1k|+Σ|A_ik|+Σ|D_jik|. Local primal/complementarity residuals allow 1e-8 S_i, stationarity 1e-8 R_jk, Ew 3e-8 and λ≥−1e-8. Stationarity, Ew and complementarity also hold coefficientwise in (1,u,b,u²,ub,b²), omitting unused powers. Geometry, path spans and θ allow 1e-9 slack.
+
+You have 28800 seconds to complete this task. Do not cheat by using online solutions or hints specific to this task.

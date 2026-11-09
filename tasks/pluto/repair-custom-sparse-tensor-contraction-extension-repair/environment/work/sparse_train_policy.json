@@ -1,0 +1,7 @@
+{
+  "prefer_merge_lane_coalesce": true,
+  "gradient_dispatch_lane": "merge_lane",
+  "gradient_replay_mode": "single",
+  "train_epochs": 3,
+  "loss_floor": 0.01
+}

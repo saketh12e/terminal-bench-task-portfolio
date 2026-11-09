@@ -1,0 +1,73 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h14",
+  "family": "file-hazards",
+  "summary": "Duplicate source occurrences are not duplicate observations. The storage source contributes expanded text twice while its read observations are recorded once. Deduplicating the source list loses payload.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "rule",
+      "label": "obj/storage",
+      "rule": {
+        "kind": "compile",
+        "srcs": [
+          "src/storage.res",
+          "src/storage.res"
+        ],
+        "deps": [],
+        "outputs": [
+          "storage.obj"
+        ],
+        "include_dirs": [
+          "generated",
+          "include/base"
+        ],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/compile",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {}
+      }
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/storage"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-v6-operation-recovery-04",
+  "family": "operation-recovery",
+  "summary": "dynamic-v1 operation recovery structural witness 4",
+  "dynamic": true,
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/root": {
+        "text": "body 0\n#forge-edge {\"label\":\"node0\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/node0": {
+        "text": "body 1\n#forge-edge {\"label\":\"node1\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/node1": {
+        "text": "leaf 1\n",
+        "executable": false
+      }
+    }
+  },
+  "rule_defaults": {},
+  "manifest": {
+    "node0": {
+      "kind": "emit",
+      "srcs": [
+        "src/node0"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "node1": {
+      "kind": "emit",
+      "srcs": [
+        "src/node1"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "root": {
+      "kind": "emit",
+      "srcs": [
+        "src/root"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "recover",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "crash": {
+        "point": "after_execute",
+        "match": {
+          "source": "src/root"
+        }
+      }
+    }
+  ]
+}

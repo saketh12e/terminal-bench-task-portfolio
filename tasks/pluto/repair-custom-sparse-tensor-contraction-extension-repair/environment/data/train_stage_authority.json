@@ -1,0 +1,10 @@
+{
+  "stage_order": ["coalesce", "forward", "backward", "bind", "seal"],
+  "stage_actions": {
+    "coalesce": "verified",
+    "forward": "verified",
+    "backward": "verified",
+    "bind": "verified",
+    "seal": "verified"
+  }
+}

@@ -1,0 +1,278 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "cache-integrity",
+  "family": "cache-integrity",
+  "summary": "Every documented cache-fault form, including damage limited to the second output of a multi-output action. Output maps must be validated as a whole.",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "compile",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "a.obj",
+        "b.obj"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/compile",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "cold",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "evict_blob",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ]
+    },
+    {
+      "op": "build",
+      "name": "repair-evicted",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-evicted",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "corrupt_blob",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ]
+    },
+    {
+      "op": "build",
+      "name": "repair-corrupt",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-corrupt",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "drop_action",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      }
+    },
+    {
+      "op": "build",
+      "name": "repair-dropped-action",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-dropped-action",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ],
+      "mode": "drop_output"
+    },
+    {
+      "op": "build",
+      "name": "repair-missing-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-missing-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ],
+      "mode": "extra_output"
+    },
+    {
+      "op": "build",
+      "name": "repair-extra-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-extra-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ],
+      "mode": "rename_output"
+    },
+    {
+      "op": "build",
+      "name": "repair-renamed-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-renamed-output",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "tamper_action",
+      "match": {
+        "kind": "compile",
+        "source": "src/main.res"
+      },
+      "outputs": [
+        "b.obj"
+      ],
+      "mode": "text_mismatch"
+    },
+    {
+      "op": "build",
+      "name": "repair-bad-text",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm-bad-text",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

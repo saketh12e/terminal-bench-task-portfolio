@@ -1,0 +1,33 @@
+{
+  "format": "closure-protocol-schema-catalog-v1",
+  "description": "Trusted request, RPC, descriptor, receipt, and publication contracts.",
+  "schemas": {
+    "request/legacy": "requests/legacy.json",
+    "request/feature": "requests/feature.json",
+    "request/indexed": "requests/indexed.json",
+    "request/dynamic": "requests/dynamic.json",
+    "descriptor/analysis": "common/analysis_descriptor.json",
+    "descriptor/action": "common/action_descriptor.json",
+    "descriptor/dynamic_action": "common/dynamic_action_descriptor.json",
+    "edge/static": "common/dependency_edge.json",
+    "edge/dynamic": "common/dynamic_edge.json",
+    "receipt/analysis": "common/analysis_receipt.json",
+    "receipt/execution": "common/execution_receipt.json",
+    "observation/read": "common/read_record.json",
+    "publication/tree": "common/publication_tree.json",
+    "publication/transaction": "common/transaction.json",
+    "result/finish": "common/build_result.json",
+    "rpc/read": "rpc/read.json",
+    "rpc/cache_get": "rpc/cache_get.json",
+    "rpc/blob_get": "rpc/blob_get.json",
+    "rpc/analyze": "rpc/analyze.json",
+    "rpc/execute_legacy": "rpc/execute_legacy.json",
+    "rpc/execute_dynamic": "rpc/execute_dynamic.json",
+    "rpc/prepare": "rpc/prepare.json",
+    "rpc/commit": "rpc/commit.json",
+    "rpc/abort": "rpc/abort.json",
+    "rpc/status": "rpc/status.json",
+    "rpc/published": "rpc/published.json",
+    "rpc/finish": "rpc/finish.json"
+  }
+}

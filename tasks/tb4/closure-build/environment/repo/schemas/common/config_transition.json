@@ -1,0 +1,12 @@
+{
+  "$id": "common/config_transition.json",
+  "title": "Object configuration transition",
+  "type": "object",
+  "required": ["base", "set", "unset"],
+  "additionalProperties": false,
+  "properties": {
+    "base": {"enum": ["target", "host"]},
+    "set": {"type": "object", "additionalProperties": {"type": "string"}},
+    "unset": {"type": "array", "items": {"type": "string"}}
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "superseded-publication",
+  "family": "superseded-publication",
+  "summary": "A newer request supersedes a prepared tree, preserves committed history, and reuses a receipt from an unfinished request. Changed bodies always get new request IDs.",
+  "workspace": {
+    "files": {
+      "tools/emit": {
+        "text": "emitter-v1\n",
+        "executable": true
+      },
+      "tools/compile": {
+        "text": "compiler-v1\n",
+        "executable": true
+      },
+      "tools/bundle": {
+        "text": "bundler-v1\n",
+        "executable": true
+      },
+      "src/main.res": {
+        "text": "hello\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "compile",
+      "srcs": [
+        "src/main.res"
+      ],
+      "deps": [],
+      "outputs": [
+        "a.obj",
+        "b.obj"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/compile",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "unpublished-tree\n"
+    },
+    {
+      "op": "build",
+      "name": "abandoned-prepare",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "crash": {
+        "point": "after_prepare"
+      },
+      "retry": false
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "new-request-tree\n"
+    },
+    {
+      "op": "build",
+      "name": "superseding-request",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "committed-but-unfinished\n"
+    },
+    {
+      "op": "build",
+      "name": "abandoned-committed",
+      "roots": [
+        "app"
+      ],
+      "expect": {},
+      "crash": {
+        "point": "after_commit"
+      },
+      "retry": false
+    },
+    {
+      "op": "build",
+      "name": "preserve-committed-history",
+      "roots": [],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/main.res",
+      "text": "receipt-only-tree\n"
+    },
+    {
+      "op": "build",
+      "name": "abandoned-receipt",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "published_unchanged": true
+      },
+      "crash": {
+        "point": "after_execute"
+      },
+      "retry": false
+    },
+    {
+      "op": "build",
+      "name": "reuse-prior-receipt",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "$id": "common/digest.json",
+  "title": "Lowercase SHA-256 digest",
+  "type": "string",
+  "pattern": "[0-9a-f]{64}"
+}

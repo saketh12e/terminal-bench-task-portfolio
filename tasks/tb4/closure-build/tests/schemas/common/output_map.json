@@ -1,0 +1,6 @@
+{
+  "$id": "common/output_map.json",
+  "title": "Output name to artifact mapping",
+  "type": "object",
+  "additionalProperties": {"$ref": "artifact.json"}
+}

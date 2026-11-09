@@ -1,0 +1,563 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-multi-root-blockers",
+  "family": "closure-forest",
+  "summary": "Split branches of one label form a multi-root forest whose later roots consume earlier roots. Topological order lets a later forest root block an earlier one; per-root traversal, preorder and postorder differ. Different split forms with equal ordered inputs share an action.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/stage": {
+        "text": "stage body\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "stage": {
+      "kind": "emit",
+      "srcs": [
+        "src/stage"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "select": {
+        "stage": {
+          "c": {
+            "params": {
+              "prefix": "C:",
+              "suffix": ""
+            },
+            "deps": []
+          },
+          "a": {
+            "params": {
+              "prefix": "A:",
+              "suffix": ""
+            },
+            "deps": [
+              {
+                "label": "stage",
+                "output": "out",
+                "transition": {
+                  "base": "target",
+                  "set": {
+                    "stage": "c"
+                  },
+                  "unset": []
+                },
+                "order_only": false
+              }
+            ]
+          },
+          "b": {
+            "params": {
+              "prefix": "B:",
+              "suffix": ""
+            },
+            "deps": [
+              {
+                "label": "stage",
+                "output": "out",
+                "transition": {
+                  "base": "target",
+                  "set": {
+                    "stage": "a"
+                  },
+                  "unset": []
+                },
+                "order_only": false
+              }
+            ]
+          },
+          "*": {}
+        }
+      }
+    },
+    "ab-topological": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "ab-preorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "ab-postorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "cab-topological": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "c"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "ba-preorder": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "cab-plain": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "stage",
+          "output": "out",
+          "transition": {
+            "split": [
+              {
+                "base": "target",
+                "set": {
+                  "stage": "c"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "a"
+                },
+                "unset": []
+              },
+              {
+                "base": "target",
+                "set": {
+                  "stage": "b"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": false
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "ab-topological",
+        "ab-preorder",
+        "ab-postorder",
+        "cab-topological",
+        "ba-preorder",
+        "cab-plain"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold"
+    },
+    {
+      "op": "rule",
+      "label": "stage",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/stage"
+        ],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {},
+        "select": {
+          "stage": {
+            "c": {
+              "params": {
+                "prefix": "C:",
+                "suffix": ""
+              },
+              "deps": []
+            },
+            "a": {
+              "params": {
+                "prefix": "A:",
+                "suffix": ""
+              },
+              "deps": []
+            },
+            "b": {
+              "params": {
+                "prefix": "B:",
+                "suffix": ""
+              },
+              "deps": [
+                {
+                  "label": "stage",
+                  "output": "out",
+                  "transition": {
+                    "base": "target",
+                    "set": {
+                      "stage": "a"
+                    },
+                    "unset": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "*": {}
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "ab-topological",
+        "ab-preorder",
+        "ab-postorder",
+        "cab-topological",
+        "ba-preorder",
+        "cab-plain"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "a-detached"
+    },
+    {
+      "op": "rule",
+      "label": "stage",
+      "rule": {
+        "kind": "emit",
+        "srcs": [
+          "src/stage"
+        ],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "",
+          "suffix": ""
+        },
+        "exports": {},
+        "select": {
+          "stage": {
+            "c": {
+              "params": {
+                "prefix": "C:",
+                "suffix": ""
+              },
+              "deps": []
+            },
+            "a": {
+              "params": {
+                "prefix": "A:",
+                "suffix": ""
+              },
+              "deps": [
+                {
+                  "label": "stage",
+                  "output": "out",
+                  "transition": {
+                    "base": "target",
+                    "set": {
+                      "stage": "c"
+                    },
+                    "unset": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "b": {
+              "params": {
+                "prefix": "B:",
+                "suffix": ""
+              },
+              "deps": [
+                {
+                  "label": "stage",
+                  "output": "out",
+                  "transition": {
+                    "base": "target",
+                    "set": {
+                      "stage": "a"
+                    },
+                    "unset": []
+                  },
+                  "order_only": false
+                }
+              ]
+            },
+            "*": {}
+          }
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "ab-topological",
+        "ab-preorder",
+        "ab-postorder",
+        "cab-topological",
+        "ba-preorder",
+        "cab-plain"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "restored-receipts"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "ab-topological",
+        "ab-preorder",
+        "ab-postorder",
+        "cab-topological",
+        "ba-preorder",
+        "cab-plain"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "noise-config",
+      "config": {
+        "noise": "other"
+      }
+    }
+  ]
+}

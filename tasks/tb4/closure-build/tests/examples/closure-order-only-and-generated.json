@@ -1,0 +1,379 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "closure-order-only-and-generated",
+  "family": "closure-membership",
+  "summary": "Order-only edges and generated-include providers are built, can fail and still change observations, but are not collection members. A provider also reached by a static edge is a member through that edge only.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/main": {
+        "text": "#include \"proto\"\nmain\n",
+        "executable": false
+      },
+      "src/core": {
+        "text": "core\n",
+        "executable": false
+      },
+      "src/gate": {
+        "text": "gate\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "gate": {
+      "kind": "emit",
+      "srcs": [
+        "src/gate"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "core": {
+      "kind": "emit",
+      "srcs": [
+        "src/core"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "proto": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "proto v1\n",
+        "suffix": ""
+      },
+      "exports": {
+        "gen/proto": "out"
+      }
+    },
+    "unit": {
+      "kind": "compile",
+      "srcs": [
+        "src/main"
+      ],
+      "deps": [
+        {
+          "label": "core",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "gate",
+          "output": "out",
+          "transition": "target",
+          "order_only": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [
+        "gen"
+      ],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "package": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "preorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "checked": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": "target",
+          "order_only": false
+        },
+        {
+          "label": "gate",
+          "output": "out",
+          "transition": {
+            "split": [
+              "target",
+              {
+                "base": "target",
+                "set": {
+                  "lane": "2"
+                },
+                "unset": []
+              }
+            ]
+          },
+          "order_only": true,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "listing": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "unit",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        },
+        {
+          "label": "proto",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "closure": "postorder"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "cold"
+    },
+    {
+      "op": "write",
+      "path": "src/gate",
+      "text": "gate v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "order-only-edit"
+    },
+    {
+      "op": "rule",
+      "label": "proto",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "proto v2\n",
+          "suffix": ""
+        },
+        "exports": {
+          "gen/proto": "out"
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "generated-edit"
+    },
+    {
+      "op": "delete",
+      "path": "src/gate"
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_source",
+        "published_unchanged": true
+      },
+      "name": "order-only-failure"
+    },
+    {
+      "op": "write",
+      "path": "src/gate",
+      "text": "gate v2\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "gate-restored"
+    },
+    {
+      "op": "rule",
+      "label": "proto",
+      "rule": null
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "missing_include",
+        "published_unchanged": true
+      },
+      "name": "provider-removed"
+    },
+    {
+      "op": "rule",
+      "label": "proto",
+      "rule": {
+        "kind": "emit",
+        "srcs": [],
+        "deps": [],
+        "outputs": [
+          "out"
+        ],
+        "include_dirs": [],
+        "env": [],
+        "config_keys": [],
+        "tool": "tools/main",
+        "params": {
+          "prefix": "proto v2\n",
+          "suffix": ""
+        },
+        "exports": {
+          "gen/proto": "out"
+        }
+      }
+    },
+    {
+      "op": "build",
+      "roots": [
+        "package",
+        "checked",
+        "listing"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "name": "provider-restored"
+    }
+  ]
+}

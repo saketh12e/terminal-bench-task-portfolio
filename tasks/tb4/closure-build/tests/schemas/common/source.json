@@ -1,0 +1,11 @@
+{
+  "$id": "common/source.json",
+  "title": "Expanded source input",
+  "type": "object",
+  "required": ["path", "text"],
+  "additionalProperties": false,
+  "properties": {
+    "path": {"type": "string"},
+    "text": {"type": "string"}
+  }
+}

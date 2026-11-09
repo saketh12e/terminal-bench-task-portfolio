@@ -1,0 +1,225 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-selected-model",
+  "family": "v4-features",
+  "summary": "Select replaces the entire feature model at the node configuration. The same feature name has different selected effects. Duplicate roots coalesce the same root directive. Defaults from a replaced model cannot leak into the selected model.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "leaf": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "base"
+        ],
+        "definitions": {
+          "base": {
+            "enable": [],
+            "add": {
+              "srcs": [
+                "work/extra"
+              ]
+            }
+          },
+          "toggle": {
+            "enable": [
+              "feature:base"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {},
+        "conflicts": []
+      },
+      "select": {
+        "arch": {
+          "desktop": {
+            "feature_model": {
+              "default": [],
+              "definitions": {
+                "base": {
+                  "enable": [],
+                  "add": {
+                    "params": {
+                      "prefix": "desktop:"
+                    }
+                  }
+                },
+                "toggle": {
+                  "enable": [
+                    "dep:library"
+                  ],
+                  "add": {}
+                }
+              },
+              "optional": {
+                "library": {
+                  "label": "leaf",
+                  "output": "out",
+                  "transition": "target",
+                  "order_only": false,
+                  "features": [],
+                  "default_features": true
+                }
+              },
+              "conflicts": []
+            }
+          },
+          "*": {}
+        }
+      }
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "mobile-default",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "mobile"
+      }
+    },
+    {
+      "op": "build",
+      "name": "desktop-no-default",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "config": {
+        "arch": "desktop"
+      }
+    },
+    {
+      "op": "build",
+      "name": "desktop-toggle",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "toggle"
+          ],
+          "default_features": true
+        }
+      },
+      "config": {
+        "arch": "desktop"
+      }
+    },
+    {
+      "op": "build",
+      "name": "mobile-toggle",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "toggle"
+          ],
+          "default_features": true
+        }
+      },
+      "config": {
+        "arch": "mobile"
+      }
+    },
+    {
+      "op": "build",
+      "name": "duplicate-roots",
+      "roots": [
+        "app",
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      },
+      "features": {
+        "app": {
+          "enable": [
+            "toggle"
+          ],
+          "default_features": true
+        }
+      },
+      "config": {
+        "arch": "mobile"
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": false
+}

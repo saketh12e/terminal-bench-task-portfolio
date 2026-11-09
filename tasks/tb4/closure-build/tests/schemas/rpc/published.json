@@ -1,0 +1,8 @@
+{
+  "$id": "rpc/published.json",
+  "title": "Current publication query RPC",
+  "type": "object",
+  "required": ["op"],
+  "additionalProperties": false,
+  "properties": {"op": {"const": "published"}}
+}

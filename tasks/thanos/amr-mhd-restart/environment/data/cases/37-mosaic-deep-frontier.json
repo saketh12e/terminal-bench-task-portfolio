@@ -1,0 +1,130 @@
+{
+  "schema_version": 1,
+  "runs": [
+    {
+      "id": "mosaic-deep-frontier",
+      "n": 16,
+      "dt": 0.0015625,
+      "steps": 2,
+      "case": {
+        "kind": "alfven",
+        "wavevector": [
+          1,
+          -1
+        ],
+        "amplitude": 0.06,
+        "phase": 0.417,
+        "density": 1.2,
+        "pressure": 0.9,
+        "field": 0.83,
+        "velocity": 0.21
+      },
+      "mosaic": [
+        [
+          {
+            "id": "west",
+            "bounds": [
+              2,
+              8,
+              2,
+              14
+            ],
+            "owner": 0
+          },
+          {
+            "id": "east_south",
+            "bounds": [
+              8,
+              14,
+              2,
+              8
+            ],
+            "owner": 7
+          },
+          {
+            "id": "east_north",
+            "bounds": [
+              8,
+              14,
+              8,
+              14
+            ],
+            "owner": 19
+          }
+        ],
+        [
+          {
+            "id": "south",
+            "bounds": [
+              8,
+              24,
+              8,
+              16
+            ],
+            "owner": 2
+          },
+          {
+            "id": "north",
+            "bounds": [
+              8,
+              24,
+              16,
+              24
+            ],
+            "owner": 11
+          }
+        ],
+        [
+          {
+            "id": "deep",
+            "bounds": [
+              20,
+              44,
+              20,
+              44
+            ],
+            "owner": 13
+          }
+        ]
+      ],
+      "step_dts": [
+        0.00125,
+        0.0021875
+      ],
+      "tree_splits": [
+        [
+          0.32,
+          0.595,
+          0.485,
+          0.375,
+          0.65,
+          0.54,
+          0.43
+        ],
+        [
+          0.485,
+          0.375,
+          0.65,
+          0.54,
+          0.43,
+          0.32,
+          0.595
+        ]
+      ],
+      "events": [
+        {
+          "step": 0,
+          "phases": [
+            "fine1",
+            "predicted",
+            "fine1"
+          ],
+          "kind": "migrate_mesh",
+          "level": 3,
+          "tile": "deep",
+          "owner": 907
+        }
+      ]
+    }
+  ]
+}

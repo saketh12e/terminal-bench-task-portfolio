@@ -1,0 +1,182 @@
+{
+  "batch": [
+    {
+      "denominator": "search",
+      "id": "utt-0",
+      "length": 256,
+      "lexicon": "pronunciation",
+      "numerator": "transcript"
+    }
+  ],
+  "case_id": "stability-T256-moderate-gaps",
+  "grammars": {
+    "search": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a",
+          "label": 10,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.3
+            ],
+            [
+              6,
+              0.6
+            ]
+          ]
+        },
+        {
+          "bias": 0.1,
+          "dst": 0,
+          "id": "b",
+          "label": 20,
+          "src": 0,
+          "terms": [
+            [
+              3,
+              0.5
+            ],
+            [
+              7,
+              -0.5
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    },
+    "transcript": {
+      "arcs": [
+        {
+          "bias": -0.15,
+          "dst": 0,
+          "id": "a",
+          "label": 10,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              -0.3
+            ],
+            [
+              6,
+              0.6
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    }
+  },
+  "lexicons": {
+    "pronunciation": {
+      "arcs": [
+        {
+          "bias": -0.2,
+          "dst": 0,
+          "id": "blank",
+          "ilabel": 0,
+          "olabel": -1,
+          "src": 0,
+          "terms": [
+            [
+              0,
+              0.3
+            ]
+          ]
+        },
+        {
+          "bias": 0.12,
+          "dst": 0,
+          "id": "word-a",
+          "ilabel": 1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              1,
+              0.65
+            ],
+            [
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "bias": -0.18,
+          "dst": 0,
+          "id": "word-b",
+          "ilabel": 2,
+          "olabel": 20,
+          "src": 0,
+          "terms": [
+            [
+              2,
+              0.5
+            ],
+            [
+              3,
+              -0.6
+            ]
+          ]
+        },
+        {
+          "bias": -0.37,
+          "dst": 0,
+          "id": "word-a-repeat",
+          "ilabel": 1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              4,
+              0.5
+            ]
+          ]
+        },
+        {
+          "bias": -3.4,
+          "dst": 0,
+          "id": "insert-short-word",
+          "ilabel": -1,
+          "olabel": 10,
+          "src": 0,
+          "terms": [
+            [
+              5,
+              -0.6
+            ]
+          ]
+        }
+      ],
+      "finals": [
+        [
+          0,
+          0.0
+        ]
+      ],
+      "num_states": 1,
+      "start": 0
+    }
+  },
+  "schema_version": 1
+}

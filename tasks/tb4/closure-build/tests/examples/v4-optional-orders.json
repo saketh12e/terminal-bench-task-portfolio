@@ -1,0 +1,274 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-optional-orders",
+  "family": "v4-features-index",
+  "summary": "Active optional edges participate in final collection adjacency. Preorder/postorder/topological differ over an optional-edge diamond. Collection deduplication remains scoped per dependency record. Cache misses reuse valid indexed observations. External state reset permits a cold read index but does not invalidate service action receipts.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/base": {
+        "text": "base\n",
+        "executable": false
+      },
+      "work/extra": {
+        "text": "extra\n",
+        "executable": false
+      },
+      "work/leaf": {
+        "text": "leaf\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "base": {
+      "kind": "emit",
+      "srcs": [
+        "work/leaf"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "left": {
+      "kind": "emit",
+      "srcs": [
+        "work/base"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "right": {
+      "kind": "emit",
+      "srcs": [
+        "work/extra"
+      ],
+      "deps": [
+        {
+          "label": "base",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "top": {
+      "kind": "emit",
+      "srcs": [],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {},
+      "feature_model": {
+        "default": [
+          "on"
+        ],
+        "definitions": {
+          "on": {
+            "enable": [
+              "dep:left",
+              "dep:right"
+            ],
+            "add": {}
+          }
+        },
+        "optional": {
+          "right": {
+            "label": "right",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          },
+          "left": {
+            "label": "left",
+            "output": "out",
+            "transition": "target",
+            "order_only": false,
+            "features": [],
+            "default_features": true
+          }
+        },
+        "conflicts": []
+      }
+    },
+    "app": {
+      "kind": "bundle",
+      "srcs": [],
+      "deps": [
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true,
+          "closure": "preorder"
+        },
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true,
+          "closure": "postorder"
+        },
+        {
+          "label": "top",
+          "output": "out",
+          "transition": "target",
+          "order_only": false,
+          "features": [],
+          "default_features": true,
+          "closure": "topological"
+        }
+      ],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "optional-diamond-orders",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "build",
+      "name": "warm",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/leaf",
+      "text": "changed common\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "sink-edit",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "cache_fault",
+      "fault": "drop_action",
+      "match": {
+        "kind": "bundle"
+      }
+    },
+    {
+      "op": "build",
+      "name": "consumer-cache-miss",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "state_fault",
+      "fault": "clear"
+    },
+    {
+      "op": "build",
+      "name": "new-index-epoch",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": true,
+  "indexed": true
+}

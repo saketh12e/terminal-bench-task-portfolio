@@ -1,0 +1,12 @@
+{
+  "$id": "rpc/execute_legacy.json",
+  "title": "Legacy keyed execution RPC",
+  "type": "object",
+  "required": ["op", "key", "descriptor"],
+  "additionalProperties": false,
+  "properties": {
+    "op": {"const": "execute"},
+    "key": {"$ref": "../common/digest.json"},
+    "descriptor": true
+  }
+}

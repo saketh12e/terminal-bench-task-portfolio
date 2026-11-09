@@ -1,0 +1,52 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "file-hazard-h22",
+  "family": "file-hazards",
+  "summary": "Ordinary source mode is excluded from identity. The resolved theme is a source, not a tool: its executable bit is removed from observations. Its action key and root bytes stay unchanged.",
+  "workspace": {
+    "fixture": "flagship-v1"
+  },
+  "manifest": {
+    "fixture": "flagship-v1"
+  },
+  "defaults": {
+    "config": {
+      "arch": "arm64",
+      "mode": "release",
+      "locale": "en"
+    },
+    "host": {
+      "arch": "x86_64",
+      "mode": "release"
+    },
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "chmod",
+      "path": "include/base/theme.inc",
+      "executable": true
+    },
+    {
+      "op": "build",
+      "name": "changed",
+      "roots": [
+        "obj/ui"
+      ],
+      "expect": {
+        "status": "ok",
+        "published_unchanged": true
+      }
+    }
+  ]
+}

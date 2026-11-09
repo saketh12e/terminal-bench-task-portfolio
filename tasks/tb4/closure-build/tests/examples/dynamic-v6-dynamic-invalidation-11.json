@@ -1,0 +1,161 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "dynamic-v6-dynamic-invalidation-11",
+  "family": "dynamic-invalidation",
+  "summary": "dynamic-v1 dynamic invalidation structural witness 11",
+  "dynamic": true,
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "src/root": {
+        "text": "root\n#forge-edge {\"label\":\"a\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+        "executable": false
+      },
+      "src/a": {
+        "text": "a\n",
+        "executable": false
+      },
+      "src/b": {
+        "text": "b\n",
+        "executable": false
+      },
+      "src/c": {
+        "text": "c\n",
+        "executable": false
+      }
+    }
+  },
+  "rule_defaults": {},
+  "manifest": {
+    "root": {
+      "kind": "emit",
+      "srcs": [
+        "src/root"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "a": {
+      "kind": "emit",
+      "srcs": [
+        "src/a"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "b": {
+      "kind": "emit",
+      "srcs": [
+        "src/b"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    },
+    "c": {
+      "kind": "emit",
+      "srcs": [
+        "src/c"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "valid",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/root",
+      "text": "root\n#forge-edge {\"label\":\"root\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "cycle",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "error",
+        "code": "dependency_cycle",
+        "published_unchanged": true
+      }
+    },
+    {
+      "op": "write",
+      "path": "src/root",
+      "text": "root\n#forge-edge {\"label\":\"a\",\"order_only\":false,\"output\":\"out\",\"transition\":\"target\"}\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "repaired",
+      "roots": [
+        "root"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ]
+}

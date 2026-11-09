@@ -1,0 +1,20 @@
+{
+  "$id": "common/split_transition.json",
+  "title": "Ordered split configuration branches",
+  "type": "object",
+  "required": ["split"],
+  "additionalProperties": false,
+  "properties": {
+    "split": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "anyOf": [
+          {"enum": ["target", "host"]},
+          {"$ref": "config_transition.json"}
+        ]
+      }
+    }
+  }
+}

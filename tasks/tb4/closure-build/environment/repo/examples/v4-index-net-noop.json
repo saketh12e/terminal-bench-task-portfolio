@@ -1,0 +1,145 @@
+{
+  "format": "closure-scenario-v1",
+  "name": "v4-index-net-noop",
+  "family": "v4-index",
+  "summary": "Journal paths include every entry changed at any point within a batch. Exact identical writes/chmod preserve observations. A change-away-and-back batch invalidates changed entries even when final bytes match; rename roundtrips invalidate both endpoints.",
+  "workspace": {
+    "files": {
+      "tools/main": {
+        "text": "resource-tool-v1\n",
+        "executable": true
+      },
+      "work/main": {
+        "text": "body\n",
+        "executable": false
+      },
+      "work/other": {
+        "text": "other\n",
+        "executable": false
+      }
+    }
+  },
+  "manifest": {
+    "app": {
+      "kind": "emit",
+      "srcs": [
+        "work/main"
+      ],
+      "deps": [],
+      "outputs": [
+        "out"
+      ],
+      "include_dirs": [],
+      "env": [],
+      "config_keys": [],
+      "tool": "tools/main",
+      "params": {
+        "prefix": "",
+        "suffix": ""
+      },
+      "exports": {}
+    }
+  },
+  "defaults": {
+    "config": {},
+    "host": {},
+    "environment": {}
+  },
+  "steps": [
+    {
+      "op": "build",
+      "name": "baseline",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "write",
+      "path": "work/main",
+      "text": "body\n",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "identical-write",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "chmod",
+      "path": "work/main",
+      "executable": false
+    },
+    {
+      "op": "build",
+      "name": "identical-mode",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "edit",
+      "changes": [
+        {
+          "op": "write",
+          "path": "work/main",
+          "text": "temporary\n",
+          "executable": false
+        },
+        {
+          "op": "write",
+          "path": "work/main",
+          "text": "body\n",
+          "executable": false
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "batch-net-noop",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    },
+    {
+      "op": "edit",
+      "changes": [
+        {
+          "op": "rename",
+          "path": "work/main",
+          "to": "work/transient"
+        },
+        {
+          "op": "rename",
+          "path": "work/transient",
+          "to": "work/main"
+        }
+      ]
+    },
+    {
+      "op": "build",
+      "name": "rename-roundtrip-batch",
+      "roots": [
+        "app"
+      ],
+      "expect": {
+        "status": "ok"
+      }
+    }
+  ],
+  "feature_planning": false,
+  "indexed": true
+}
