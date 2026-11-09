@@ -1,0 +1,34 @@
+artifacts = [
+  "/app/output/predictions.jsonl",
+  "/app/output/token_score_audit.csv",
+  "/app/output/serving_trace.jsonl",
+  "/app/output/evaluation_report.json",
+]  # paths the verifier reads from the agent (e.g. ["/app/output.json"]) - must be above the first [section]
+
+[task]
+name = "terminal-bench-2.0/language-router-audit"
+description = "Repair an offline language-router scorer, calibration path, and token-level audit outputs."                 # one-line summary of the task
+
+[metadata]
+category = "Machine Learning and AI"
+subcategory = "NLP and language models"
+task_objective = ["fix", "validate"]                # e.g. ["implement", "debug"]
+artifact_type = ["codebase", "dataset_or_tabular_file", "generated_output_artifact"]                 # e.g. ["codebase", "configuration_file"]
+difficulty_explanation = "This task is hard because the language-router can run and produce plausible labels while the base scorer, request-time runtime policy layer, request-time calibration snapshot, token-level audit, and per-input serving lineage disagree. A real NLP platform engineer or ML evaluation engineer would do this before deploying an intent router, because final labels alone are not enough to validate a model-serving path. The data is synthetic, but it mirrors realistic serving drift: Unicode normalization, byte fallback, word-initial token markers, multiple verbalizers per label, priors, abstention margins, serving-time policy windows, calibration timelines selected by each row's served_at timestamp, voided updates, signed component scaling, request-snapshot provenance, and hidden cases where the base score looks right while the selected runtime variant, audit trace, or lineage digest is wrong. Common traps include including prompt tokens in the score, using floats near the abstain boundary, normalizing by the wrong token count, ignoring continuation transitions, scoring only the first verbalizer, applying runtime overlays only to the winner, keeping all policy rules active regardless of served_at, compiling one global calibration state instead of a per-request snapshot, hashing raw files instead of parsed rows, counting adjustments per audit row instead of per variant, or repairing the base scorer while leaving the CLI runtime path stale."        # why this task is hard for agents and humans
+solution_explanation = "The intended solution is to repair the reusable lm_router package so it implements the contract exactly: canonical text normalization, greedy word-piece tokenization with byte fallback, conditional continuation scoring for every verbalizer variant, half-even integer normalization, base variant scoring, request-time policy selection and decoration, compiled calibration timelines with request-time current-record selection and signed half-even scaling, runtime-adjusted label ranking, exact abstain-margin comparison, non-empty gold-label accounting, complete prompt and candidate audit rows for every variant, and a serving trace that binds each input to its active policy snapshot, active calibration snapshot, ranked score vector, audit span, and lineage digest. The key observation is that correctness lives in the installed serving path and runtime trace, not just in the base scorer or the apparent predictions. The solution then runs the repaired CLI on the visible batch and writes the four requested artifacts."          # high-level approach and key observations
+verification_explanation = "The verifier parses the requested predictions JSONL, token-score audit CSV, serving trace JSONL, and evaluation report JSON, then independently recomputes the expected outputs from the public contract, visible inputs, runtime policy timeline, calibration timeline, and hidden fixture batches. It checks exact schemas, sort order, label scores, selected verbalizer indexes, token ids, transition scores, prompt inclusion flags, all-variant audit coverage, request-time runtime policy rule ids, request-time calibration event ids, request-snapshot counts, per-input provenance hashes, variant-level adjustment counts, abstention ties, report counts, and SHA-256 digests over canonical parsed rows. It also imports the public helper API and runs the repaired CLI on hidden data, so visible-only outputs, final-label-only fixes, first-verbalizer-only fixes, scorer-only patches, stale global-calibration fixes, always-active-policy fixes, raw-file hash fixes, trace-only stubs, and no-policy runtime patches fail deterministically."      # how the tests verify correctness
+
+[verifier]
+timeout_sec = 180.0                # increase based on your test suite's runtime demands
+
+[agent]
+timeout_sec = 3600.0                # raise for hard tasks - agents may run for many minutes or hours
+
+[environment]
+build_timeout_sec = 600.0          # max seconds for the Docker build
+cpus = 1                           # increase for parallel/compute-heavy workloads
+memory_mb = 2048                   # increase for large datasets or in-memory processing
+storage_mb = 10240                 # increase for tasks with large files or build artifacts
+gpus = 0                           # max 1, expect H100
+allow_internet = true              # open internet is available to the agent
+mcp_servers = []                   # optional MCP servers to expose to the agent

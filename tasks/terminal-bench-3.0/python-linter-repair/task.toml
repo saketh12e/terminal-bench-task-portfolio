@@ -1,0 +1,32 @@
+schema_version = "1.1"
+
+[task]
+name = "terminal-bench-3.0/python-linter-repair"
+description = "Repair a coupled custom Python static analyzer pipeline: transitive rule registry closure, full corpus AST visitation, policy-bound finding fingerprints, sealed findings digest across reports, and stage dispatch tokens without post-scan false greens."
+authors = [{ name = "Saketh Thumuluri", email = "tumulurisaketh@gmail.com" }]
+keywords = ["static-analysis", "linter", "ast", "python", "code-quality", "pipeline", "bugfix"]
+
+[metadata]
+author_name = "Saketh Thumuluri"
+author_email = "tumulurisaketh@gmail.com"
+difficulty = "hard"
+category = "software-engineering"
+tags = ["static-analysis", "linter", "ast", "python", "pipeline", "bugfix"]
+difficulty_explanation = "Requires tracing a coupled lint closeout pipeline: transitive rule closure, authoritative AST visitation across the full corpus, policy-bound finding fingerprints, sealed findings digest alignment, stage dispatch tokens, and neutral post-scan hooks that must not override live replay."
+solution_explanation = "Repair registry loading, AST dispatch, rule closure, corpus expansion, finding binding, and post-scan finalize so live AST replay and binding physics match reference_finding_grid.json."
+verification_explanation = "System-wide pytest reruns lint_policy_runner.py and checks findings alignment, rule closure, sealed digests, binding audit fingerprints, and scan trace tokens against scan stage authority."
+
+[verifier]
+timeout_sec = 180.0
+
+[agent]
+timeout_sec = 900.0
+
+[environment]
+build_timeout_sec = 600.0
+os = "linux"
+cpus = 1
+memory_mb = 2048
+storage_mb = 4096
+gpus = 0
+allow_internet = true
